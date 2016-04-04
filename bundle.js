@@ -42,7 +42,7 @@ function layout(el) {
   return h(_templateObject2, el);
 }
 
-},{"./router.js":23,"./store.js":24,"catch-links":6,"yo-yo":21}],2:[function(require,module,exports){
+},{"./router.js":25,"./store.js":26,"catch-links":8,"yo-yo":23}],2:[function(require,module,exports){
 'use strict';
 
 module.exports.network = {
@@ -63,17 +63,19 @@ module.exports.network = {
 module.exports.events = {
   'request': function request(ev, nodes, edges) {
     var node = nodes.filter(function (n) {
-      return n.name === ev.node;
+      return n.name.toString() === ev.from_node.toString();
     })[0];
+    console.log(node);
+    console.log(ev.from_node);
     if (!node) return;
     node.requests.push({
       id: ev.data_ID,
-      loc: ev.node
+      loc: ev.from_node
     });
   },
   'request_hop': function request_hop(ev, nodes, edges) {
     var src = nodes.filter(function (n) {
-      return n.name === ev.from_node;
+      return n.name.toString() === ev.from_node.toString();
     })[0];
     if (!src) return;
 
@@ -82,7 +84,7 @@ module.exports.events = {
     });
 
     var dst = nodes.filter(function (n) {
-      return n.name === ev.to_node;
+      return n.name.toString() === ev.to_node.toString();
     })[0];
     if (!dst) return;
     dst.requests.push({
@@ -93,6 +95,38 @@ module.exports.events = {
 };
 
 },{}],3:[function(require,module,exports){
+'use strict';
+
+var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var draw = require('js-network-vis');
+var config = require('./config.js');
+
+module.exports = function (h, events, nodes, edges) {
+
+  var network;
+
+  var start = function start() {
+    network = draw(nodes, edges, config.network);
+    Object.keys(config.events).forEach(function (e) {
+      network.event(e, config.events[e]);
+    });
+    setInterval(update, 500);
+  };
+
+  var update = function update() {
+    var ev = events.pop();
+    console.log('ev', ev);
+    if (!ev) return;
+    network.update(ev);
+  };
+
+  return h(_templateObject, start);
+};
+
+},{"./config.js":2,"js-network-vis":13}],4:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -110,7 +144,9 @@ module.exports = function () {
   };
 };
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
+module.exports={"py/object": "icarus.results.readwrite.ResultSet", "attr": {}, "_results": {"py/object": "collections.deque", "__reduce__": [{"py/type": "collections.deque"}, {"py/tuple": [[{"py/tuple": [{"py/object": "icarus.util.Tree", "workload": {"py/object": "icarus.util.Tree", "n_contents": 10, "name": "STATIONARY", "default_factory": {"py/type": "icarus.util.Tree"}, "n_warmup": 100, "rate": 12.0, "n_measured": 10, "alpha": 0.6}, "cache_policy": {"py/object": "icarus.util.Tree", "name": "LRU", "default_factory": {"py/type": "icarus.util.Tree"}}, "default_factory": {"py/type": "icarus.util.Tree"}, "strategy": {"py/object": "icarus.util.Tree", "name": "LCE", "default_factory": {"py/type": "icarus.util.Tree"}}, "content_placement": {"py/object": "icarus.util.Tree", "name": "UNIFORM", "default_factory": {"py/type": "icarus.util.Tree"}}, "cache_placement": {"py/object": "icarus.util.Tree", "network_cache": 0.05, "name": "UNIFORM", "default_factory": {"py/type": "icarus.util.Tree"}}, "topology": {"py/object": "icarus.util.Tree", "name": "SIX_NODE", "default_factory": {"py/type": "icarus.util.Tree"}}, "desc": "Alpha: 0.6, strategy: LCE, topology: SIX_NODE, network cache: 0.05"}, {"py/object": "icarus.util.Tree", "default_factory": {"py/type": "icarus.util.Tree"}, "EVENT_TIMELINE": {"py/object": "icarus.util.Tree", "CONTENT_STARTING_LOCATIONS": {"py/object": "icarus.util.Tree", "10": {"py/set": [1002]}, "default_factory": {"py/type": "icarus.util.Tree"}, "1": {"py/set": [1002]}, "3": {"py/set": [0, 2, 3, 1003]}, "2": {"py/set": [1003]}, "5": {"py/set": [1003]}, "4": {"py/set": [1002]}, "7": {"py/set": [1002]}, "6": {"py/set": [1003]}, "9": {"py/set": [1002]}, "8": {"py/set": [1002]}}, "default_factory": {"py/type": "icarus.util.Tree"}, "CONTENT_ENDING_LOCATIONS": {"py/object": "icarus.util.Tree", "10": {"py/set": [1002]}, "default_factory": {"py/type": "icarus.util.Tree"}, "1": {"py/set": [1002]}, "3": {"py/set": [0, 3, 1003]}, "2": {"py/set": [1003]}, "5": {"py/set": [1003]}, "4": {"py/set": [1002]}, "7": {"py/set": [1002]}, "6": {"py/set": [1003]}, "9": {"py/set": [1002]}, "8": {"py/set": [2, 1002]}}, "TIMELINE": [{"timestamp": 8.559745336605136, "event_type": "request", "from_node": 6, "data_ID": 4}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 4}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 4}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 4}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 4}, {"node": 1002, "event_type": "server_hit", "data_ID": 4}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 4}, {"node": 2, "event_type": "cache_content", "data_ID": 4}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 4}, {"node": 6, "event_type": "request_complete", "data_ID": 4}, {"timestamp": 8.703187893231876, "event_type": "request", "from_node": 6, "data_ID": 1}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 1}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 1}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 1}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 1}, {"node": 1002, "event_type": "server_hit", "data_ID": 1}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 1}, {"node": 2, "event_type": "cache_content", "data_ID": 1}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 1}, {"node": 6, "event_type": "request_complete", "data_ID": 1}, {"timestamp": 8.773598687249612, "event_type": "request", "from_node": 6, "data_ID": 8}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 8}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 8}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 8}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 8}, {"node": 1002, "event_type": "server_hit", "data_ID": 8}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 8}, {"node": 2, "event_type": "cache_content", "data_ID": 8}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 8}, {"node": 6, "event_type": "request_complete", "data_ID": 8}, {"timestamp": 8.869712056660473, "event_type": "request", "from_node": 4, "data_ID": 2}, {"to_node": 3, "event_type": "request_hop", "from_node": 4, "data_ID": 2}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 2}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 2}, {"to_node": 1003, "event_type": "request_hop", "from_node": 3, "data_ID": 2}, {"node": 1003, "event_type": "server_hit", "data_ID": 2}, {"to_node": 3, "event_type": "content_hop", "from_node": 1003, "data_ID": 2}, {"node": 3, "event_type": "cache_content", "data_ID": 2}, {"to_node": 4, "event_type": "content_hop", "from_node": 3, "data_ID": 2}, {"node": 4, "event_type": "request_complete", "data_ID": 2}, {"timestamp": 8.924012105161337, "event_type": "request", "from_node": 6, "data_ID": 2}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 2}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 2}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 2}, {"to_node": 0, "event_type": "request_hop", "from_node": 2, "data_ID": 2}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 2}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 2}, {"to_node": 3, "event_type": "request_hop", "from_node": 0, "data_ID": 2}, {"node": 3, "event_type": "cache_hit", "data_ID": 2}, {"to_node": 0, "event_type": "content_hop", "from_node": 3, "data_ID": 2}, {"node": 0, "event_type": "cache_content", "data_ID": 2}, {"to_node": 2, "event_type": "content_hop", "from_node": 0, "data_ID": 2}, {"node": 2, "event_type": "cache_content", "data_ID": 2}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 2}, {"node": 6, "event_type": "request_complete", "data_ID": 2}, {"timestamp": 8.966433639303808, "event_type": "request", "from_node": 1, "data_ID": 5}, {"to_node": 0, "event_type": "request_hop", "from_node": 1, "data_ID": 5}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 5}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 5}, {"to_node": 3, "event_type": "request_hop", "from_node": 0, "data_ID": 5}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 5}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 5}, {"to_node": 1003, "event_type": "request_hop", "from_node": 3, "data_ID": 5}, {"node": 1003, "event_type": "server_hit", "data_ID": 5}, {"to_node": 3, "event_type": "content_hop", "from_node": 1003, "data_ID": 5}, {"node": 3, "event_type": "cache_content", "data_ID": 5}, {"to_node": 0, "event_type": "content_hop", "from_node": 3, "data_ID": 5}, {"node": 0, "event_type": "cache_content", "data_ID": 5}, {"to_node": 1, "event_type": "content_hop", "from_node": 0, "data_ID": 5}, {"node": 1, "event_type": "request_complete", "data_ID": 5}, {"timestamp": 9.098968069930875, "event_type": "request", "from_node": 4, "data_ID": 3}, {"to_node": 3, "event_type": "request_hop", "from_node": 4, "data_ID": 3}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 3}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 3}, {"to_node": 1003, "event_type": "request_hop", "from_node": 3, "data_ID": 3}, {"node": 1003, "event_type": "server_hit", "data_ID": 3}, {"to_node": 3, "event_type": "content_hop", "from_node": 1003, "data_ID": 3}, {"node": 3, "event_type": "cache_content", "data_ID": 3}, {"to_node": 4, "event_type": "content_hop", "from_node": 3, "data_ID": 3}, {"node": 4, "event_type": "request_complete", "data_ID": 3}, {"timestamp": 9.11261891312862, "event_type": "request", "from_node": 4, "data_ID": 10}, {"to_node": 3, "event_type": "request_hop", "from_node": 4, "data_ID": 10}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 10}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 10}, {"to_node": 0, "event_type": "request_hop", "from_node": 3, "data_ID": 10}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 10}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 10}, {"to_node": 2, "event_type": "request_hop", "from_node": 0, "data_ID": 10}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 10}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 10}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 10}, {"node": 1002, "event_type": "server_hit", "data_ID": 10}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 10}, {"node": 2, "event_type": "cache_content", "data_ID": 10}, {"to_node": 0, "event_type": "content_hop", "from_node": 2, "data_ID": 10}, {"node": 0, "event_type": "cache_content", "data_ID": 10}, {"to_node": 3, "event_type": "content_hop", "from_node": 0, "data_ID": 10}, {"node": 3, "event_type": "cache_content", "data_ID": 10}, {"to_node": 4, "event_type": "content_hop", "from_node": 3, "data_ID": 10}, {"node": 4, "event_type": "request_complete", "data_ID": 10}, {"timestamp": 9.138979957457119, "event_type": "request", "from_node": 6, "data_ID": 3}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 3}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 3}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 3}, {"to_node": 0, "event_type": "request_hop", "from_node": 2, "data_ID": 3}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 3}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 3}, {"to_node": 3, "event_type": "request_hop", "from_node": 0, "data_ID": 3}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 3}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 3}, {"to_node": 1003, "event_type": "request_hop", "from_node": 3, "data_ID": 3}, {"node": 1003, "event_type": "server_hit", "data_ID": 3}, {"to_node": 3, "event_type": "content_hop", "from_node": 1003, "data_ID": 3}, {"node": 3, "event_type": "cache_content", "data_ID": 3}, {"to_node": 0, "event_type": "content_hop", "from_node": 3, "data_ID": 3}, {"node": 0, "event_type": "cache_content", "data_ID": 3}, {"to_node": 2, "event_type": "content_hop", "from_node": 0, "data_ID": 3}, {"node": 2, "event_type": "cache_content", "data_ID": 3}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 3}, {"node": 6, "event_type": "request_complete", "data_ID": 3}, {"timestamp": 9.213323595441837, "event_type": "request", "from_node": 6, "data_ID": 8}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 8}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 8}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 8}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 8}, {"node": 1002, "event_type": "server_hit", "data_ID": 8}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 8}, {"node": 2, "event_type": "cache_content", "data_ID": 8}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 8}, {"node": 6, "event_type": "request_complete", "data_ID": 8}]}, "TOPOLOGY": {"py/object": "icarus.util.Tree", "default_factory": {"py/type": "icarus.util.Tree"}, "TOPOLOGY": {"py/object": "icarus.scenarios.topology.IcnTopology", "node": {"1": {"latitude": 50.85045, "stack": {"py/tuple": ["receiver", {}]}, "longitude": 4.34878, "label": "BE"}, "0": {"latitude": 52.37403, "stack": {"py/tuple": ["router", {"cache_size": 0}]}, "longitude": 4.88969, "label": "NL"}, "3": {"latitude": 52.41667, "stack": {"py/tuple": ["router", {"cache_size": 0}]}, "longitude": 16.96667, "label": "PL"}, "2": {"latitude": 55.67594, "stack": {"py/tuple": ["router", {"cache_size": 0}]}, "longitude": 12.56553, "label": "DK"}, "4": {"latitude": 50.11667, "stack": {"py/tuple": ["receiver", {}]}, "longitude": 8.68333, "label": "DE"}, "6": {"stack": {"py/tuple": ["receiver", {}]}}, "1003": {"stack": {"py/tuple": ["source", {"contents": {"py/set": [2, 3, 5, 6]}}]}}, "1002": {"stack": {"py/tuple": ["source", {"contents": {"py/set": [1, 4, 7, 8, 9, 10]}}]}}}, "graph": {"name": "", "distance_unit": "Km", "delay_unit": "ms", "capacity_unit": "bps", "icr_candidates": {"py/set": [0, 2, 3]}, "type": "topology_zoo", "link_bundling": false}, "edge_attr_dict_factory": {"py/type": "__builtin__.dict"}, "edge": {"1": {"0": {"delay": 2, "length": 173.4812691642008, "type": "internal", "weight": 1.0}}, "0": {"1": {"delay": 2, "length": 173.4812691642008, "type": "internal", "weight": 1.0}, "3": {"delay": 2, "length": 818.5098642869413, "type": "internal", "weight": 1.0}, "2": {"delay": 2, "length": 620.8666267549098, "type": "internal", "weight": 1.0}}, "3": {"0": {"delay": 2, "length": 818.5098642869413, "type": "internal", "weight": 1.0}, "1003": {"delay": 34, "type": "external", "weight": 1000.0}, "4": {"delay": 2, "type": "internal", "length": 630.0260556078289, "capacity": 2500000000.0, "weight": 1.0}}, "2": {"0": {"delay": 2, "length": 620.8666267549098, "type": "internal", "weight": 1.0}, "1002": {"delay": 34, "type": "external", "weight": 1000.0}, "6": {"delay": 2, "type": "internal", "weight": 1.0}}, "4": {"3": {"delay": 2, "type": "internal", "length": 630.0260556078289, "capacity": 2500000000.0, "weight": 1.0}}, "6": {"2": {"delay": 2, "type": "internal", "weight": 1.0}}, "1003": {"3": {"delay": 34, "type": "external", "weight": 1000.0}}, "1002": {"2": {"delay": 34, "type": "external", "weight": 1000.0}}}, "node_dict_factory": {"py/type": "__builtin__.dict"}, "adjlist_dict_factory": {"py/type": "__builtin__.dict"}, "adj": {"1": {"0": {"delay": 2, "length": 173.4812691642008, "type": "internal", "weight": 1.0}}, "0": {"1": {"delay": 2, "length": 173.4812691642008, "type": "internal", "weight": 1.0}, "3": {"delay": 2, "length": 818.5098642869413, "type": "internal", "weight": 1.0}, "2": {"delay": 2, "length": 620.8666267549098, "type": "internal", "weight": 1.0}}, "3": {"0": {"delay": 2, "length": 818.5098642869413, "type": "internal", "weight": 1.0}, "1003": {"delay": 34, "type": "external", "weight": 1000.0}, "4": {"delay": 2, "type": "internal", "length": 630.0260556078289, "capacity": 2500000000.0, "weight": 1.0}}, "2": {"0": {"delay": 2, "length": 620.8666267549098, "type": "internal", "weight": 1.0}, "1002": {"delay": 34, "type": "external", "weight": 1000.0}, "6": {"delay": 2, "type": "internal", "weight": 1.0}}, "4": {"3": {"delay": 2, "type": "internal", "length": 630.0260556078289, "capacity": 2500000000.0, "weight": 1.0}}, "6": {"2": {"delay": 2, "type": "internal", "weight": 1.0}}, "1003": {"3": {"delay": 34, "type": "external", "weight": 1000.0}}, "1002": {"2": {"delay": 34, "type": "external", "weight": 1000.0}}}}}}]}]]}]}}
+},{}],6:[function(require,module,exports){
 var document = require('global/document')
 var hyperx = require('hyperx')
 
@@ -231,9 +267,9 @@ function belCreateElement (tag, props, children) {
 module.exports = hyperx(belCreateElement)
 module.exports.createElement = belCreateElement
 
-},{"global/document":8,"hyperx":10}],5:[function(require,module,exports){
+},{"global/document":10,"hyperx":12}],7:[function(require,module,exports){
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var url = require('url');
 
 module.exports = function (root, cb) {
@@ -265,7 +301,7 @@ module.exports = function (root, cb) {
     });
 };
 
-},{"url":19}],7:[function(require,module,exports){
+},{"url":21}],9:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.5.16"
@@ -9820,7 +9856,7 @@ module.exports = function (root, cb) {
   });
   if (typeof define === "function" && define.amd) this.d3 = d3, define(d3); else if (typeof module === "object" && module.exports) module.exports = d3; else this.d3 = d3;
 }();
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 (function (global){
 var topLevel = typeof global !== 'undefined' ? global :
     typeof window !== 'undefined' ? window : {}
@@ -9839,7 +9875,7 @@ if (typeof document !== 'undefined') {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"min-document":5}],9:[function(require,module,exports){
+},{"min-document":7}],11:[function(require,module,exports){
 module.exports = attributeToProperty
 
 var transform = {
@@ -9860,7 +9896,7 @@ function attributeToProperty (h) {
   }
 }
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var attrToProp = require('hyperscript-attribute-to-property')
 
 var VAR = 0, TEXT = 1, OPEN = 2, CLOSE = 3, ATTR = 4
@@ -10125,7 +10161,7 @@ var closeRE = RegExp('^(' + [
 ].join('|') + ')(?:[\.#][a-zA-Z0-9\u007F-\uFFFF_:-]+)*$')
 function selfClosing (tag) { return closeRE.test(tag) }
 
-},{"hyperscript-attribute-to-property":9}],11:[function(require,module,exports){
+},{"hyperscript-attribute-to-property":11}],13:[function(require,module,exports){
 var d3 = require('d3')
 var topology = require('./topology.js')
 
@@ -10233,7 +10269,7 @@ module.exports = function (nodes, edges, opts) {
   return network
 }
 
-},{"./topology.js":12,"d3":7}],12:[function(require,module,exports){
+},{"./topology.js":14,"d3":9}],14:[function(require,module,exports){
 module.exports = topology
 
 function topology (nodes, edges) {
@@ -10260,7 +10296,7 @@ function topology (nodes, edges) {
   return t
 }
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 // Create a range object for efficently rendering strings to elements.
 var range;
 
@@ -10746,7 +10782,7 @@ function morphdom(fromNode, toNode, options) {
 
 module.exports = morphdom;
 
-},{}],14:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -11283,7 +11319,7 @@ module.exports = morphdom;
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11369,7 +11405,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11456,13 +11492,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],17:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":15,"./encode":16}],18:[function(require,module,exports){
+},{"./decode":17,"./encode":18}],20:[function(require,module,exports){
 (function (global){
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.routes=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 
@@ -11649,7 +11685,7 @@ module.exports = Router
 (1)
 });
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],19:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -12383,7 +12419,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":20,"punycode":14,"querystring":17}],20:[function(require,module,exports){
+},{"./util":22,"punycode":16,"querystring":19}],22:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -12401,7 +12437,7 @@ module.exports = {
   }
 };
 
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 var bel = require('bel') // turns template tag into DOM elements
 var morphdom = require('morphdom') // efficiently diffs + morphs two DOM elements
 var defaultEvents = require('./update-events.js') // default events to be copied when dom elements update
@@ -12432,7 +12468,7 @@ module.exports.update = function (fromNode, toNode, opts) {
   }
 }
 
-},{"./update-events.js":22,"bel":4,"morphdom":13}],22:[function(require,module,exports){
+},{"./update-events.js":24,"bel":6,"morphdom":15}],24:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -12469,19 +12505,25 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],23:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n        <div>', ' Home!</div> \n      '], ['\n        <div>', ' Home!</div> \n      ']),
-    _templateObject2 = _taggedTemplateLiteral(['\n        <div>', ' WOW!</div> \n      '], ['\n        <div>', ' WOW!</div> \n      ']),
-    _templateObject3 = _taggedTemplateLiteral(['\n        <div>\n          ', ' \n          VIS\n          ', ' \n        </div>\n      '], ['\n        <div>\n          ', ' \n          VIS\n          ', ' \n        </div>\n      ']),
-    _templateObject4 = _taggedTemplateLiteral(['\n    <ul id=\'navigation\'>\n      <a href=\'/\'><li>Home</li></a>\n      <a href=\'/wow\'><li>Wow</li></a>\n      <a href=\'/vis\'><li>Vis</li></a>\n    </ul>\n  '], ['\n    <ul id=\'navigation\'>\n      <a href=\'/\'><li>Home</li></a>\n      <a href=\'/wow\'><li>Wow</li></a>\n      <a href=\'/vis\'><li>Vis</li></a>\n    </ul>\n  ']);
+var _templateObject = _taggedTemplateLiteral(['\n        <div>\n        ', ' \n        ', ' \n        </div> \n      '], ['\n        <div>\n        ', ' \n        ', ' \n        </div> \n      ']),
+    _templateObject2 = _taggedTemplateLiteral(['\n        <div>\n        ', ' \n        <h2>WOW!</h2>\n        </div> \n      '], ['\n        <div>\n        ', ' \n        <h2>WOW!</h2>\n        </div> \n      ']),
+    _templateObject3 = _taggedTemplateLiteral(['\n        <div>\n          ', ' \n          ', ' \n        </div>\n      '], ['\n        <div>\n          ', ' \n          ', ' \n        </div>\n      ']),
+    _templateObject4 = _taggedTemplateLiteral(['\n    <ul id=\'navigation\'>\n      <a href=\'/tour\'><li>Tour</li></a>\n      <a href=\'/wow\'><li>Wow</li></a>\n      <a href=\'/vis\'><li>Vis</li></a>\n    </ul>\n  '], ['\n    <ul id=\'navigation\'>\n      <a href=\'/tour\'><li>Tour</li></a>\n      <a href=\'/wow\'><li>Wow</li></a>\n      <a href=\'/vis\'><li>Vis</li></a>\n    </ul>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var _vis = require('./visualization.js');
+var _tour = require('./tour.js');
+var demo = require('./demo.js');
 var router = require('routes')();
 var data = require('./topology_small.json');
+var data_big = require('./topology.json');
+var events_big = require('./events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(function (e) {
+  e.type = e.event_type;return e;
+}).reverse();
+
 var events = [{
   type: 'request',
   node: data.nodes[0].name
@@ -12501,14 +12543,14 @@ var events = [{
 
 var route_table = function route_table(h, store) {
   return {
-    '/': function _(s) {
-      return h(_templateObject, navigation(h));
+    '/vis': function vis(s) {
+      return h(_templateObject, navigation(h), demo(h, events_big, data_big.nodes, data_big.edges));
     },
     '/wow': function wow(s) {
       return h(_templateObject2, navigation(h));
     },
-    '/vis': function vis(s) {
-      return h(_templateObject3, navigation(h), _vis(h, events, data.nodes, data.edges));
+    '/tour': function tour(s) {
+      return h(_templateObject3, navigation(h), _tour(h, events, data.nodes, data.edges));
     }
   };
 };
@@ -12527,7 +12569,7 @@ function navigation(h) {
   return h(_templateObject4);
 }
 
-},{"./topology_small.json":25,"./visualization.js":26,"routes":18}],24:[function(require,module,exports){
+},{"./demo.js":3,"./events_big.json":5,"./topology.json":27,"./topology_small.json":28,"./tour.js":29,"routes":20}],26:[function(require,module,exports){
 'use strict';
 
 var hub = require('./events.js')();
@@ -12558,7 +12600,649 @@ module.exports = function (reducer) {
   };
 };
 
-},{"./events.js":3}],25:[function(require,module,exports){
+},{"./events.js":4}],27:[function(require,module,exports){
+module.exports={
+  "edges": [
+    {
+      "source": 13, 
+      "target": 12, 
+      "value": 1
+    }, 
+    {
+      "source": 13, 
+      "target": 30, 
+      "value": 1
+    }, 
+    {
+      "source": 13, 
+      "target": 17, 
+      "value": 1
+    }, 
+    {
+      "source": 13, 
+      "target": 46, 
+      "value": 1
+    }, 
+    {
+      "source": 13, 
+      "target": 42, 
+      "value": 1
+    }, 
+    {
+      "source": 12, 
+      "target": 47, 
+      "value": 1
+    }, 
+    {
+      "source": 12, 
+      "target": 51, 
+      "value": 1
+    }, 
+    {
+      "source": 30, 
+      "target": 48, 
+      "value": 1
+    }, 
+    {
+      "source": 30, 
+      "target": 45, 
+      "value": 1
+    }, 
+    {
+      "source": 30, 
+      "target": 17, 
+      "value": 1
+    }, 
+    {
+      "source": 30, 
+      "target": 28, 
+      "value": 1
+    }, 
+    {
+      "source": 30, 
+      "target": 44, 
+      "value": 1
+    }, 
+    {
+      "source": 30, 
+      "target": 41, 
+      "value": 1
+    }, 
+    {
+      "source": 25, 
+      "target": 0, 
+      "value": 1
+    }, 
+    {
+      "source": 25, 
+      "target": 39, 
+      "value": 1
+    }, 
+    {
+      "source": 25, 
+      "target": 17, 
+      "value": 1
+    }, 
+    {
+      "source": 25, 
+      "target": 16, 
+      "value": 1
+    }, 
+    {
+      "source": 25, 
+      "target": 42, 
+      "value": 1
+    }, 
+    {
+      "source": 17, 
+      "target": 16, 
+      "value": 1
+    }, 
+    {
+      "source": 17, 
+      "target": 19, 
+      "value": 1
+    }, 
+    {
+      "source": 17, 
+      "target": 29, 
+      "value": 1
+    }, 
+    {
+      "source": 17, 
+      "target": 38, 
+      "value": 1
+    }, 
+    {
+      "source": 17, 
+      "target": 37, 
+      "value": 1
+    }, 
+    {
+      "source": 17, 
+      "target": 11, 
+      "value": 1
+    }, 
+    {
+      "source": 17, 
+      "target": 41, 
+      "value": 1
+    }, 
+    {
+      "source": 16, 
+      "target": 9, 
+      "value": 1
+    }, 
+    {
+      "source": 19, 
+      "target": 49, 
+      "value": 1
+    }, 
+    {
+      "source": 19, 
+      "target": 18, 
+      "value": 1
+    }, 
+    {
+      "source": 18, 
+      "target": 29, 
+      "value": 1
+    }, 
+    {
+      "source": 18, 
+      "target": 3, 
+      "value": 1
+    }, 
+    {
+      "source": 18, 
+      "target": 46, 
+      "value": 1
+    }, 
+    {
+      "source": 29, 
+      "target": 27, 
+      "value": 1
+    }, 
+    {
+      "source": 29, 
+      "target": 3, 
+      "value": 1
+    }, 
+    {
+      "source": 27, 
+      "target": 3, 
+      "value": 1
+    }, 
+    {
+      "source": 27, 
+      "target": 40, 
+      "value": 1
+    }, 
+    {
+      "source": 27, 
+      "target": 11, 
+      "value": 1
+    }, 
+    {
+      "source": 27, 
+      "target": 35, 
+      "value": 1
+    }, 
+    {
+      "source": 31, 
+      "target": 26, 
+      "value": 1
+    }, 
+    {
+      "source": 50, 
+      "target": 36, 
+      "value": 1
+    }, 
+    {
+      "source": 50, 
+      "target": 6, 
+      "value": 1
+    }, 
+    {
+      "source": 50, 
+      "target": 26, 
+      "value": 1
+    }, 
+    {
+      "source": 50, 
+      "target": 8, 
+      "value": 1
+    }, 
+    {
+      "source": 50, 
+      "target": 35, 
+      "value": 1
+    }, 
+    {
+      "source": 26, 
+      "target": 36, 
+      "value": 1
+    }, 
+    {
+      "source": 26, 
+      "target": 8, 
+      "value": 1
+    }, 
+    {
+      "source": 36, 
+      "target": 20, 
+      "value": 1
+    }, 
+    {
+      "source": 35, 
+      "target": 11, 
+      "value": 1
+    }, 
+    {
+      "source": 38, 
+      "target": 22, 
+      "value": 1
+    }, 
+    {
+      "source": 38, 
+      "target": 46, 
+      "value": 1
+    }, 
+    {
+      "source": 37, 
+      "target": 23, 
+      "value": 1
+    }, 
+    {
+      "source": 37, 
+      "target": 42, 
+      "value": 1
+    }, 
+    {
+      "source": 7, 
+      "target": 5, 
+      "value": 1
+    }, 
+    {
+      "source": 8, 
+      "target": 4, 
+      "value": 1
+    }, 
+    {
+      "source": 8, 
+      "target": 5, 
+      "value": 1
+    }, 
+    {
+      "source": 8, 
+      "target": 9, 
+      "value": 1
+    }, 
+    {
+      "source": 9, 
+      "target": 11, 
+      "value": 1
+    }, 
+    {
+      "source": 2, 
+      "target": 32, 
+      "value": 1
+    }, 
+    {
+      "source": 2, 
+      "target": 3, 
+      "value": 1
+    }, 
+    {
+      "source": 2, 
+      "target": 46, 
+      "value": 1
+    }, 
+    {
+      "source": 5, 
+      "target": 10, 
+      "value": 1
+    }, 
+    {
+      "source": 10, 
+      "target": 1, 
+      "value": 1
+    }, 
+    {
+      "source": 10, 
+      "target": 11, 
+      "value": 1
+    }, 
+    {
+      "source": 42, 
+      "target": 33, 
+      "value": 1
+    }, 
+    {
+      "source": 41, 
+      "target": 34, 
+      "value": 1
+    }, 
+    {
+      "source": 48, 
+      "target": 52, 
+      "value": 1
+    }, 
+    {
+      "source": 48, 
+      "target": 46, 
+      "value": 1
+    }, 
+    {
+      "source": 47, 
+      "target": 46, 
+      "value": 1
+    }, 
+    {
+      "source": 47, 
+      "target": 21, 
+      "value": 1
+    }, 
+    {
+      "source": 45, 
+      "target": 24, 
+      "value": 1
+    }, 
+    {
+      "source": 45, 
+      "target": 44, 
+      "value": 1
+    }, 
+    {
+      "source": 44, 
+      "target": 43, 
+      "value": 1
+    }, 
+    {
+      "source": 28, 
+      "target": 14, 
+      "value": 1
+    }, 
+    {
+      "source": 28, 
+      "target": 33, 
+      "value": 1
+    }, 
+    {
+      "source": 33, 
+      "target": 15, 
+      "value": 1
+    }
+  ], 
+  "nodes": [
+    {
+      "group": 0, 
+      "name": "10", 
+      "type": "receiver"
+    }, 
+    {
+      "group": 1, 
+      "name": "1028", 
+      "type": "source"
+    }, 
+    {
+      "group": 2, 
+      "name": "24", 
+      "type": "router"
+    }, 
+    {
+      "group": 3, 
+      "name": "25", 
+      "type": "router"
+    }, 
+    {
+      "group": 4, 
+      "name": "26", 
+      "type": "receiver"
+    }, 
+    {
+      "group": 5, 
+      "name": "27", 
+      "type": "router"
+    }, 
+    {
+      "group": 6, 
+      "name": "20", 
+      "type": "receiver"
+    }, 
+    {
+      "group": 7, 
+      "name": "21", 
+      "type": "receiver"
+    }, 
+    {
+      "group": 8, 
+      "name": "22", 
+      "type": "router"
+    }, 
+    {
+      "group": 9, 
+      "name": "23", 
+      "type": "router"
+    }, 
+    {
+      "group": 10, 
+      "name": "28", 
+      "type": "router"
+    }, 
+    {
+      "group": 11, 
+      "name": "29", 
+      "type": "router"
+    }, 
+    {
+      "group": 12, 
+      "name": "1", 
+      "type": "router"
+    }, 
+    {
+      "group": 13, 
+      "name": "0", 
+      "type": "router"
+    }, 
+    {
+      "group": 14, 
+      "name": "1038", 
+      "type": "source"
+    }, 
+    {
+      "group": 15, 
+      "name": "1039", 
+      "type": "source"
+    }, 
+    {
+      "group": 16, 
+      "name": "5", 
+      "type": "router"
+    }, 
+    {
+      "group": 17, 
+      "name": "4", 
+      "type": "router"
+    }, 
+    {
+      "group": 18, 
+      "name": "7", 
+      "type": "router"
+    }, 
+    {
+      "group": 19, 
+      "name": "6", 
+      "type": "router"
+    }, 
+    {
+      "group": 20, 
+      "name": "1014", 
+      "type": "source"
+    }, 
+    {
+      "group": 21, 
+      "name": "1033", 
+      "type": "source"
+    }, 
+    {
+      "group": 22, 
+      "name": "1016", 
+      "type": "source"
+    }, 
+    {
+      "group": 23, 
+      "name": "1017", 
+      "type": "source"
+    }, 
+    {
+      "group": 24, 
+      "name": "1035", 
+      "type": "source"
+    }, 
+    {
+      "group": 25, 
+      "name": "3", 
+      "type": "router"
+    }, 
+    {
+      "group": 26, 
+      "name": "13", 
+      "type": "router"
+    }, 
+    {
+      "group": 27, 
+      "name": "9", 
+      "type": "router"
+    }, 
+    {
+      "group": 28, 
+      "name": "38", 
+      "type": "router"
+    }, 
+    {
+      "group": 29, 
+      "name": "8", 
+      "type": "router"
+    }, 
+    {
+      "group": 30, 
+      "name": "2", 
+      "type": "router"
+    }, 
+    {
+      "group": 31, 
+      "name": "11", 
+      "type": "receiver"
+    }, 
+    {
+      "group": 32, 
+      "name": "1024", 
+      "type": "source"
+    }, 
+    {
+      "group": 33, 
+      "name": "39", 
+      "type": "router"
+    }, 
+    {
+      "group": 34, 
+      "name": "1031", 
+      "type": "source"
+    }, 
+    {
+      "group": 35, 
+      "name": "15", 
+      "type": "router"
+    }, 
+    {
+      "group": 36, 
+      "name": "14", 
+      "type": "router"
+    }, 
+    {
+      "group": 37, 
+      "name": "17", 
+      "type": "router"
+    }, 
+    {
+      "group": 38, 
+      "name": "16", 
+      "type": "router"
+    }, 
+    {
+      "group": 39, 
+      "name": "19", 
+      "type": "receiver"
+    }, 
+    {
+      "group": 40, 
+      "name": "18", 
+      "type": "receiver"
+    }, 
+    {
+      "group": 41, 
+      "name": "31", 
+      "type": "router"
+    }, 
+    {
+      "group": 42, 
+      "name": "30", 
+      "type": "router"
+    }, 
+    {
+      "group": 43, 
+      "name": "37", 
+      "type": "receiver"
+    }, 
+    {
+      "group": 44, 
+      "name": "36", 
+      "type": "router"
+    }, 
+    {
+      "group": 45, 
+      "name": "35", 
+      "type": "router"
+    }, 
+    {
+      "group": 46, 
+      "name": "34", 
+      "type": "router"
+    }, 
+    {
+      "group": 47, 
+      "name": "33", 
+      "type": "router"
+    }, 
+    {
+      "group": 48, 
+      "name": "32", 
+      "type": "router"
+    }, 
+    {
+      "group": 49, 
+      "name": "1006", 
+      "type": "source"
+    }, 
+    {
+      "group": 50, 
+      "name": "12", 
+      "type": "router"
+    }, 
+    {
+      "group": 51, 
+      "name": "1001", 
+      "type": "source"
+    }, 
+    {
+      "group": 52, 
+      "name": "1032", 
+      "type": "source"
+    }
+  ]
+}
+},{}],28:[function(require,module,exports){
 module.exports={
   "edges": [
     {
@@ -12656,7 +13340,7 @@ module.exports={
   ]
 }
 
-},{}],26:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
@@ -12671,7 +13355,6 @@ module.exports = function (h, events, nodes, edges) {
   var network;
 
   var start = function start() {
-    console.log('start');
     network = draw(nodes, edges, config.network);
     Object.keys(config.events).forEach(function (e) {
       network.event(e, config.events[e]);
@@ -12680,6 +13363,7 @@ module.exports = function (h, events, nodes, edges) {
 
   var update = function update() {
     var ev = events.pop();
+    console.log('ev', ev);
     if (!ev) return;
     network.update(ev);
   };
@@ -12687,4 +13371,4 @@ module.exports = function (h, events, nodes, edges) {
   return h(_templateObject, start, update, '>');
 };
 
-},{"./config.js":2,"js-network-vis":11}]},{},[1]);
+},{"./config.js":2,"js-network-vis":13}]},{},[1]);

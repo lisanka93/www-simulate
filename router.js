@@ -1,6 +1,10 @@
-const vis = require('./visualization.js')
+const tour = require('./tour.js')
+const demo = require('./demo.js')
 const router = require('routes')()
 const data = require('./topology_small.json')
+const data_big = require('./topology.json')
+const events_big = require('./events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(e => { e.type = e.event_type; return e }).reverse()
+
 const events = [
 {
   type: 'request'
@@ -25,22 +29,27 @@ const events = [
 
 var route_table = (h, store) => {
   return {
-    '/': s => {
+    '/vis': s => {
       return h`
-        <div>${ navigation(h) } Home!</div> 
+        <div>
+        ${ navigation(h) } 
+        ${ demo(h, events_big, data_big.nodes, data_big.edges) } 
+        </div> 
       `
     }
   , '/wow': s => {
       return h`
-        <div>${ navigation(h) } WOW!</div> 
+        <div>
+        ${ navigation(h) } 
+        <h2>WOW!</h2>
+        </div> 
       `
     }
-  , '/vis': s => {
+  , '/tour': s => {
       return h`
         <div>
           ${ navigation(h) } 
-          VIS
-          ${ vis(h, events, data.nodes, data.edges) } 
+          ${ tour(h, events, data.nodes, data.edges) } 
         </div>
       `
     }
@@ -60,7 +69,7 @@ module.exports = (h, store) => {
 function navigation(h) {
   return h`
     <ul id='navigation'>
-      <a href='/'><li>Home</li></a>
+      <a href='/tour'><li>Tour</li></a>
       <a href='/wow'><li>Wow</li></a>
       <a href='/vis'><li>Vis</li></a>
     </ul>
