@@ -13205,6 +13205,17 @@ module.exports.events = {
       id: ev.data_ID,
       loc: ev.node
     });
+  },
+  'cache_remove': function cache_remove(ev, nodes, edges) {
+
+    var node = nodes.filter(function (n) {
+      return n.name.toString() === ev.node.toString();
+    })[0];
+    if (!node) return;
+
+    node.cache = node.cache.filter(function (c) {
+      return c.id !== ev.data_ID;
+    });
   }
 };
 

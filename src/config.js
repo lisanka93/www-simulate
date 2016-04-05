@@ -50,4 +50,15 @@ module.exports.events = {
     , loc: ev.node  
     })
   }
+, 'cache_remove': (ev, nodes, edges) => {
+ 
+    var node = nodes.filter(n => {
+      return n.name.toString() === ev.node.toString()  
+    })[0]
+    if (!node) return
+    
+    node.cache = node.cache.filter(c => {
+      return c.id !== ev.data_ID  
+    })
+  }
 }

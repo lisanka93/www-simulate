@@ -150,7 +150,7 @@ test('event: cache_content -> err', t => {
   
   var e = 'cache_content'
   var graph = create_graph(data, e)
-  t.ok(graph.nodes.every(no('cache')), 'all requests have empty cache')
+  t.ok(graph.nodes.every(no('cache')), 'all caches have empty cache')
  
   // using id for both node.name and data_ID for convenience
   var id = 'abcdefg' 
@@ -163,6 +163,65 @@ test('event: cache_content -> err', t => {
   , data_ID: id
   })
   
-  t.ok(graph.nodes.every(no('cache')), 'all requests have empty cache still') 
+  t.ok(graph.nodes.every(no('cache')), 'all caches have empty cache still') 
+  t.end()
+})
+
+test('event: cache_remove', t => {
+
+  var e = 'cache_remove'
+  var graph = create_graph(data, e)
+  t.ok(graph.nodes.every(no('cache')), 'all nodes have empty cache')
+  
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg'
+  graph.nodes[i].cache.push({
+    id: id
+  , loc: graph.nodes[i].name
+  })
+  
+  t.equals(graph.nodes.filter(has('cache'))[0].name, 
+    graph.nodes[i].name, 'correct node has item in cache')
+  
+  graph.update({
+    type: e
+  , data_ID: id
+  , node: graph.nodes[i].name
+  })
+  
+  t.ok(graph.nodes.every(no('cache')), 'all nodes have empty cache')
+
+  t.end()
+})
+
+test('event: cache_remove', t => {
+
+  var e = 'cache_remove'
+  var graph = create_graph(data, e)
+  
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg'
+  graph.nodes[i].cache.push({
+    id: id
+  , loc: graph.nodes[i].name
+  })
+  
+  t.equals(graph.nodes.filter(has('cache'))[0].name, 
+    graph.nodes[i].name, 'correct node has item in cache')
+ 
+  var n_id = 'gfedcba'
+  t.equals(graph.nodes.filter(has_id(id)).length, 0,
+    'no nodes with id ' + id)
+  graph.update({
+    type: e
+  , data_ID: id
+  , node: n_id
+  })
+  
+  t.equals(graph.nodes.filter(has('cache'))[0].name, 
+    graph.nodes[i].name, 'same node has item in cache')
+  t.equals(graph.nodes.filter(has('cache')).length, 1,
+    'only one cached item in network')
+
   t.end()
 })
