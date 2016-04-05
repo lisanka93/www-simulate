@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "catch-links": "^2.0.0",
-    "js-network-vis": "0.0.3",
+    "js-network-vis": "0.0.4",
     "routes": "^2.1.0",
     "yo-yo": "^1.1.1"
   },
