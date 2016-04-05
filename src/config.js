@@ -95,4 +95,23 @@ module.exports.events = {
     , loc: ev.node 
     })
   }
+, 'content_hop': (ev, nodes, edges) => {
+  
+    var src = nodes.filter(n => { 
+      return n.name.toString() === ev.from_node.toString() 
+    })[0]
+    
+    var dst = nodes.filter(n => { return n.name.toString() === ev.to_node.toString() })[0]
+    
+    if (!src || !dst) { return }
+    
+    src.content = src.content.filter(n => {
+      return n.id !== ev.data_ID
+    })
+    
+    dst.content.push({
+      id: ev.data_ID
+    , loc: ev.to_node
+    })
+  }
 }
