@@ -5,7 +5,11 @@ const data = require('../data/topology.json')
 const handlers = require('../src/config.js').events
 
 var setup_nodes = (nodes) => {
-  nodes.forEach(n => { n.requests = []; n.cache = [] }) 
+  nodes.forEach(n => { 
+    n.requests = [] 
+    n.cache = [] 
+    n.content = []
+  }) 
 }
 
 var has = (what) => (node) => { return node[what].length > 0 }
@@ -194,7 +198,7 @@ test('event: cache_remove', t => {
   t.end()
 })
 
-test('event: cache_remove', t => {
+test('event: cache_remove -> err', t => {
 
   var e = 'cache_remove'
   var graph = create_graph(data, e)
@@ -223,5 +227,75 @@ test('event: cache_remove', t => {
   t.equals(graph.nodes.filter(has('cache')).length, 1,
     'only one cached item in network')
 
+  t.end()
+})
+
+
+test('event: server_hit', t => {
+  
+  var e = 'server_hit'
+  var graph = create_graph(data, e)
+  
+  t.ok(graph.nodes.every(no('content')), 'no requests in network')
+
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg'
+  graph.nodes[i].requests.push({
+    id: id
+  , loc: graph.nodes[i].name
+  })
+ 
+  var matches = graph.nodes.filter(has('requests'))
+  t.equals(matches.length, 1, 'one node has requests')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct node')
+  
+  graph.update({
+    type: e 
+  , node: graph.nodes[i].name
+  , data_ID: id
+  })
+  
+  t.ok(graph.nodes.every(no('requests')), 'no requests in network')
+  matches = graph.nodes.filter(has('content'))
+  t.equals(matches.length, 1, 'one node has content')
+  t.equals(matches[0].name, graph.nodes[i].name, 
+    'content exists at server')
+ 
+  t.end()
+})
+
+test('event: server_hit -> err', t => {
+
+  var e = 'server_hit'
+  var graph = create_graph(data, e)
+  
+  t.ok(graph.nodes.every(no('content')), 'no requests in network')
+
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg'
+  graph.nodes[i].requests.push({
+    id: id
+  , loc: graph.nodes[i].name
+  })
+ 
+  var matches = graph.nodes.filter(has('requests'))
+  t.equals(matches.length, 1, 'one node has requests')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct node')
+
+  var n_id = 'easonuahsh'
+  t.equals(graph.nodes.filter(has_id(n_id)).length, 0,
+    'no nodes with id ' + n_id)
+  graph.update({
+    type: e 
+  , node: n_id
+  , data_ID: id
+  })
+  
+  matches = graph.nodes.filter(has('requests'))
+  t.equals(matches.length, 1, 'one node has requests still')
+  t.equals(matches[0].name, graph.nodes[i].name, 'same node')
+ 
+  t.ok(graph.nodes.every(no('content')), 'no node has content')
+ 
   t.end()
 })
