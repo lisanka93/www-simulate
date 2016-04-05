@@ -1,9 +1,9 @@
 const tour = require('./tour.js')
 const demo = require('./demo.js')
 const router = require('routes')()
-const data = require('./topology_small.json')
-const data_big = require('./topology.json')
-const events_big = require('./events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(e => { e.type = e.event_type; return e }).reverse()
+const data = require('../data/topology_small.json')
+const data_big = require('../data/topology.json')
+const events_big = require('../data/events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(e => { e.type = e.event_type; return e }).reverse()
 
 const events = [
 {
