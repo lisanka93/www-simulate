@@ -343,3 +343,35 @@ test('event: cache_hit', t => {
 
   t.end()
 })
+
+test('event: content_hop', t => {
+
+  var e = 'content_hop'
+  var graph = create_graph(data, e)
+ 
+ 
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg'
+  graph.nodes[i].content.push({
+    id: id
+  , loc: graph.nodes[i].name
+  })
+ 
+  var matches = graph.nodes.filter(has('content'))
+  t.equals(matches.length, 1, 'one node has content')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct node')
+ 
+  var j = rand(0, graph.nodes.length)
+  graph.update({
+    type: e
+  , from_node: graph.nodes[i].name
+  , to_node: graph.nodes[j].name
+  , data_ID: id
+  })
+  
+  matches = graph.nodes.filter(has('content'))
+  t.equals(matches.length, 1, 'one node has content')
+  t.equals(matches[0].name, graph.nodes[j].name, 'correct node')
+  
+  t.end()
+})
