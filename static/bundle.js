@@ -13166,8 +13166,6 @@ module.exports.events = {
     var node = nodes.filter(function (n) {
       return n.name.toString() === ev.from_node.toString();
     })[0];
-    console.log(node);
-    console.log(ev.from_node);
     if (!node) return;
     node.requests.push({
       id: ev.data_ID,

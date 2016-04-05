@@ -14,8 +14,6 @@ module.exports.network = {
 module.exports.events = {
   'request': (ev, nodes, edges) => {
     var node = nodes.filter(n => n.name.toString() === ev.from_node.toString())[0]
-    console.log(node)
-    console.log(ev.from_node)
     if (!node) return
     node.requests.push({
       id: ev.data_ID
