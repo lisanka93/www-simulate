@@ -8,7 +8,8 @@
     "build:w": "watchify -t [ babelify --presets [ es2015 ] ] src/app.js -o static/bundle.js -v",
     "build:wb": "npm run build:w &",
     "dev": "npm run build:wb && npm run serve",
-    "serve": "live-server ."
+    "serve": "live-server .",
+    "test": "tape test/*.test.js"
   },
   "author": "",
   "license": "MIT",
