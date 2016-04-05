@@ -10759,7 +10759,9 @@ function selfClosing (tag) { return closeRE.test(tag) }
 var d3 = require('d3')
 var topology = require('./topology.js')
 
-module.exports = function (nodes, edges, opts) {
+module.exports = draw
+
+function draw (nodes, edges, opts) {
 
   var network = {}
   var color, size
@@ -10862,6 +10864,8 @@ module.exports = function (nodes, edges, opts) {
     
   return network
 }
+
+draw.topology = topology
 
 },{"./topology.js":12,"d3":7}],12:[function(require,module,exports){
 module.exports = topology
@@ -13143,10 +13147,10 @@ function layout(el) {
   return h(_templateObject2, el);
 }
 
-},{"./router.js":27,"./store.js":28,"catch-links":6,"yo-yo":21}],24:[function(require,module,exports){
+},{"./router.js":28,"./store.js":29,"catch-links":6,"yo-yo":21}],24:[function(require,module,exports){
 'use strict';
 
-module.exports.network = {
+module.exports = {
   element: '#vis',
   setup: function setup(nodes, edges) {
     nodes.forEach(function (n) {
@@ -13161,7 +13165,61 @@ module.exports.network = {
   }
 };
 
-module.exports.events = {
+},{}],25:[function(require,module,exports){
+'use strict';
+
+var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var draw = require('js-network-vis');
+var config = require('./config.js');
+var handlers = require('./handlers.js');
+
+module.exports = function (h, events, nodes, edges) {
+
+  var network;
+
+  var start = function start() {
+    network = draw(nodes, edges, config);
+    Object.keys(handlers).forEach(function (h) {
+      network.event(h, handlers[h]);
+    });
+    setInterval(update, 500);
+  };
+
+  var update = function update() {
+    var ev = events.pop();
+    console.log('ev', ev);
+    if (!ev) return;
+    network.update(ev);
+  };
+
+  return h(_templateObject, start);
+};
+
+},{"./config.js":24,"./handlers.js":27,"js-network-vis":11}],26:[function(require,module,exports){
+'use strict';
+
+module.exports = function () {
+  var cs = {};
+  return {
+    on: function on(c, f) {
+      if (typeof f !== 'function') return;
+      (cs[c] = cs[c] || []).unshift(f);
+    },
+    emit: function emit(c, d) {
+      (cs[c] || []).forEach(function (f) {
+        f(d);
+      });
+    }
+  };
+};
+
+},{}],27:[function(require,module,exports){
+'use strict';
+
+module.exports = {
   'request': function request(ev, nodes, edges) {
     var node = nodes.filter(function (n) {
       return n.name.toString() === ev.from_node.toString();
@@ -13276,57 +13334,7 @@ module.exports.events = {
   }
 };
 
-},{}],25:[function(require,module,exports){
-'use strict';
-
-var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var draw = require('js-network-vis');
-var config = require('./config.js');
-
-module.exports = function (h, events, nodes, edges) {
-
-  var network;
-
-  var start = function start() {
-    network = draw(nodes, edges, config.network);
-    Object.keys(config.events).forEach(function (e) {
-      network.event(e, config.events[e]);
-    });
-    setInterval(update, 500);
-  };
-
-  var update = function update() {
-    var ev = events.pop();
-    console.log('ev', ev);
-    if (!ev) return;
-    network.update(ev);
-  };
-
-  return h(_templateObject, start);
-};
-
-},{"./config.js":24,"js-network-vis":11}],26:[function(require,module,exports){
-'use strict';
-
-module.exports = function () {
-  var cs = {};
-  return {
-    on: function on(c, f) {
-      if (typeof f !== 'function') return;
-      (cs[c] = cs[c] || []).unshift(f);
-    },
-    emit: function emit(c, d) {
-      (cs[c] || []).forEach(function (f) {
-        f(d);
-      });
-    }
-  };
-};
-
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n        <div>\n        ', ' \n        ', ' \n        </div> \n      '], ['\n        <div>\n        ', ' \n        ', ' \n        </div> \n      ']),
@@ -13390,7 +13398,7 @@ function navigation(h) {
   return h(_templateObject4);
 }
 
-},{"../data/events_big.json":1,"../data/topology.json":2,"../data/topology_small.json":3,"./demo.js":25,"./tour.js":29,"routes":18}],28:[function(require,module,exports){
+},{"../data/events_big.json":1,"../data/topology.json":2,"../data/topology_small.json":3,"./demo.js":25,"./tour.js":30,"routes":18}],29:[function(require,module,exports){
 'use strict';
 
 var hub = require('./events.js')();
@@ -13421,7 +13429,7 @@ module.exports = function (reducer) {
   };
 };
 
-},{"./events.js":26}],29:[function(require,module,exports){
+},{"./events.js":26}],30:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
@@ -13430,15 +13438,16 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var draw = require('js-network-vis');
 var config = require('./config.js');
+var handlers = require('./handlers.js');
 
 module.exports = function (h, events, nodes, edges) {
 
   var network;
 
   var start = function start() {
-    network = draw(nodes, edges, config.network);
-    Object.keys(config.events).forEach(function (e) {
-      network.event(e, config.events[e]);
+    network = draw(nodes, edges, config);
+    Object.keys(handlers).forEach(function (h) {
+      network.event(h, handlers[h]);
     });
   };
 
@@ -13452,4 +13461,4 @@ module.exports = function (h, events, nodes, edges) {
   return h(_templateObject, start, update, '>');
 };
 
-},{"./config.js":24,"js-network-vis":11}]},{},[23]);
+},{"./config.js":24,"./handlers.js":27,"js-network-vis":11}]},{},[23]);

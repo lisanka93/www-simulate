@@ -2,7 +2,7 @@ const test = require('tape')
 const topology = require('js-network-vis').topology
 
 const data = require('../data/topology.json')
-const handlers = require('../src/config.js').events
+const handlers = require('../src/handlers.js')
 
 var setup_nodes = (nodes) => {
   nodes.forEach(n => { 

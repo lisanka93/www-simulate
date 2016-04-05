@@ -1,14 +1,15 @@
 const draw = require('js-network-vis')
 const config = require('./config.js')
+const handlers = require('./handlers.js')
 
 module.exports = (h, events, nodes, edges) => {
 
   var network
 
   var start = () => {
-    network = draw(nodes, edges, config.network)
-    Object.keys(config.events).forEach(e => {
-      network.event(e, config.events[e]) 
+    network = draw(nodes, edges, config)
+    Object.keys(handlers).forEach(h => {
+      network.event(h, handlers[h]) 
     })
     setInterval(update, 500)
   }
