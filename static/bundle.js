@@ -13173,19 +13173,22 @@ module.exports.events = {
     });
   },
   'request_hop': function request_hop(ev, nodes, edges) {
+    console.log('ev', ev);
     var src = nodes.filter(function (n) {
       return n.name.toString() === ev.from_node.toString();
     })[0];
-    if (!src) return;
-
-    src.requests = src.requests.filter(function (r) {
-      return r.id !== ev.data_ID;
-    });
 
     var dst = nodes.filter(function (n) {
       return n.name.toString() === ev.to_node.toString();
     })[0];
-    if (!dst) return;
+
+    if (!src || !dst) {
+      return;
+    }
+
+    src.requests = src.requests.filter(function (r) {
+      return r.id !== ev.data_ID;
+    });
     dst.requests.push({
       id: ev.data_ID,
       loc: ev.to_node
