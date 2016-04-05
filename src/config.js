@@ -74,8 +74,25 @@ module.exports.events = {
     
     node.content.push({
       id: ev.data_ID 
+    , cache: false
+    , loc: ev.node 
+    })
+  }
+, 'cache_hit': (ev, nodes, edges) => {
+    
+    var node = nodes.filter(n => {
+      return n.name.toString() === ev.node.toString()
+    })[0]
+    if (!node) return
+    
+    node.requests = node.requests.filter(r => {
+      return r.id !== ev.data_ID 
+    })
+    
+    node.content.push({
+      id: ev.data_ID 
     , cache: true
     , loc: ev.node 
     })
-  } 
+  }
 }

@@ -260,6 +260,8 @@ test('event: server_hit', t => {
   t.equals(matches.length, 1, 'one node has content')
   t.equals(matches[0].name, graph.nodes[i].name, 
     'content exists at server')
+  t.equals(matches[0].content.length, 1, 'one piece of content')
+  t.notOk(matches[0].content[0].cache, 'not cached content')
  
   t.end()
 })
@@ -297,5 +299,47 @@ test('event: server_hit -> err', t => {
  
   t.ok(graph.nodes.every(no('content')), 'no node has content')
  
+  t.end()
+})
+
+test('event: cache_hit', t => {
+  
+  var e = 'cache_hit'
+  var graph = create_graph(data, e)
+  
+  t.ok(graph.nodes.every(no('content')), 'no requests in network')
+
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg'
+  graph.nodes[i].requests.push({
+    id: id
+  , loc: graph.nodes[i].name
+  })
+ 
+  var matches = graph.nodes.filter(has('requests'))
+  t.equals(matches.length, 1, 'one node has request')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct node')
+  
+  graph.update({
+    type: e
+  , data_ID: id
+  , node: graph.nodes[i].name
+  })
+  
+  t.ok(graph.nodes.every(no('requests')), 'no requests in network')
+ 
+  matches = graph.nodes.filter(has('content'))
+  t.equals(matches.length, 1, 'one node has content')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct node')
+  t.equals(matches[0].content.length, 1, 'one piece of content')
+  t.ok(matches[0].content[0].cache, 'content from cache')
+  /*
+   * create request at server
+   * check request exists
+   * update with cache_hit
+   * check no requests
+   * cehck content exists at server
+   * */
+
   t.end()
 })
