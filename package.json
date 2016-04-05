@@ -4,18 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify -t [ babelify --presets [ es2015 ] ] app.js > bundle.js",
-    "build:w": "watchify -t [ babelify --presets [ es2015 ] ] app.js -o bundle.js -v",
+    "build": "browserify -t [ babelify --presets [ es2015 ] ] src/app.js > static/bundle.js",
+    "build:w": "watchify -t [ babelify --presets [ es2015 ] ] src/app.js -o static/bundle.js -v",
     "build:wb": "npm run build:w &",
     "dev": "npm run build:wb && npm run serve",
-    "serve": "live-server ."
+    "serve": "live-server .",
+    "test": "tape test/*.test.js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "catch-links": "^2.0.0",
-    "js-network-vis": "0.0.3",
+    "js-network-vis": "0.0.4",
     "routes": "^2.1.0",
     "yo-yo": "^1.1.1"
   },

@@ -13,23 +13,26 @@ module.exports.network = {
 
 module.exports.events = {
   'request': (ev, nodes, edges) => {
-    var node = nodes.filter(n => n.name === ev.node)[0]
+    var node = nodes.filter(n => n.name.toString() === ev.from_node.toString())[0]
     if (!node) return
     node.requests.push({
       id: ev.data_ID
-    , loc: ev.node
+    , loc: ev.from_node
     })
   }
 , 'request_hop': (ev, nodes, edges) => {
-    var src = nodes.filter(n => n.name === ev.from_node)[0]
-    if (!src) return
-   
+    console.log('ev',ev)
+    var src = nodes.filter(n => { 
+      return n.name.toString() === ev.from_node.toString() 
+    })[0]
+    
+    var dst = nodes.filter(n => { return n.name.toString() === ev.to_node.toString() })[0]
+    
+    if (!src || !dst) { return }
+    
     src.requests = src.requests.filter(function (r) {
       return r.id !== ev.data_ID
     })
-    
-    var dst = nodes.filter(n => n.name === ev.to_node)[0]
-    if (!dst) return
     dst.requests.push({
       id: ev.data_ID
     , loc: ev.to_node

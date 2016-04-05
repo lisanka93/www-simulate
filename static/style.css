@@ -46,7 +46,7 @@ div#vis {
 div.vis-ctl {
   display: flex;
   width: 20%;
-  margin: auto;
+  margin: 1em auto 0;
   justify-content: space-around;
 }
 
