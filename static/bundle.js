@@ -13173,7 +13173,7 @@ module.exports.events = {
     });
   },
   'request_hop': function request_hop(ev, nodes, edges) {
-    console.log('ev', ev);
+
     var src = nodes.filter(function (n) {
       return n.name.toString() === ev.from_node.toString();
     })[0];
@@ -13192,6 +13192,18 @@ module.exports.events = {
     dst.requests.push({
       id: ev.data_ID,
       loc: ev.to_node
+    });
+  },
+  'cache_content': function cache_content(ev, nodes, edges) {
+
+    var node = nodes.filter(function (n) {
+      return n.name.toString() === ev.node.toString();
+    })[0];
+    if (!node) return;
+
+    node.cache.push({
+      id: ev.data_ID,
+      loc: ev.node
     });
   }
 };

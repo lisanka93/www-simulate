@@ -5,11 +5,12 @@ const data = require('../data/topology.json')
 const handlers = require('../src/config.js').events
 
 var setup_nodes = (nodes) => {
-  nodes.forEach(n => { n.requests = [] }) 
+  nodes.forEach(n => { n.requests = []; n.cache = [] }) 
 }
 
-var no_requests = (node) => node.requests.length === 0
-var has_requests = (node) => node.requests.length > 0
+var has = (what) => (node) => { return node[what].length > 0 }
+var no = (what) => (node) => { return node[what].length === 0 }
+
 var has_id = id => n => n.name === id
 var rand = (l, h) => Math.floor(Math.random() * h) + l
 
@@ -21,16 +22,17 @@ var create_graph = (d, ev) => {
 }
 
 test('event: request', t => {
+ 
+  var e = 'request'
+  var graph = create_graph(data, e)
+  t.ok(graph.nodes.every(no('requests')), 'all requests empty')
   
-  var graph = create_graph(data, 'request')
-  
-  t.ok(graph.nodes.every(no_requests), 'all requests empty')
   graph.update({
-    type: 'request'
+    type: e
   , from_node: graph.nodes[0].name
   })
   
-  var matches = graph.nodes.filter(has_requests)
+  var matches = graph.nodes.filter(has('requests'))
   
   t.equals(matches.length, 1, 'one node has requests')
   t.equals(matches[0].name, graph.nodes[0].name, 'correct node received request') 
@@ -39,29 +41,30 @@ test('event: request', t => {
 })
 
 test('event: request -> err', t => {
-
-  var graph = create_graph(data, 'request')
   
-  t.ok(graph.nodes.every(no_requests), 'all request empty')
+  var e = 'request'
+  var graph = create_graph(data, e)
+  t.ok(graph.nodes.every(no('requests')), 'all request empty')
  
   var id = 'abcdefg'
   var nodes = graph.nodes.filter(has_id(id))
   t.equals(nodes.length, 0, 'no nodes with id ' + id)
   
   graph.update({
-    type: 'request'
+    type: e
   , from_node: id
   })
   
-  t.ok(graph.nodes.every(no_requests), 'all requests still empty')
+  t.ok(graph.nodes.every(no('requests')), 'all requests still empty')
 
   t.end()
 })
 
 test('event: request_hop', t => {
 
-  var graph = create_graph(data, 'request_hop')
-  t.ok(graph.nodes.every(no_requests), 'all requests empty')
+  var e = 'request_hop'
+  var graph = create_graph(data, e)
+  t.ok(graph.nodes.every(no('requests')), 'all requests empty')
   
   var id = 'abcdefg'
   var i = rand(0, graph.nodes.length)
@@ -70,20 +73,20 @@ test('event: request_hop', t => {
   , loc: graph.nodes[i].name
   })
   
-  t.equals(graph.nodes.filter(has_requests).length, 1,
+  t.equals(graph.nodes.filter(has('requests')).length, 1,
     'one node has requests')
-  t.equals(graph.nodes.filter(has_requests)[0].name,
+  t.equals(graph.nodes.filter(has('requests'))[0].name,
     graph.nodes[i].name, 'correct node has request')
    
   var j = rand(0, graph.nodes.length)
   graph.update({
-    type: 'request_hop'
+    type: e
   , data_ID: id
   , from_node: graph.nodes[i].name
   , to_node: graph.nodes[j].name
   })
   
-  var matches = graph.nodes.filter(has_requests)
+  var matches = graph.nodes.filter(has('requests'))
   t.equals(matches.length, 1,
     'one node has requests after update')
   t.equals(matches[0].name, graph.nodes[j].name, 'correct node has request')
@@ -93,8 +96,9 @@ test('event: request_hop', t => {
 
 test('event: request_hop -> err', t => {
 
-  var graph = create_graph(data, 'request_hop')
-  t.ok(graph.nodes.every(no_requests), 'all requests empty')
+  var e = 'request_hop'
+  var graph = create_graph(data, e)
+  t.ok(graph.nodes.every(no('requests')), 'all requests empty')
   
   var id = 'abcdefg'
   var i = rand(0, graph.nodes.length)
@@ -108,15 +112,57 @@ test('event: request_hop -> err', t => {
     'no nodes with id ' + id)
     
   graph.update({
-    type: 'request'
+    type: e
   , to_node: id
   , from_node: i
   , data_ID: id
   })
  
-  t.equals(graph.nodes.filter(has_requests).length, 1, 
+  t.equals(graph.nodes.filter(has('requests')).length, 1, 
     'one one request in network')
   t.equals(graph.nodes[i].requests.length, 1, 'data not moved')
   
+  t.end()
+})
+
+test('event: cache_content', t => {
+
+  var e = 'cache_content'
+  var graph = create_graph(data, e)
+  t.ok(graph.nodes.every(no('cache')), 'all requests have empty cache')
+  
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg' 
+  graph.update({
+    type: e
+  , node: graph.nodes[i].name
+  , data_ID: id
+  })
+ 
+  var matches = graph.nodes.filter(has('cache'))
+  t.equals(matches.length, 1, 'one node has item in cache')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct item stored in cache')
+  
+  t.end()
+})
+
+test('event: cache_content -> err', t => {
+  
+  var e = 'cache_content'
+  var graph = create_graph(data, e)
+  t.ok(graph.nodes.every(no('cache')), 'all requests have empty cache')
+ 
+  // using id for both node.name and data_ID for convenience
+  var id = 'abcdefg' 
+  t.equals(graph.nodes.filter(has_id(id)).length, 0,
+    'no node with id ' + id)
+  
+  graph.update({
+    type: e
+  , node: id
+  , data_ID: id
+  })
+  
+  t.ok(graph.nodes.every(no('cache')), 'all requests have empty cache still') 
   t.end()
 })
