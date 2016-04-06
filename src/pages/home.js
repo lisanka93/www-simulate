@@ -1,11 +1,11 @@
 const nav = require('../components/navigation.js')
-console.log(nav)
-module.exports = (h) => {
+
+module.exports = (h, store) => {
 
   return h`
     <div id='home'>
       <h1 id='title'>Simulate</h1>
-      ${ nav(h) }
+      ${ nav(h, store) }
     </div>
   ` 
 }

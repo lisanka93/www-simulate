@@ -644,98 +644,121 @@ module.exports={
 }
 },{}],3:[function(require,module,exports){
 module.exports={
-  "edges": [
+  "topology": {
+    "edges": [
+      {
+        "source": 1, 
+        "target": 2, 
+        "value": 1
+      }, 
+      {
+        "source": 2, 
+        "target": 0, 
+        "value": 1
+      }, 
+      {
+        "source": 0, 
+        "target": 7, 
+        "value": 1
+      }, 
+      {
+        "source": 7, 
+        "target": 6, 
+        "value": 1
+      }, 
+      {
+        "source": 3, 
+        "target": 6, 
+        "value": 1
+      }, 
+      {
+        "source": 2, 
+        "target": 7, 
+        "value": 1
+      }, 
+      {
+        "source": 2, 
+        "target": 1, 
+        "value": 1
+      }, 
+      {
+        "source": 4, 
+        "target": 7, 
+        "value": 1
+      },
+      {
+        "source": 5, 
+        "target": 7, 
+        "value": 1
+      },
+      {
+        "source": 5, 
+        "target": 4, 
+        "value": 1
+      }
+    ], 
+    "nodes": [
+      {
+        "group": 0, 
+        "name": "0", 
+        "type": "receiver"
+      }, 
+      {
+        "group": 1, 
+        "name": "1", 
+        "type": "source"
+      }, 
+      {
+        "group": 2, 
+        "name": "2", 
+        "type": "router"
+      }, 
+      {
+        "group": 3, 
+        "name": "3", 
+        "type": "router"
+      }, 
+      {
+        "group": 4, 
+        "name": "4", 
+        "type": "receiver"
+      }, 
+      {
+        "group": 5, 
+        "name": "5", 
+        "type": "router"
+      }, 
+      {
+        "group": 6, 
+        "name": "6", 
+        "type": "receiver"
+      }, 
+      {
+        "group": 7, 
+        "name": "7", 
+        "type": "receiver"
+      }
+    ]
+  },
+  "events": [
     {
-      "source": 1, 
-      "target": 2, 
-      "value": 1
-    }, 
-    {
-      "source": 2, 
-      "target": 0, 
-      "value": 1
-    }, 
-    {
-      "source": 0, 
-      "target": 7, 
-      "value": 1
-    }, 
-    {
-      "source": 7, 
-      "target": 6, 
-      "value": 1
-    }, 
-    {
-      "source": 3, 
-      "target": 6, 
-      "value": 1
-    }, 
-    {
-      "source": 2, 
-      "target": 7, 
-      "value": 1
-    }, 
-    {
-      "source": 2, 
-      "target": 1, 
-      "value": 1
-    }, 
-    {
-      "source": 4, 
-      "target": 7, 
-      "value": 1
+      "type": "request",
+      "from_node": "0"
     },
     {
-      "source": 5, 
-      "target": 7, 
-      "value": 1
+      "type": "request_hop",
+      "to_node": "1",
+      "from_node": "0"
     },
     {
-      "source": 5, 
-      "target": 4, 
-      "value": 1
-    }
-  ], 
-  "nodes": [
+      "type": "request_hop",
+      "to_node": "2",
+      "from_node": "1"
+    },
     {
-      "group": 0, 
-      "name": "0", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 1, 
-      "name": "1", 
-      "type": "source"
-    }, 
-    {
-      "group": 2, 
-      "name": "2", 
-      "type": "router"
-    }, 
-    {
-      "group": 3, 
-      "name": "3", 
-      "type": "router"
-    }, 
-    {
-      "group": 4, 
-      "name": "4", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 5, 
-      "name": "5", 
-      "type": "router"
-    }, 
-    {
-      "group": 6, 
-      "name": "6", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 7, 
-      "name": "7", 
-      "type": "receiver"
+      "type": "request_hop",
+      "to_node": "3",
+      "from_node": "2"
     }
   ]
 }
@@ -13140,20 +13163,24 @@ function render(state) {
 },{"./router.js":32,"./store.js":33,"catch-links":6,"yo-yo":21}],24:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n      <li class=\'solid\'>\n        <a href=', '>', '</a>\n        <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div></li>\n    '], ['\n      <li class=\'solid\'>\n        <a href=', '>', '</a>\n        <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div></li>\n    ']),
+var _templateObject = _taggedTemplateLiteral(['\n    <li class=\'solid\'>\n      <a href=', '>', '</a>\n      <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div>\n    </li>\n  '], ['\n    <li class=\'solid\'>\n      <a href=', '>', '</a>\n      <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div>\n    </li>\n  ']),
     _templateObject2 = _taggedTemplateLiteral(['\n    <ul id=\'navigation\'>\n      ', '\n    </ul>\n  '], ['\n    <ul id=\'navigation\'>\n      ', '\n    </ul>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var routes = require('../route_config.js');
 
-var list_item = function list_item(route) {};
-
-module.exports = function (h) {
-
-  var els = Object.keys(routes).map(function (r) {
+var list_item = function list_item(h, path) {
+  return function (r) {
+    if (r === path) return;
     return h(_templateObject, r, routes[r].title, routes[r].title, routes[r].description);
-  });
+  };
+};
+
+module.exports = function (h, store) {
+
+  var current = (store.get_state() || { path: '/' }).path;
+  var els = Object.keys(routes).map(list_item(h, current));
 
   return h(_templateObject2, els);
 };
@@ -13353,10 +13380,10 @@ var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'home\'>\n      <h
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var nav = require('../components/navigation.js');
-console.log(nav);
-module.exports = function (h) {
 
-  return h(_templateObject, nav(h));
+module.exports = function (h, store) {
+
+  return h(_templateObject, nav(h, store));
 };
 
 },{"../components/navigation.js":24}],30:[function(require,module,exports){
@@ -13423,58 +13450,41 @@ var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <h1 id=\'title
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var _tour = require('./pages/tour.js');
-var demo = require('./pages/demo.js');
+var _demo = require('./pages/demo.js');
 var home = require('./pages/home.js');
 var navigation = require('./components/navigation.js');
 
-var data = require('../data/topology_small.json');
 var data_big = require('../data/topology.json');
 var events_big = require('../data/events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(function (e) {
   e.type = e.event_type;return e;
 }).reverse();
 
-var events = [{
-  type: 'request',
-  node: data.nodes[0].name
-}, {
-  type: 'request_hop',
-  to_node: data.nodes[1].name,
-  from_node: data.nodes[0].name
-}, {
-  type: 'request_hop',
-  to_node: data.nodes[2].name,
-  from_node: data.nodes[1].name
-}, {
-  type: 'request_hop',
-  to_node: data.nodes[3].name,
-  from_node: data.nodes[2].name
-}].reverse();
-
-var layout = function layout(h, body) {
-  return h(_templateObject, navigation(h), body);
-};
-
+var tour_data = require('../data/tour.json');
 var router = require('routes')();
 
-var route_table = function route_table(h) {
+var layout = function layout(h, store, body) {
+  return h(_templateObject, navigation(h, store), body);
+};
+
+var route_table = function route_table(h, store) {
   return {
     '/': function _(s) {
-      return home(h);
+      return home(h, store);
     },
-    '/vis': function vis(s) {
-      var el = demo(h, events_big, data_big.nodes, data_big.edges);
-      return layout(h, el);
+    '/demo': function demo(s) {
+      var el = _demo(h, events_big, data_big.nodes, data_big.edges);
+      return layout(h, store, el);
     },
     '/wow': function wow(s) {
-      return layout(h, h(_templateObject2));
+      return layout(h, store, h(_templateObject2));
     },
     '/tour': function tour(s) {
-      var el = _tour(h, events, data.nodes, data.edges);
-      return layout(h, el);
+      var el = _tour(h, tour_data.events.reverse(), tour_data.topology.nodes, tour_data.topology.edges);
+      return layout(h, store, el);
     },
     '/error': function error(s) {
       var el = h(_templateObject3);
-      return layout(h, el);
+      return layout(h, store, el);
     }
   };
 };
@@ -13491,7 +13501,7 @@ var create_router = function create_router(h, store) {
 
 module.exports = create_router;
 
-},{"../data/events_big.json":1,"../data/topology.json":2,"../data/topology_small.json":3,"./components/navigation.js":24,"./pages/demo.js":28,"./pages/home.js":29,"./pages/tour.js":30,"routes":18}],33:[function(require,module,exports){
+},{"../data/events_big.json":1,"../data/topology.json":2,"../data/tour.json":3,"./components/navigation.js":24,"./pages/demo.js":28,"./pages/home.js":29,"./pages/tour.js":30,"routes":18}],33:[function(require,module,exports){
 'use strict';
 
 var hub = require('./events.js')();
