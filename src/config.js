@@ -1,7 +1,11 @@
 module.exports = { 
   element: '#vis'
 , setup(nodes, edges) {
-    nodes.forEach(n => n.requests = []) 
+    nodes.forEach(n => {
+      n.requests = []
+      n.cache = []
+      n.content = []
+    }) 
   }
 , node_color(node) {
     return node.requests.length > 0 ? 'red' : 'blue' 

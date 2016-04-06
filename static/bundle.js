@@ -13192,7 +13192,9 @@ module.exports = {
   element: '#vis',
   setup: function setup(nodes, edges) {
     nodes.forEach(function (n) {
-      return n.requests = [];
+      n.requests = [];
+      n.cache = [];
+      n.content = [];
     });
   },
   node_color: function node_color(node) {

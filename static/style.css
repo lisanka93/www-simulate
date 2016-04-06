@@ -61,6 +61,7 @@ div.vis-ctl button {
 div#home h1#title {
   font-size: 5em;
   margin-bottom: 0.2em;
+  margin-top: 3%;
 }
 
 div#home ul#navigation {
