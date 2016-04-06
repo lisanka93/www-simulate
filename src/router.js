@@ -1,6 +1,8 @@
-const tour = require('./tour.js')
-const demo = require('./demo.js')
-const router = require('routes')()
+const tour = require('./pages/tour.js')
+const demo = require('./pages/demo.js')
+const home = require('./pages/home.js')
+const navigation = require('./components/navigation.js')
+
 const data = require('../data/topology_small.json')
 const data_big = require('../data/topology.json')
 const events_big = require('../data/events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(e => { e.type = e.event_type; return e }).reverse()
@@ -27,36 +29,42 @@ const events = [
 }
 ].reverse()
 
-var route_table = (h, store) => {
+var layout = (h, body) => {
+  return h`
+    <div>
+      <h1 id='title'>Simulate</h1>
+      ${ navigation(h) }
+      ${ body } 
+    </div> 
+  ` 
+}
+
+const router = require('routes')()
+
+const route_table = (h) => {
   return {
-    '/vis': s => {
-      return h`
-        <div>
-        ${ navigation(h) } 
-        ${ demo(h, events_big, data_big.nodes, data_big.edges) } 
-        </div> 
-      `
+    '/': s => {
+      return home(h)
+    }
+  , '/vis': s => {
+      var el = demo(h, events_big, data_big.nodes, data_big.edges)
+      return layout(h, el)
     }
   , '/wow': s => {
-      return h`
-        <div>
-        ${ navigation(h) } 
-        <h2>WOW!</h2>
-        </div> 
-      `
+      return layout(h, h`<h2>Wow!</h2>`)
     }
   , '/tour': s => {
-      return h`
-        <div>
-          ${ navigation(h) } 
-          ${ tour(h, events, data.nodes, data.edges) } 
-        </div>
-      `
+      var el = tour(h, events, data.nodes, data.edges)
+      return layout(h, el)
+    }
+  , '/error': s => {
+      var el = h`<div class='error'>Error: not found</div>`
+      return layout(h, el) 
     }
   }
 }
 
-module.exports = (h, store) => {
+var create_router = (h, store) => {
 
   var table = route_table(h, store)
   Object.keys(table).forEach(route => {
@@ -66,12 +74,4 @@ module.exports = (h, store) => {
   return router
 }
 
-function navigation(h) {
-  return h`
-    <ul id='navigation'>
-      <a href='/tour'><li>Tour</li></a>
-      <a href='/wow'><li>Wow</li></a>
-      <a href='/vis'><li>Vis</li></a>
-    </ul>
-  `
-}
+module.exports = create_router

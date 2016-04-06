@@ -1,6 +1,6 @@
 const draw = require('js-network-vis')
-const config = require('./config.js')
-const handlers = require('./handlers.js')
+const config = require('../config.js')
+const handlers = require('../handlers.js')
 
 module.exports = (h, events, nodes, edges) => {
 
@@ -24,7 +24,7 @@ module.exports = (h, events, nodes, edges) => {
   return h`
     <div>
       <div class='vis-ctl'>
-      <button onclick=${ start }>Start</button>
+        <button onclick=${ start }>Start</button>
       </div>
       <div id='vis'></div>
     </div>

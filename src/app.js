@@ -6,12 +6,12 @@ require('catch-links')(window, function (href) {
   store.dispatch({ type: 'change_path', path: href })
 })
 
-var app = render({ path: '/vis' })
+var app = render({ path: '/' })
 document.body.appendChild(app)
 
 function reducer (state, action) { 
   
-  if (!state) state = { path: '/vis' }
+  if (!state) state = { path: '/' }
   switch(action.type) {
   case 'change_path':
     state.path = action.path
@@ -26,15 +26,6 @@ store.subscribe(state => {
 
 function render(state) {
   var m = router.match(state.path)
-  if (!m) return layout(h`<div class='error'>Not Found</div>`)
-  else return layout(m.fn(state))
-}
-
-function layout(el) {
-
-  return h`
-    <div>
-      ${ el }  
-    </div>
-  `
+  if (!m) return router.match('/error').fn(state)
+  else return m.fn(state)
 }

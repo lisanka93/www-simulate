@@ -9,33 +9,34 @@ body {
 
 h1#title {
   text-align: center;  
+  font-size: 3em;
 }
 
 ul#navigation {
   padding: 0;
   display: flex;
-  width: 40%;
+  width: 50%;
   margin: auto;
   justify-content: space-between;
 }
 
-ul#navigation a {
-  text-decoration: none;
-  color: black;
-  width: 32%;
-}
-
 ul#navigation li {
   list-style: none;
-  text-align: center;
-  width: 100%;
   background-color: #FF1C1C;
-  padding: 1em;
-  margin-right: 2px;
+  border-radius: 2%;
+  margin-right: 2%;
 }
 
 ul#navigation li:hover {
   background-color: #ee0000
+}
+
+ul#navigation li a {
+  text-decoration: none;
+  padding: 1em 2em;
+  font-size: 1.5em;
+  color: black;
+  display: block;
 }
 
 div#vis {
@@ -55,4 +56,48 @@ div.vis-ctl button {
   border: none;
   padding: 1em;
   width: 45%;
+}
+
+div#home h1#title {
+  font-size: 5em;
+  margin-bottom: 0.2em;
+}
+
+div#home ul#navigation {
+  flex-direction: column;
+  float: left;
+  margin-left: 10%;
+}
+
+div#home ul#navigation li {
+  width: 15em;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+div#home ul#navigation li a {
+  font-weight: bold;
+  font-size: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+ul#navigation #description {
+  display: none;
+  position: absolute;
+  left: 40%;
+  top: 40%;
+ 
+  background-color: white;
+  width: 25%;
+  height: 25%;
+  padding: 1em;
+}
+
+div#home ul#navigation a:hover + #description {
+  display: initial;
+}
+
+.solid {
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
 }

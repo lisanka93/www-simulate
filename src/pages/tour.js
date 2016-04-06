@@ -1,6 +1,6 @@
 const draw = require('js-network-vis')
-const config = require('./config.js')
-const handlers = require('./handlers.js')
+const config = require('../config.js')
+const handlers = require('../handlers.js')
 
 module.exports = (h, events, nodes, edges) => {
 

@@ -13106,11 +13106,6 @@ module.exports = [
 },{}],23:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['<div class=\'error\'>Not Found</div>'], ['<div class=\'error\'>Not Found</div>']),
-    _templateObject2 = _taggedTemplateLiteral(['\n    <div>\n      ', '  \n    </div>\n  '], ['\n    <div>\n      ', '  \n    </div>\n  ']);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
 var h = require('yo-yo');
 var store = require('./store.js')(reducer);
 var router = require('./router.js')(h, store);
@@ -13119,12 +13114,12 @@ require('catch-links')(window, function (href) {
   store.dispatch({ type: 'change_path', path: href });
 });
 
-var app = render({ path: '/vis' });
+var app = render({ path: '/' });
 document.body.appendChild(app);
 
 function reducer(state, action) {
 
-  if (!state) state = { path: '/vis' };
+  if (!state) state = { path: '/' };
   switch (action.type) {
     case 'change_path':
       state.path = action.path;
@@ -13139,15 +13134,31 @@ store.subscribe(function (state) {
 
 function render(state) {
   var m = router.match(state.path);
-  if (!m) return layout(h(_templateObject));else return layout(m.fn(state));
+  if (!m) return router.match('/error').fn(state);else return m.fn(state);
 }
 
-function layout(el) {
+},{"./router.js":32,"./store.js":33,"catch-links":6,"yo-yo":21}],24:[function(require,module,exports){
+'use strict';
 
-  return h(_templateObject2, el);
-}
+var _templateObject = _taggedTemplateLiteral(['\n      <li class=\'solid\'>\n        <a href=', '>', '</a>\n        <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div></li>\n    '], ['\n      <li class=\'solid\'>\n        <a href=', '>', '</a>\n        <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div></li>\n    ']),
+    _templateObject2 = _taggedTemplateLiteral(['\n    <ul id=\'navigation\'>\n      ', '\n    </ul>\n  '], ['\n    <ul id=\'navigation\'>\n      ', '\n    </ul>\n  ']);
 
-},{"./router.js":28,"./store.js":29,"catch-links":6,"yo-yo":21}],24:[function(require,module,exports){
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var routes = require('../route_config.js');
+
+var list_item = function list_item(route) {};
+
+module.exports = function (h) {
+
+  var els = Object.keys(routes).map(function (r) {
+    return h(_templateObject, r, routes[r].title, routes[r].title, routes[r].description);
+  });
+
+  return h(_templateObject2, els);
+};
+
+},{"../route_config.js":31}],25:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -13165,40 +13176,7 @@ module.exports = {
   }
 };
 
-},{}],25:[function(require,module,exports){
-'use strict';
-
-var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var draw = require('js-network-vis');
-var config = require('./config.js');
-var handlers = require('./handlers.js');
-
-module.exports = function (h, events, nodes, edges) {
-
-  var network;
-
-  var start = function start() {
-    network = draw(nodes, edges, config);
-    Object.keys(handlers).forEach(function (h) {
-      network.event(h, handlers[h]);
-    });
-    setInterval(update, 500);
-  };
-
-  var update = function update() {
-    var ev = events.pop();
-    console.log('ev', ev);
-    if (!ev) return;
-    network.update(ev);
-  };
-
-  return h(_templateObject, start);
-};
-
-},{"./config.js":24,"./handlers.js":27,"js-network-vis":11}],26:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -13337,16 +13315,118 @@ module.exports = {
 },{}],28:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n        <div>\n        ', ' \n        ', ' \n        </div> \n      '], ['\n        <div>\n        ', ' \n        ', ' \n        </div> \n      ']),
-    _templateObject2 = _taggedTemplateLiteral(['\n        <div>\n        ', ' \n        <h2>WOW!</h2>\n        </div> \n      '], ['\n        <div>\n        ', ' \n        <h2>WOW!</h2>\n        </div> \n      ']),
-    _templateObject3 = _taggedTemplateLiteral(['\n        <div>\n          ', ' \n          ', ' \n        </div>\n      '], ['\n        <div>\n          ', ' \n          ', ' \n        </div>\n      ']),
-    _templateObject4 = _taggedTemplateLiteral(['\n    <ul id=\'navigation\'>\n      <a href=\'/tour\'><li>Tour</li></a>\n      <a href=\'/wow\'><li>Wow</li></a>\n      <a href=\'/vis\'><li>Vis</li></a>\n    </ul>\n  '], ['\n    <ul id=\'navigation\'>\n      <a href=\'/tour\'><li>Tour</li></a>\n      <a href=\'/wow\'><li>Wow</li></a>\n      <a href=\'/vis\'><li>Vis</li></a>\n    </ul>\n  ']);
+var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var _tour = require('./tour.js');
-var demo = require('./demo.js');
-var router = require('routes')();
+var draw = require('js-network-vis');
+var config = require('../config.js');
+var handlers = require('../handlers.js');
+
+module.exports = function (h, events, nodes, edges) {
+
+  var network;
+
+  var start = function start() {
+    network = draw(nodes, edges, config);
+    Object.keys(handlers).forEach(function (h) {
+      network.event(h, handlers[h]);
+    });
+    setInterval(update, 500);
+  };
+
+  var update = function update() {
+    var ev = events.pop();
+    console.log('ev', ev);
+    if (!ev) return;
+    network.update(ev);
+  };
+
+  return h(_templateObject, start);
+};
+
+},{"../config.js":25,"../handlers.js":27,"js-network-vis":11}],29:[function(require,module,exports){
+'use strict';
+
+var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'home\'>\n      <h1 id=\'title\'>Simulate</h1>\n      ', '\n    </div>\n  '], ['\n    <div id=\'home\'>\n      <h1 id=\'title\'>Simulate</h1>\n      ', '\n    </div>\n  ']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var nav = require('../components/navigation.js');
+console.log(nav);
+module.exports = function (h) {
+
+  return h(_templateObject, nav(h));
+};
+
+},{"../components/navigation.js":24}],30:[function(require,module,exports){
+'use strict';
+
+var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var draw = require('js-network-vis');
+var config = require('../config.js');
+var handlers = require('../handlers.js');
+
+module.exports = function (h, events, nodes, edges) {
+
+  var network;
+
+  var start = function start() {
+    network = draw(nodes, edges, config);
+    Object.keys(handlers).forEach(function (h) {
+      network.event(h, handlers[h]);
+    });
+  };
+
+  var update = function update() {
+    var ev = events.pop();
+    console.log('ev', ev);
+    if (!ev) return;
+    network.update(ev);
+  };
+
+  return h(_templateObject, start, update, '>');
+};
+
+},{"../config.js":25,"../handlers.js":27,"js-network-vis":11}],31:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+  '/': {
+    title: 'Home',
+    description: 'Go back home'
+  },
+  '/tour': {
+    title: 'Tour',
+    description: 'Have a tour of the algorithm'
+  },
+  '/demo': {
+    title: 'Demo',
+    description: 'View a simulation of the algorithm'
+  },
+  '/wow': {
+    title: 'Wow',
+    description: 'Wow, just wow!'
+  }
+};
+
+},{}],32:[function(require,module,exports){
+'use strict';
+
+var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <h1 id=\'title\'>Simulate</h1>\n      ', '\n      ', ' \n    </div> \n  '], ['\n    <div>\n      <h1 id=\'title\'>Simulate</h1>\n      ', '\n      ', ' \n    </div> \n  ']),
+    _templateObject2 = _taggedTemplateLiteral(['<h2>Wow!</h2>'], ['<h2>Wow!</h2>']),
+    _templateObject3 = _taggedTemplateLiteral(['<div class=\'error\'>Error: not found</div>'], ['<div class=\'error\'>Error: not found</div>']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var _tour = require('./pages/tour.js');
+var demo = require('./pages/demo.js');
+var home = require('./pages/home.js');
+var navigation = require('./components/navigation.js');
+
 var data = require('../data/topology_small.json');
 var data_big = require('../data/topology.json');
 var events_big = require('../data/events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(function (e) {
@@ -13370,21 +13450,36 @@ var events = [{
   from_node: data.nodes[2].name
 }].reverse();
 
-var route_table = function route_table(h, store) {
+var layout = function layout(h, body) {
+  return h(_templateObject, navigation(h), body);
+};
+
+var router = require('routes')();
+
+var route_table = function route_table(h) {
   return {
+    '/': function _(s) {
+      return home(h);
+    },
     '/vis': function vis(s) {
-      return h(_templateObject, navigation(h), demo(h, events_big, data_big.nodes, data_big.edges));
+      var el = demo(h, events_big, data_big.nodes, data_big.edges);
+      return layout(h, el);
     },
     '/wow': function wow(s) {
-      return h(_templateObject2, navigation(h));
+      return layout(h, h(_templateObject2));
     },
     '/tour': function tour(s) {
-      return h(_templateObject3, navigation(h), _tour(h, events, data.nodes, data.edges));
+      var el = _tour(h, events, data.nodes, data.edges);
+      return layout(h, el);
+    },
+    '/error': function error(s) {
+      var el = h(_templateObject3);
+      return layout(h, el);
     }
   };
 };
 
-module.exports = function (h, store) {
+var create_router = function create_router(h, store) {
 
   var table = route_table(h, store);
   Object.keys(table).forEach(function (route) {
@@ -13394,11 +13489,9 @@ module.exports = function (h, store) {
   return router;
 };
 
-function navigation(h) {
-  return h(_templateObject4);
-}
+module.exports = create_router;
 
-},{"../data/events_big.json":1,"../data/topology.json":2,"../data/topology_small.json":3,"./demo.js":25,"./tour.js":30,"routes":18}],29:[function(require,module,exports){
+},{"../data/events_big.json":1,"../data/topology.json":2,"../data/topology_small.json":3,"./components/navigation.js":24,"./pages/demo.js":28,"./pages/home.js":29,"./pages/tour.js":30,"routes":18}],33:[function(require,module,exports){
 'use strict';
 
 var hub = require('./events.js')();
@@ -13429,36 +13522,4 @@ module.exports = function (reducer) {
   };
 };
 
-},{"./events.js":26}],30:[function(require,module,exports){
-'use strict';
-
-var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n      <button onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var draw = require('js-network-vis');
-var config = require('./config.js');
-var handlers = require('./handlers.js');
-
-module.exports = function (h, events, nodes, edges) {
-
-  var network;
-
-  var start = function start() {
-    network = draw(nodes, edges, config);
-    Object.keys(handlers).forEach(function (h) {
-      network.event(h, handlers[h]);
-    });
-  };
-
-  var update = function update() {
-    var ev = events.pop();
-    console.log('ev', ev);
-    if (!ev) return;
-    network.update(ev);
-  };
-
-  return h(_templateObject, start, update, '>');
-};
-
-},{"./config.js":24,"./handlers.js":27,"js-network-vis":11}]},{},[23]);
+},{"./events.js":26}]},{},[23]);
