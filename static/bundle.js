@@ -15176,7 +15176,7 @@ module.exports = {
 },{}],33:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
+var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button id=\'start\' onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button id=\'start\' onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -15187,13 +15187,16 @@ var handlers = require('../handlers.js');
 
 module.exports = function (h, events, nodes, edges) {
 
-  var network;
+  var network, event_queue;
 
   var start = function start() {
+    document.querySelector('#vis').innerHTML = '';
+    event_queue = clone(events);
     network = draw(clone(nodes), clone(edges), clone(config));
     Object.keys(handlers).forEach(function (h) {
       network.event(h, handlers[h]);
     });
+    document.querySelector('#start').innerText = 'Restart';
     setInterval(update, 500);
   };
 
@@ -15210,18 +15213,50 @@ module.exports = function (h, events, nodes, edges) {
 },{"../config.js":30,"../handlers.js":32,"clone":10,"js-network-vis":16}],34:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'home\'>\n      <h1 id=\'title\'>Simulate</h1>\n      ', '\n    </div>\n  '], ['\n    <div id=\'home\'>\n      <h1 id=\'title\'>Simulate</h1>\n      ', '\n    </div>\n  ']);
+var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'home\'>\n      <h1 onload=', ' id=\'title\'>Simulate</h1>\n      ', '\n      \n      <div class=\'overlay\'></div>\n      <div id=\'background\'></div>\n    </div>\n  '], ['\n    <div id=\'home\'>\n      <h1 onload=', ' id=\'title\'>Simulate</h1>\n      ', '\n      \n      <div class=\'overlay\'></div>\n      <div id=\'background\'></div>\n    </div>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var nav = require('../components/navigation.js');
+var data = require('../../data/tour.json').topology;
+var draw = require('js-network-vis');
+var clone = require('clone');
+var config = require('../config.js');
 
 module.exports = function (h, store) {
 
-  return h(_templateObject, nav(h, store));
+  var conf = clone(config);
+
+  var load = function load() {
+    var el = document.querySelector('#background');
+    var network;
+    if (!el) {
+      setTimeout(load, 200);
+    } else {
+      conf.element = '#background';
+      conf.linkDistance = '300';
+      conf.height = '500';
+      conf.width = '1000';
+      conf.charge = '-300';
+      conf.node_size = '30';
+      network = draw(clone(data.nodes), clone(data.edges), conf);
+      network.event('add', function (ev, nodes, edges) {
+        ev.nodes.forEach(function (node) {
+          nodes.push(node);
+        });
+        ev.edges.push(function (edge) {
+          edges.push(edge);
+        });
+      });
+    }
+  };
+
+  load();
+
+  return h(_templateObject, load, nav(h, store));
 };
 
-},{"../components/navigation.js":29}],35:[function(require,module,exports){
+},{"../../data/tour.json":3,"../components/navigation.js":29,"../config.js":30,"clone":10,"js-network-vis":16}],35:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
@@ -15236,18 +15271,20 @@ var handlers = require('../handlers.js');
 
 module.exports = function (h, events, nodes, edges) {
 
-  var network;
+  var event_queue, network;
 
   var start = function start() {
-    if (network) return;
+    document.querySelector('#vis').innerHTML = '';
+    event_queue = clone(events);
     network = draw(clone(nodes), clone(edges), clone(config));
     Object.keys(handlers).forEach(function (h) {
       network.event(h, handlers[h]);
     });
+    document.querySelector('#start').innerText = 'Restart';
   };
 
   var update = function update() {
-    var ev = events.pop();
+    var ev = event_queue.pop();
     if (!ev) return;
     network.update(ev);
   };
@@ -15280,7 +15317,7 @@ module.exports = {
 },{}],37:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <h1 id=\'title\'>Simulate</h1>\n      ', '\n      ', ' \n    </div> \n  '], ['\n    <div>\n      <h1 id=\'title\'>Simulate</h1>\n      ', '\n      ', ' \n    </div> \n  ']),
+var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      ', '\n      ', ' \n    </div> \n  '], ['\n    <div>\n      ', '\n      ', ' \n    </div> \n  ']),
     _templateObject2 = _taggedTemplateLiteral(['<h2>Wow!</h2>'], ['<h2>Wow!</h2>']),
     _templateObject3 = _taggedTemplateLiteral(['<div class=\'error\'>Error: not found</div>'], ['<div class=\'error\'>Error: not found</div>']);
 

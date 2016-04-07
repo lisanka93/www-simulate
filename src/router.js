@@ -12,7 +12,6 @@ const router = require('routes')()
 var layout = (h, store, body) => {
   return h`
     <div>
-      <h1 id='title'>Simulate</h1>
       ${ navigation(h, store) }
       ${ body } 
     </div> 
