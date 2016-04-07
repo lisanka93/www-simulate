@@ -1,4 +1,5 @@
 const draw = require('js-network-vis')
+const clone = require('clone')
 const config = require('../config.js')
 const handlers = require('../handlers.js')
 
@@ -7,7 +8,7 @@ module.exports = (h, events, nodes, edges) => {
   var network
 
   var start = () => {
-    network = draw(nodes, edges, config)
+    network = draw(clone(nodes), clone(edges), clone(config))
     Object.keys(handlers).forEach(h => {
       network.event(h, handlers[h]) 
     })

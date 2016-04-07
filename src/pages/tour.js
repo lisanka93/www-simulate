@@ -1,13 +1,16 @@
+const clone = require('clone')
 const draw = require('js-network-vis')
+
 const config = require('../config.js')
 const handlers = require('../handlers.js')
 
 module.exports = (h, events, nodes, edges) => {
 
   var network
-
+  
   var start = () => {
-    network = draw(nodes, edges, config)
+    if (network) return
+    network = draw(clone(nodes), clone(edges), clone(config))
     Object.keys(handlers).forEach(h => {
       network.event(h, handlers[h]) 
     }) 
@@ -15,15 +18,14 @@ module.exports = (h, events, nodes, edges) => {
 
   var update = () => {
     var ev = events.pop()
-    console.log('ev', ev)
     if (!ev) return
     network.update(ev)
   }
   
   return h`
-    <div>
+    <div id='tour'>
       <div class='vis-ctl'>
-      <button onclick=${ start }>Start</button>
+      <button id='start' onclick=${ start }>Start</button>
       <button onclick=${ update }>Update ${'>'}</button>
       </div>
       <div id='vis'></div>
