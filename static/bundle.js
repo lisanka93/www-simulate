@@ -14628,7 +14628,12 @@ module.exports = {
 },{}],32:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button id=\'start\' onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button id=\'start\' onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
+var _templateObject = _taggedTemplateLiteral(['<li>\n        <h4>', '</h4>\n        <ul id=', '>\n       \n          ', '\n        \n        </ul>\n      </li>'], ['<li>\n        <h4>', '</h4>\n        <ul id=', '>\n       \n          ', '\n        \n        </ul>\n      </li>']),
+    _templateObject2 = _taggedTemplateLiteral(['<li>', '. ID: ', '</li>'], ['<li>', '. ID: ', '</li>']),
+    _templateObject3 = _taggedTemplateLiteral([''], ['']),
+    _templateObject4 = _taggedTemplateLiteral(['<div id=\'node_data\'>\n        <ul>\n          ', '  \n          ', '  \n          ', '  \n        </ul>\n      </div>'], ['<div id=\'node_data\'>\n        <ul>\n          ', '  \n          ', '  \n          ', '  \n        </ul>\n      </div>']),
+    _templateObject5 = _taggedTemplateLiteral(['<div></div>'], ['<div></div>']),
+    _templateObject6 = _taggedTemplateLiteral(['\n    <div id=\'demo\'>\n      <div class=\'vis-ctl\'>\n        <button id=\'start\' onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div id=\'demo\'>\n      <div class=\'vis-ctl\'>\n        <button id=\'start\' onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -14639,17 +14644,51 @@ var handlers = require('../handlers.js');
 
 module.exports = function (h, events, nodes, edges) {
 
-  var network, event_queue;
+  var network, event_queue, node_data;
 
   var start = function start() {
-    document.querySelector('#vis').innerHTML = '';
+    var container = document.querySelector('#vis');
+    container.innerHTML = '';
     event_queue = clone(events);
     network = draw(clone(nodes), clone(edges), clone(config));
+    node_data = draw_node_data();
+    network.nodes.on('mouseover', function (d) {
+      h.update(node_data, draw_node_data(d));
+    });
+    network.nodes.on('mouseout', function (d) {
+      h.update(node_data, draw_node_data());
+    });
     Object.keys(handlers).forEach(function (h) {
       network.event(h, handlers[h]);
     });
     document.querySelector('#start').innerText = 'Restart';
+    document.querySelector('#demo').insertBefore(node_data, container);
     setInterval(update, 500);
+  };
+
+  var draw_section = function draw_section(d, section) {
+
+    var title = '';
+    if (section.length > 0) {
+      title += section[0].toUpperCase();
+      title += section.slice(1);
+    }
+
+    if (d[section].length > 0) {
+      return h(_templateObject, title, section, d[section].map(function (s, i) {
+        return h(_templateObject2, i + 1, s.id);
+      }));
+    }
+    return h(_templateObject3);
+  };
+
+  var draw_node_data = function draw_node_data(d) {
+    if (d && ['cache', 'requests', 'content'].some(function (s) {
+      return d[s].length;
+    })) {
+      return h(_templateObject4, draw_section(d, 'cache'), draw_section(d, 'requests'), draw_section(d, 'content'));
+    }
+    return h(_templateObject5);
   };
 
   var update = function update() {
@@ -14661,7 +14700,7 @@ module.exports = function (h, events, nodes, edges) {
     network.update(ev);
   };
 
-  return h(_templateObject, start);
+  return h(_templateObject6, start);
 };
 
 },{"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],33:[function(require,module,exports){
@@ -14715,7 +14754,11 @@ module.exports = function (h, store) {
 
 var _templateObject = _taggedTemplateLiteral(['<div id=\'caption\'><p>', '</p></div>'], ['<div id=\'caption\'><p>', '</p></div>']),
     _templateObject2 = _taggedTemplateLiteral(['<div></div>'], ['<div></div>']),
-    _templateObject3 = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n      ', '\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n      ', '\n    </div>\n  ']);
+    _templateObject3 = _taggedTemplateLiteral(['<li>\n        <h4>', '</h4>\n        <ul id=', '>\n       \n          ', '\n        \n        </ul>\n      </li>'], ['<li>\n        <h4>', '</h4>\n        <ul id=', '>\n       \n          ', '\n        \n        </ul>\n      </li>']),
+    _templateObject4 = _taggedTemplateLiteral(['<li>', '. ID: ', '</li>'], ['<li>', '. ID: ', '</li>']),
+    _templateObject5 = _taggedTemplateLiteral([''], ['']),
+    _templateObject6 = _taggedTemplateLiteral(['<div id=\'node_data\'>\n        <ul>\n          ', '  \n          ', '  \n          ', '  \n        </ul>\n      </div>'], ['<div id=\'node_data\'>\n        <ul>\n          ', '  \n          ', '  \n          ', '  \n        </ul>\n      </div>']),
+    _templateObject7 = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Next ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n      ', '\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Next ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n      ', '\n    </div>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -14729,19 +14772,28 @@ var stages = ["A request is generated!", "The request is passed on", "and again"
 
 module.exports = function (h, events, nodes, edges) {
 
-  var event_queue, network, msgs, el;
+  var event_queue, network, msgs, el, node_data;
 
   var start = function start() {
-    document.querySelector('#vis').innerHTML = '';
+    var container = document.querySelector('#vis');
+    container.innerHTML = '';
     event_queue = clone(events);
     msgs = clone(stages).reverse();
     network = draw(clone(nodes), clone(edges), clone(config));
+    node_data = draw_node_data();
+    network.nodes.on('mouseover', function (d) {
+      h.update(node_data, draw_node_data(d));
+    });
+    network.nodes.on('mouseout', function (d) {
+      h.update(node_data, draw_node_data());
+    });
     Object.keys(handlers).forEach(function (h) {
       network.event(h, handlers[h]);
     });
     document.querySelector('#start').innerText = 'Restart';
     el = draw_caption();
-    document.querySelector('#vis').appendChild(el);
+    document.querySelector('#tour').insertBefore(node_data, container);
+    container.appendChild(el);
   };
 
   var update = function update() {
@@ -14759,7 +14811,32 @@ module.exports = function (h, events, nodes, edges) {
     return h(_templateObject2);
   };
 
-  return h(_templateObject3, start, update, '>', el);
+  var draw_section = function draw_section(d, section) {
+
+    var title = '';
+    if (section.length > 0) {
+      title += section[0].toUpperCase();
+      title += section.slice(1);
+    }
+
+    if (d[section].length > 0) {
+      return h(_templateObject3, title, section, d[section].map(function (s, i) {
+        return h(_templateObject4, i + 1, s.id);
+      }));
+    }
+    return h(_templateObject5);
+  };
+
+  var draw_node_data = function draw_node_data(d) {
+    if (d && ['cache', 'requests', 'content'].some(function (s) {
+      return d[s].length;
+    })) {
+      return h(_templateObject6, draw_section(d, 'cache'), draw_section(d, 'requests'), draw_section(d, 'content'));
+    }
+    return h(_templateObject2);
+  };
+
+  return h(_templateObject7, start, update, '>', el);
 };
 
 },{"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],35:[function(require,module,exports){
