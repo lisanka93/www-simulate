@@ -4,27 +4,14 @@ const draw = require('js-network-vis')
 const config = require('../config.js')
 const handlers = require('../handlers.js')
 
-const stages = [
-  "A request is generated!"
-, "The request is passed on"
-, "and again"
-, "and again..."
-, "Server has been reached! Here comes content..."
-, "Back along the path it came"
-, "Node by node..."
-, "Until it's back where it started"
-, "Where it is consumed!"
-]
-
 module.exports = (h, events, nodes, edges) => {
 
-  var event_queue, network, msgs, el, node_data
+  var event_queue, network, caption, node_data
   
   var start = () => {
     var container = document.querySelector('#vis')
     container.innerHTML = ''
     event_queue = clone(events)
-    msgs = clone(stages).reverse()
     network = draw(clone(nodes), clone(edges), clone(config))
     node_data = draw_node_data()
     network.nodes.on('mouseover', d => {
@@ -35,24 +22,23 @@ module.exports = (h, events, nodes, edges) => {
     })
     network.nodes.on('click', d => {
       if (d && ['cache','requests','content'].some(s => d[s].length)) {
-        network.update(event_queue.pop())
+         
       }
     })
     Object.keys(handlers).forEach(h => {
       network.event(h, handlers[h]) 
     })
     document.querySelector('#start').innerText = 'Restart'
-    el = draw_caption()
+    caption = draw_caption()
     document.querySelector('#tour').insertBefore(node_data, container)
-    container.appendChild(el)
+    container.appendChild(caption)
   }
   
   var update = () => {
     var ev = event_queue.pop()
-    var msg = msgs.pop()
     if (!ev) return
     network.update(ev)
-    h.update(el, draw_caption(msg))
+    h.update(caption, draw_caption(ev.caption))
   }
  
   var draw_caption = m => {
@@ -106,7 +92,6 @@ module.exports = (h, events, nodes, edges) => {
       <button onclick=${ update }>Next ${'>'}</button>
       </div>
       <div id='vis'></div>
-      ${el}
     </div>
   `
 }

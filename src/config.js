@@ -1,3 +1,5 @@
+// config passed to js-network-vis for configuring visualization details
+
 var get_random_component = function (min, max) {
   var letters = '0123456789abcdef'.split('')
   letters = letters.slice(min, max)
