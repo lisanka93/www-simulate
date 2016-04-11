@@ -5,53 +5,48 @@ module.exports={
   "topology": {
     "edges": [
       {
+        "source": 0, 
+        "target": 1, 
+        "value": 1
+      }, 
+      {
         "source": 1, 
         "target": 2, 
         "value": 1
       }, 
       {
         "source": 2, 
-        "target": 0, 
+        "target": 3, 
         "value": 1
       }, 
       {
-        "source": 0, 
-        "target": 7, 
+        "source": 3, 
+        "target": 4, 
         "value": 1
       }, 
       {
-        "source": 7, 
+        "source": 4, 
+        "target": 5, 
+        "value": 1
+      }, 
+      {
+        "source": 5, 
         "target": 6, 
         "value": 1
       }, 
       {
         "source": 3, 
-        "target": 6, 
-        "value": 1
-      }, 
-      {
-        "source": 2, 
-        "target": 7, 
-        "value": 1
-      }, 
-      {
-        "source": 2, 
-        "target": 1, 
-        "value": 1
-      }, 
-      {
-        "source": 4, 
         "target": 7, 
         "value": 1
       },
       {
-        "source": 5, 
-        "target": 7, 
+        "source": 3, 
+        "target": 8, 
         "value": 1
       },
       {
-        "source": 5, 
-        "target": 4, 
+        "source": 8,
+        "target": 9, 
         "value": 1
       }
     ], 
@@ -90,10 +85,20 @@ module.exports={
         "group": 6, 
         "name": "6", 
         "type": "receiver"
-      }, 
+      },
       {
         "group": 7, 
         "name": "7", 
+        "type": "receiver"
+      },
+      {
+        "group": 8, 
+        "name": "8", 
+        "type": "receiver"
+      },
+      {
+        "group": 9, 
+        "name": "9", 
         "type": "receiver"
       }
     ]
@@ -120,6 +125,34 @@ module.exports={
       "type": "request_hop",
       "to_node": "3",
       "from_node": "2",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "server_hit",
+      "node": "3",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "3",
+      "to_node": "2",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "2",
+      "to_node": "1",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "1",
+      "to_node": "0",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "request_complete",
+      "node": "0",
       "data_ID": "abcdefg"
     }
   ]
@@ -14620,7 +14653,10 @@ module.exports = function (h, events, nodes, edges) {
   };
 
   var update = function update() {
-    var ev = events.pop();
+    var ev = event_queue.pop();
+    while (!handlers[ev.type] && event_queue.length > 0) {
+      ev = event_queue.pop();
+    }
     if (!ev) return;
     network.update(ev);
   };
@@ -14677,7 +14713,9 @@ module.exports = function (h, store) {
 },{"../../data/tour.json":2,"../components/navigation.js":28,"../config.js":29,"clone":9,"js-network-vis":15}],34:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
+var _templateObject = _taggedTemplateLiteral(['<div id=\'caption\'><p>', '</p></div>'], ['<div id=\'caption\'><p>', '</p></div>']),
+    _templateObject2 = _taggedTemplateLiteral(['<div></div>'], ['<div></div>']),
+    _templateObject3 = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n      ', '\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n      ', '\n    </div>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -14687,27 +14725,41 @@ var draw = require('js-network-vis');
 var config = require('../config.js');
 var handlers = require('../handlers.js');
 
+var stages = ["A request is generated!", "The request is passed on", "and again", "and again...", "Server has been reached! Here comes content...", "Back along the path it came", "Node by node...", "Until it's back where it started", "Where it is consumed!"];
+
 module.exports = function (h, events, nodes, edges) {
 
-  var event_queue, network;
+  var event_queue, network, msgs, el;
 
   var start = function start() {
     document.querySelector('#vis').innerHTML = '';
     event_queue = clone(events);
+    msgs = clone(stages).reverse();
     network = draw(clone(nodes), clone(edges), clone(config));
     Object.keys(handlers).forEach(function (h) {
       network.event(h, handlers[h]);
     });
     document.querySelector('#start').innerText = 'Restart';
+    el = draw_caption();
+    document.querySelector('#vis').appendChild(el);
   };
 
   var update = function update() {
     var ev = event_queue.pop();
+    var msg = msgs.pop();
     if (!ev) return;
     network.update(ev);
+    h.update(el, draw_caption(msg));
   };
 
-  return h(_templateObject, start, update, '>');
+  var draw_caption = function draw_caption(m) {
+    if (m) {
+      return h(_templateObject, m);
+    }
+    return h(_templateObject2);
+  };
+
+  return h(_templateObject3, start, update, '>', el);
 };
 
 },{"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],35:[function(require,module,exports){

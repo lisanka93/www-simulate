@@ -122,6 +122,19 @@ div.overlay {
   background-color: rgba(240,240,240,0.6);
 }
 
+div#caption {
+  background-color: #ff8c8c;
+  
+  text-align: center;
+  
+  position: relative;
+  bottom: 7em;
+  margin: 0 auto;
+  padding: 1em;
+  min-width: 10em;
+  max-width: 20em;
+}
+
 .edge {
   stroke: black;
   stroke-width: 10;
