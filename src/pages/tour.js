@@ -33,6 +33,11 @@ module.exports = (h, events, nodes, edges) => {
     network.nodes.on('mouseout', d => {
       h.update(node_data, draw_node_data())
     })
+    network.nodes.on('click', d => {
+      if (d && ['cache','requests','content'].some(s => d[s].length)) {
+        network.update(event_queue.pop())
+      }
+    })
     Object.keys(handlers).forEach(h => {
       network.event(h, handlers[h]) 
     })
