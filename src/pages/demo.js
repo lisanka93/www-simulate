@@ -20,7 +20,6 @@ module.exports = (h, events, nodes, edges) => {
 
   var update = () => {
     var ev = events.pop()
-    console.log('ev', ev)
     if (!ev) return
     network.update(ev)
   }

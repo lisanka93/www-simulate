@@ -16,10 +16,11 @@ module.exports = {
     var dst = nodes.filter(n => { return n.name.toString() === ev.to_node.toString() })[0]
     
     if (!src || !dst) { return }
-    
+     
     src.requests = src.requests.filter(function (r) {
-      return r.id !== ev.data_ID
+      return r.id.toString() !== ev.data_ID.toString()
     })
+    
     dst.requests.push({
       id: ev.data_ID
     , loc: ev.to_node
@@ -93,12 +94,23 @@ module.exports = {
     if (!src || !dst) { return }
     
     src.content = src.content.filter(n => {
-      return n.id !== ev.data_ID
+      return n.id.toString() !== ev.data_ID.toString()
     })
     
     dst.content.push({
       id: ev.data_ID
     , loc: ev.to_node
     })
+  }
+, 'request_complete': (ev, nodes, edges) => {
+    
+    var node = nodes.filter(n => { 
+      return n.name.toString() === ev.node.toString() 
+    })[0]
+    if (!node) return
+    
+    node.content = node.content.filter(n => {
+      return n.id !== ev.data_ID 
+    }) 
   }
 }

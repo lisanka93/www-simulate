@@ -3,10 +3,11 @@ const demo = require('./pages/demo.js')
 const home = require('./pages/home.js')
 const navigation = require('./components/navigation.js')
 
-const data_big = require('../data/topology.json')
-const events_big = require('../data/events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(e => { e.type = e.event_type; return e }).reverse()
-
+const demo_data = require('../data/demo.json')
 const tour_data = require('../data/tour.json')
+
+console.log(demo_data.events.filter(n => n.type === 'cache_remove'))
+
 const router = require('routes')()
 
 var layout = (h, store, body) => {
@@ -24,7 +25,7 @@ const route_table = (h, store) => {
       return home(h, store)
     }
   , '/demo': s => {
-      var el = demo(h, events_big, data_big.nodes, data_big.edges)
+      var el = demo(h, demo_data.events.reverse(), demo_data.topology.nodes, demo_data.topology.edges)
       return layout(h, store, el)
     }
   , '/wow': s => {
