@@ -1,651 +1,14 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports={"py/object": "icarus.results.readwrite.ResultSet", "attr": {}, "_results": {"py/object": "collections.deque", "__reduce__": [{"py/type": "collections.deque"}, {"py/tuple": [[{"py/tuple": [{"py/object": "icarus.util.Tree", "workload": {"py/object": "icarus.util.Tree", "n_contents": 10, "name": "STATIONARY", "default_factory": {"py/type": "icarus.util.Tree"}, "n_warmup": 100, "rate": 12.0, "n_measured": 10, "alpha": 0.6}, "cache_policy": {"py/object": "icarus.util.Tree", "name": "LRU", "default_factory": {"py/type": "icarus.util.Tree"}}, "default_factory": {"py/type": "icarus.util.Tree"}, "strategy": {"py/object": "icarus.util.Tree", "name": "LCE", "default_factory": {"py/type": "icarus.util.Tree"}}, "content_placement": {"py/object": "icarus.util.Tree", "name": "UNIFORM", "default_factory": {"py/type": "icarus.util.Tree"}}, "cache_placement": {"py/object": "icarus.util.Tree", "network_cache": 0.05, "name": "UNIFORM", "default_factory": {"py/type": "icarus.util.Tree"}}, "topology": {"py/object": "icarus.util.Tree", "name": "SIX_NODE", "default_factory": {"py/type": "icarus.util.Tree"}}, "desc": "Alpha: 0.6, strategy: LCE, topology: SIX_NODE, network cache: 0.05"}, {"py/object": "icarus.util.Tree", "default_factory": {"py/type": "icarus.util.Tree"}, "EVENT_TIMELINE": {"py/object": "icarus.util.Tree", "CONTENT_STARTING_LOCATIONS": {"py/object": "icarus.util.Tree", "10": {"py/set": [1002]}, "default_factory": {"py/type": "icarus.util.Tree"}, "1": {"py/set": [1002]}, "3": {"py/set": [0, 2, 3, 1003]}, "2": {"py/set": [1003]}, "5": {"py/set": [1003]}, "4": {"py/set": [1002]}, "7": {"py/set": [1002]}, "6": {"py/set": [1003]}, "9": {"py/set": [1002]}, "8": {"py/set": [1002]}}, "default_factory": {"py/type": "icarus.util.Tree"}, "CONTENT_ENDING_LOCATIONS": {"py/object": "icarus.util.Tree", "10": {"py/set": [1002]}, "default_factory": {"py/type": "icarus.util.Tree"}, "1": {"py/set": [1002]}, "3": {"py/set": [0, 3, 1003]}, "2": {"py/set": [1003]}, "5": {"py/set": [1003]}, "4": {"py/set": [1002]}, "7": {"py/set": [1002]}, "6": {"py/set": [1003]}, "9": {"py/set": [1002]}, "8": {"py/set": [2, 1002]}}, "TIMELINE": [{"timestamp": 8.559745336605136, "event_type": "request", "from_node": 6, "data_ID": 4}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 4}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 4}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 4}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 4}, {"node": 1002, "event_type": "server_hit", "data_ID": 4}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 4}, {"node": 2, "event_type": "cache_content", "data_ID": 4}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 4}, {"node": 6, "event_type": "request_complete", "data_ID": 4}, {"timestamp": 8.703187893231876, "event_type": "request", "from_node": 6, "data_ID": 1}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 1}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 1}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 1}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 1}, {"node": 1002, "event_type": "server_hit", "data_ID": 1}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 1}, {"node": 2, "event_type": "cache_content", "data_ID": 1}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 1}, {"node": 6, "event_type": "request_complete", "data_ID": 1}, {"timestamp": 8.773598687249612, "event_type": "request", "from_node": 6, "data_ID": 8}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 8}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 8}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 8}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 8}, {"node": 1002, "event_type": "server_hit", "data_ID": 8}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 8}, {"node": 2, "event_type": "cache_content", "data_ID": 8}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 8}, {"node": 6, "event_type": "request_complete", "data_ID": 8}, {"timestamp": 8.869712056660473, "event_type": "request", "from_node": 4, "data_ID": 2}, {"to_node": 3, "event_type": "request_hop", "from_node": 4, "data_ID": 2}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 2}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 2}, {"to_node": 1003, "event_type": "request_hop", "from_node": 3, "data_ID": 2}, {"node": 1003, "event_type": "server_hit", "data_ID": 2}, {"to_node": 3, "event_type": "content_hop", "from_node": 1003, "data_ID": 2}, {"node": 3, "event_type": "cache_content", "data_ID": 2}, {"to_node": 4, "event_type": "content_hop", "from_node": 3, "data_ID": 2}, {"node": 4, "event_type": "request_complete", "data_ID": 2}, {"timestamp": 8.924012105161337, "event_type": "request", "from_node": 6, "data_ID": 2}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 2}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 2}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 2}, {"to_node": 0, "event_type": "request_hop", "from_node": 2, "data_ID": 2}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 2}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 2}, {"to_node": 3, "event_type": "request_hop", "from_node": 0, "data_ID": 2}, {"node": 3, "event_type": "cache_hit", "data_ID": 2}, {"to_node": 0, "event_type": "content_hop", "from_node": 3, "data_ID": 2}, {"node": 0, "event_type": "cache_content", "data_ID": 2}, {"to_node": 2, "event_type": "content_hop", "from_node": 0, "data_ID": 2}, {"node": 2, "event_type": "cache_content", "data_ID": 2}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 2}, {"node": 6, "event_type": "request_complete", "data_ID": 2}, {"timestamp": 8.966433639303808, "event_type": "request", "from_node": 1, "data_ID": 5}, {"to_node": 0, "event_type": "request_hop", "from_node": 1, "data_ID": 5}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 5}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 5}, {"to_node": 3, "event_type": "request_hop", "from_node": 0, "data_ID": 5}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 5}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 5}, {"to_node": 1003, "event_type": "request_hop", "from_node": 3, "data_ID": 5}, {"node": 1003, "event_type": "server_hit", "data_ID": 5}, {"to_node": 3, "event_type": "content_hop", "from_node": 1003, "data_ID": 5}, {"node": 3, "event_type": "cache_content", "data_ID": 5}, {"to_node": 0, "event_type": "content_hop", "from_node": 3, "data_ID": 5}, {"node": 0, "event_type": "cache_content", "data_ID": 5}, {"to_node": 1, "event_type": "content_hop", "from_node": 0, "data_ID": 5}, {"node": 1, "event_type": "request_complete", "data_ID": 5}, {"timestamp": 9.098968069930875, "event_type": "request", "from_node": 4, "data_ID": 3}, {"to_node": 3, "event_type": "request_hop", "from_node": 4, "data_ID": 3}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 3}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 3}, {"to_node": 1003, "event_type": "request_hop", "from_node": 3, "data_ID": 3}, {"node": 1003, "event_type": "server_hit", "data_ID": 3}, {"to_node": 3, "event_type": "content_hop", "from_node": 1003, "data_ID": 3}, {"node": 3, "event_type": "cache_content", "data_ID": 3}, {"to_node": 4, "event_type": "content_hop", "from_node": 3, "data_ID": 3}, {"node": 4, "event_type": "request_complete", "data_ID": 3}, {"timestamp": 9.11261891312862, "event_type": "request", "from_node": 4, "data_ID": 10}, {"to_node": 3, "event_type": "request_hop", "from_node": 4, "data_ID": 10}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 10}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 10}, {"to_node": 0, "event_type": "request_hop", "from_node": 3, "data_ID": 10}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 10}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 10}, {"to_node": 2, "event_type": "request_hop", "from_node": 0, "data_ID": 10}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 10}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 10}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 10}, {"node": 1002, "event_type": "server_hit", "data_ID": 10}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 10}, {"node": 2, "event_type": "cache_content", "data_ID": 10}, {"to_node": 0, "event_type": "content_hop", "from_node": 2, "data_ID": 10}, {"node": 0, "event_type": "cache_content", "data_ID": 10}, {"to_node": 3, "event_type": "content_hop", "from_node": 0, "data_ID": 10}, {"node": 3, "event_type": "cache_content", "data_ID": 10}, {"to_node": 4, "event_type": "content_hop", "from_node": 3, "data_ID": 10}, {"node": 4, "event_type": "request_complete", "data_ID": 10}, {"timestamp": 9.138979957457119, "event_type": "request", "from_node": 6, "data_ID": 3}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 3}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 3}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 3}, {"to_node": 0, "event_type": "request_hop", "from_node": 2, "data_ID": 3}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 3}, {"node": 0, "event_type": "cache_lookup_failed", "data_ID": 3}, {"to_node": 3, "event_type": "request_hop", "from_node": 0, "data_ID": 3}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 3}, {"node": 3, "event_type": "cache_lookup_failed", "data_ID": 3}, {"to_node": 1003, "event_type": "request_hop", "from_node": 3, "data_ID": 3}, {"node": 1003, "event_type": "server_hit", "data_ID": 3}, {"to_node": 3, "event_type": "content_hop", "from_node": 1003, "data_ID": 3}, {"node": 3, "event_type": "cache_content", "data_ID": 3}, {"to_node": 0, "event_type": "content_hop", "from_node": 3, "data_ID": 3}, {"node": 0, "event_type": "cache_content", "data_ID": 3}, {"to_node": 2, "event_type": "content_hop", "from_node": 0, "data_ID": 3}, {"node": 2, "event_type": "cache_content", "data_ID": 3}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 3}, {"node": 6, "event_type": "request_complete", "data_ID": 3}, {"timestamp": 9.213323595441837, "event_type": "request", "from_node": 6, "data_ID": 8}, {"to_node": 2, "event_type": "request_hop", "from_node": 6, "data_ID": 8}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 8}, {"node": 2, "event_type": "cache_lookup_failed", "data_ID": 8}, {"to_node": 1002, "event_type": "request_hop", "from_node": 2, "data_ID": 8}, {"node": 1002, "event_type": "server_hit", "data_ID": 8}, {"to_node": 2, "event_type": "content_hop", "from_node": 1002, "data_ID": 8}, {"node": 2, "event_type": "cache_content", "data_ID": 8}, {"to_node": 6, "event_type": "content_hop", "from_node": 2, "data_ID": 8}, {"node": 6, "event_type": "request_complete", "data_ID": 8}]}, "TOPOLOGY": {"py/object": "icarus.util.Tree", "default_factory": {"py/type": "icarus.util.Tree"}, "TOPOLOGY": {"py/object": "icarus.scenarios.topology.IcnTopology", "node": {"1": {"latitude": 50.85045, "stack": {"py/tuple": ["receiver", {}]}, "longitude": 4.34878, "label": "BE"}, "0": {"latitude": 52.37403, "stack": {"py/tuple": ["router", {"cache_size": 0}]}, "longitude": 4.88969, "label": "NL"}, "3": {"latitude": 52.41667, "stack": {"py/tuple": ["router", {"cache_size": 0}]}, "longitude": 16.96667, "label": "PL"}, "2": {"latitude": 55.67594, "stack": {"py/tuple": ["router", {"cache_size": 0}]}, "longitude": 12.56553, "label": "DK"}, "4": {"latitude": 50.11667, "stack": {"py/tuple": ["receiver", {}]}, "longitude": 8.68333, "label": "DE"}, "6": {"stack": {"py/tuple": ["receiver", {}]}}, "1003": {"stack": {"py/tuple": ["source", {"contents": {"py/set": [2, 3, 5, 6]}}]}}, "1002": {"stack": {"py/tuple": ["source", {"contents": {"py/set": [1, 4, 7, 8, 9, 10]}}]}}}, "graph": {"name": "", "distance_unit": "Km", "delay_unit": "ms", "capacity_unit": "bps", "icr_candidates": {"py/set": [0, 2, 3]}, "type": "topology_zoo", "link_bundling": false}, "edge_attr_dict_factory": {"py/type": "__builtin__.dict"}, "edge": {"1": {"0": {"delay": 2, "length": 173.4812691642008, "type": "internal", "weight": 1.0}}, "0": {"1": {"delay": 2, "length": 173.4812691642008, "type": "internal", "weight": 1.0}, "3": {"delay": 2, "length": 818.5098642869413, "type": "internal", "weight": 1.0}, "2": {"delay": 2, "length": 620.8666267549098, "type": "internal", "weight": 1.0}}, "3": {"0": {"delay": 2, "length": 818.5098642869413, "type": "internal", "weight": 1.0}, "1003": {"delay": 34, "type": "external", "weight": 1000.0}, "4": {"delay": 2, "type": "internal", "length": 630.0260556078289, "capacity": 2500000000.0, "weight": 1.0}}, "2": {"0": {"delay": 2, "length": 620.8666267549098, "type": "internal", "weight": 1.0}, "1002": {"delay": 34, "type": "external", "weight": 1000.0}, "6": {"delay": 2, "type": "internal", "weight": 1.0}}, "4": {"3": {"delay": 2, "type": "internal", "length": 630.0260556078289, "capacity": 2500000000.0, "weight": 1.0}}, "6": {"2": {"delay": 2, "type": "internal", "weight": 1.0}}, "1003": {"3": {"delay": 34, "type": "external", "weight": 1000.0}}, "1002": {"2": {"delay": 34, "type": "external", "weight": 1000.0}}}, "node_dict_factory": {"py/type": "__builtin__.dict"}, "adjlist_dict_factory": {"py/type": "__builtin__.dict"}, "adj": {"1": {"0": {"delay": 2, "length": 173.4812691642008, "type": "internal", "weight": 1.0}}, "0": {"1": {"delay": 2, "length": 173.4812691642008, "type": "internal", "weight": 1.0}, "3": {"delay": 2, "length": 818.5098642869413, "type": "internal", "weight": 1.0}, "2": {"delay": 2, "length": 620.8666267549098, "type": "internal", "weight": 1.0}}, "3": {"0": {"delay": 2, "length": 818.5098642869413, "type": "internal", "weight": 1.0}, "1003": {"delay": 34, "type": "external", "weight": 1000.0}, "4": {"delay": 2, "type": "internal", "length": 630.0260556078289, "capacity": 2500000000.0, "weight": 1.0}}, "2": {"0": {"delay": 2, "length": 620.8666267549098, "type": "internal", "weight": 1.0}, "1002": {"delay": 34, "type": "external", "weight": 1000.0}, "6": {"delay": 2, "type": "internal", "weight": 1.0}}, "4": {"3": {"delay": 2, "type": "internal", "length": 630.0260556078289, "capacity": 2500000000.0, "weight": 1.0}}, "6": {"2": {"delay": 2, "type": "internal", "weight": 1.0}}, "1003": {"3": {"delay": 34, "type": "external", "weight": 1000.0}}, "1002": {"2": {"delay": 34, "type": "external", "weight": 1000.0}}}}}}]}]]}]}}
+module.exports={"events":[{"timestamp":8.322086370054588,"event_type":"request","from_node":26,"data_ID":2,"type":"request"},{"to_node":22,"event_type":"request_hop","from_node":26,"data_ID":2,"type":"request_hop"},{"node":22,"event_type":"cache_lookup_failed","data_ID":2,"type":"cache_lookup_failed"},{"node":22,"event_type":"cache_lookup_failed","data_ID":2,"type":"cache_lookup_failed"},{"to_node":23,"event_type":"request_hop","from_node":22,"data_ID":2,"type":"request_hop"},{"node":23,"event_type":"cache_lookup_failed","data_ID":2,"type":"cache_lookup_failed"},{"node":23,"event_type":"cache_lookup_failed","data_ID":2,"type":"cache_lookup_failed"},{"to_node":5,"event_type":"request_hop","from_node":23,"data_ID":2,"type":"request_hop"},{"node":5,"event_type":"cache_lookup_failed","data_ID":2,"type":"cache_lookup_failed"},{"node":5,"event_type":"cache_lookup_failed","data_ID":2,"type":"cache_lookup_failed"},{"to_node":4,"event_type":"request_hop","from_node":5,"data_ID":2,"type":"request_hop"},{"node":4,"event_type":"cache_hit","data_ID":2,"type":"cache_hit"},{"to_node":5,"event_type":"content_hop","from_node":4,"data_ID":2,"type":"content_hop"},{"node":5,"event_type":"cache_content","data_ID":2,"type":"cache_content"},{"to_node":23,"event_type":"content_hop","from_node":5,"data_ID":2,"type":"content_hop"},{"node":23,"event_type":"cache_content","data_ID":2,"type":"cache_content"},{"to_node":22,"event_type":"content_hop","from_node":23,"data_ID":2,"type":"content_hop"},{"node":22,"event_type":"cache_content","data_ID":2,"type":"cache_content"},{"to_node":26,"event_type":"content_hop","from_node":22,"data_ID":2,"type":"content_hop"},{"node":26,"event_type":"request_complete","data_ID":2,"type":"request_complete"},{"timestamp":8.360349250192469,"event_type":"request","from_node":19,"data_ID":66,"type":"request"},{"to_node":3,"event_type":"request_hop","from_node":19,"data_ID":66,"type":"request_hop"},{"node":3,"event_type":"cache_lookup_failed","data_ID":66,"type":"cache_lookup_failed"},{"node":3,"event_type":"cache_lookup_failed","data_ID":66,"type":"cache_lookup_failed"},{"to_node":30,"event_type":"request_hop","from_node":3,"data_ID":66,"type":"request_hop"},{"node":30,"event_type":"cache_hit","data_ID":66,"type":"cache_hit"},{"to_node":3,"event_type":"content_hop","from_node":30,"data_ID":66,"type":"content_hop"},{"node":3,"event_type":"cache_content","data_ID":66,"type":"cache_content"},{"to_node":19,"event_type":"content_hop","from_node":3,"data_ID":66,"type":"content_hop"},{"node":19,"event_type":"request_complete","data_ID":66,"type":"request_complete"},{"timestamp":8.478706909996543,"event_type":"request","from_node":19,"data_ID":2,"type":"request"},{"to_node":3,"event_type":"request_hop","from_node":19,"data_ID":2,"type":"request_hop"},{"node":3,"event_type":"cache_lookup_failed","data_ID":2,"type":"cache_lookup_failed"},{"node":3,"event_type":"cache_lookup_failed","data_ID":2,"type":"cache_lookup_failed"},{"to_node":4,"event_type":"request_hop","from_node":3,"data_ID":2,"type":"request_hop"},{"node":4,"event_type":"cache_hit","data_ID":2,"type":"cache_hit"},{"to_node":3,"event_type":"content_hop","from_node":4,"data_ID":2,"type":"content_hop"},{"node":3,"event_type":"cache_content","data_ID":2,"type":"cache_content"},{"to_node":19,"event_type":"content_hop","from_node":3,"data_ID":2,"type":"content_hop"},{"node":19,"event_type":"request_complete","data_ID":2,"type":"request_complete"},{"timestamp":8.615428186157454,"event_type":"request","from_node":26,"data_ID":60,"type":"request"},{"to_node":22,"event_type":"request_hop","from_node":26,"data_ID":60,"type":"request_hop"},{"node":22,"event_type":"cache_lookup_failed","data_ID":60,"type":"cache_lookup_failed"},{"node":22,"event_type":"cache_lookup_failed","data_ID":60,"type":"cache_lookup_failed"},{"to_node":27,"event_type":"request_hop","from_node":22,"data_ID":60,"type":"request_hop"},{"node":27,"event_type":"cache_lookup_failed","data_ID":60,"type":"cache_lookup_failed"},{"node":27,"event_type":"cache_lookup_failed","data_ID":60,"type":"cache_lookup_failed"},{"to_node":28,"event_type":"request_hop","from_node":27,"data_ID":60,"type":"request_hop"},{"to_node":1028,"event_type":"request_hop","from_node":28,"data_ID":60,"type":"request_hop"},{"node":1028,"event_type":"server_hit","data_ID":60,"type":"server_hit"},{"to_node":28,"event_type":"content_hop","from_node":1028,"data_ID":60,"type":"content_hop"},{"to_node":27,"event_type":"content_hop","from_node":28,"data_ID":60,"type":"content_hop"},{"node":27,"event_type":"cache_content","data_ID":60,"type":"cache_content"},{"to_node":22,"event_type":"content_hop","from_node":27,"data_ID":60,"type":"content_hop"},{"node":22,"event_type":"cache_content","data_ID":60,"type":"cache_content"},{"to_node":26,"event_type":"content_hop","from_node":22,"data_ID":60,"type":"content_hop"},{"node":26,"event_type":"request_complete","data_ID":60,"type":"request_complete"},{"timestamp":8.732798708604273,"event_type":"request","from_node":20,"data_ID":6,"type":"request"},{"to_node":12,"event_type":"request_hop","from_node":20,"data_ID":6,"type":"request_hop"},{"node":12,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"node":12,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"to_node":15,"event_type":"request_hop","from_node":12,"data_ID":6,"type":"request_hop"},{"node":15,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"node":15,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"to_node":29,"event_type":"request_hop","from_node":15,"data_ID":6,"type":"request_hop"},{"node":29,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"node":29,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"to_node":4,"event_type":"request_hop","from_node":29,"data_ID":6,"type":"request_hop"},{"node":4,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"node":4,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"to_node":2,"event_type":"request_hop","from_node":4,"data_ID":6,"type":"request_hop"},{"node":2,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"node":2,"event_type":"cache_lookup_failed","data_ID":6,"type":"cache_lookup_failed"},{"to_node":35,"event_type":"request_hop","from_node":2,"data_ID":6,"type":"request_hop"},{"to_node":1035,"event_type":"request_hop","from_node":35,"data_ID":6,"type":"request_hop"},{"node":1035,"event_type":"server_hit","data_ID":6,"type":"server_hit"},{"to_node":35,"event_type":"content_hop","from_node":1035,"data_ID":6,"type":"content_hop"},{"to_node":2,"event_type":"content_hop","from_node":35,"data_ID":6,"type":"content_hop"},{"node":2,"event_type":"cache_content","data_ID":6,"type":"cache_content"},{"to_node":4,"event_type":"content_hop","from_node":2,"data_ID":6,"type":"content_hop"},{"node":4,"event_type":"cache_content","data_ID":6,"type":"cache_content"},{"to_node":29,"event_type":"content_hop","from_node":4,"data_ID":6,"type":"content_hop"},{"node":29,"event_type":"cache_content","data_ID":6,"type":"cache_content"},{"to_node":15,"event_type":"content_hop","from_node":29,"data_ID":6,"type":"content_hop"},{"node":15,"event_type":"cache_content","data_ID":6,"type":"cache_content"},{"to_node":12,"event_type":"content_hop","from_node":15,"data_ID":6,"type":"content_hop"},{"node":12,"event_type":"cache_content","data_ID":6,"type":"cache_content"},{"to_node":20,"event_type":"content_hop","from_node":12,"data_ID":6,"type":"content_hop"},{"node":20,"event_type":"request_complete","data_ID":6,"type":"request_complete"},{"timestamp":9.186824258406647,"event_type":"request","from_node":19,"data_ID":7,"type":"request"},{"to_node":3,"event_type":"request_hop","from_node":19,"data_ID":7,"type":"request_hop"},{"node":3,"event_type":"cache_lookup_failed","data_ID":7,"type":"cache_lookup_failed"},{"node":3,"event_type":"cache_lookup_failed","data_ID":7,"type":"cache_lookup_failed"},{"to_node":4,"event_type":"request_hop","from_node":3,"data_ID":7,"type":"request_hop"},{"node":4,"event_type":"cache_lookup_failed","data_ID":7,"type":"cache_lookup_failed"},{"node":4,"event_type":"cache_lookup_failed","data_ID":7,"type":"cache_lookup_failed"},{"to_node":0,"event_type":"request_hop","from_node":4,"data_ID":7,"type":"request_hop"},{"node":0,"event_type":"cache_hit","data_ID":7,"type":"cache_hit"},{"to_node":4,"event_type":"content_hop","from_node":0,"data_ID":7,"type":"content_hop"},{"node":4,"event_type":"cache_content","data_ID":7,"type":"cache_content"},{"to_node":3,"event_type":"content_hop","from_node":4,"data_ID":7,"type":"content_hop"},{"node":3,"event_type":"cache_content","data_ID":7,"type":"cache_content"},{"to_node":19,"event_type":"content_hop","from_node":3,"data_ID":7,"type":"content_hop"},{"node":19,"event_type":"request_complete","data_ID":7,"type":"request_complete"},{"timestamp":9.212360844938248,"event_type":"request","from_node":19,"data_ID":95,"type":"request"},{"to_node":3,"event_type":"request_hop","from_node":19,"data_ID":95,"type":"request_hop"},{"node":3,"event_type":"cache_lookup_failed","data_ID":95,"type":"cache_lookup_failed"},{"node":3,"event_type":"cache_lookup_failed","data_ID":95,"type":"cache_lookup_failed"},{"to_node":4,"event_type":"request_hop","from_node":3,"data_ID":95,"type":"request_hop"},{"node":4,"event_type":"cache_lookup_failed","data_ID":95,"type":"cache_lookup_failed"},{"node":4,"event_type":"cache_lookup_failed","data_ID":95,"type":"cache_lookup_failed"},{"to_node":8,"event_type":"request_hop","from_node":4,"data_ID":95,"type":"request_hop"},{"node":8,"event_type":"cache_lookup_failed","data_ID":95,"type":"cache_lookup_failed"},{"node":8,"event_type":"cache_lookup_failed","data_ID":95,"type":"cache_lookup_failed"},{"to_node":25,"event_type":"request_hop","from_node":8,"data_ID":95,"type":"request_hop"},{"node":25,"event_type":"cache_lookup_failed","data_ID":95,"type":"cache_lookup_failed"},{"node":25,"event_type":"cache_lookup_failed","data_ID":95,"type":"cache_lookup_failed"},{"to_node":24,"event_type":"request_hop","from_node":25,"data_ID":95,"type":"request_hop"},{"to_node":1024,"event_type":"request_hop","from_node":24,"data_ID":95,"type":"request_hop"},{"node":1024,"event_type":"server_hit","data_ID":95,"type":"server_hit"},{"to_node":24,"event_type":"content_hop","from_node":1024,"data_ID":95,"type":"content_hop"},{"to_node":25,"event_type":"content_hop","from_node":24,"data_ID":95,"type":"content_hop"},{"node":25,"event_type":"cache_content","data_ID":95,"type":"cache_content"},{"to_node":8,"event_type":"content_hop","from_node":25,"data_ID":95,"type":"content_hop"},{"node":8,"event_type":"cache_content","data_ID":95,"type":"cache_content"},{"to_node":4,"event_type":"content_hop","from_node":8,"data_ID":95,"type":"content_hop"},{"node":4,"event_type":"cache_content","data_ID":95,"type":"cache_content"},{"to_node":3,"event_type":"content_hop","from_node":4,"data_ID":95,"type":"content_hop"},{"node":3,"event_type":"cache_content","data_ID":95,"type":"cache_content"},{"to_node":19,"event_type":"content_hop","from_node":3,"data_ID":95,"type":"content_hop"},{"node":19,"event_type":"request_complete","data_ID":95,"type":"request_complete"},{"timestamp":9.238543791435305,"event_type":"request","from_node":19,"data_ID":2,"type":"request"},{"to_node":3,"event_type":"request_hop","from_node":19,"data_ID":2,"type":"request_hop"},{"node":3,"event_type":"cache_hit","data_ID":2,"type":"cache_hit"},{"to_node":19,"event_type":"content_hop","from_node":3,"data_ID":2,"type":"content_hop"},{"node":19,"event_type":"request_complete","data_ID":2,"type":"request_complete"},{"timestamp":9.35370320049057,"event_type":"request","from_node":26,"data_ID":1,"type":"request"},{"to_node":22,"event_type":"request_hop","from_node":26,"data_ID":1,"type":"request_hop"},{"node":22,"event_type":"cache_hit","data_ID":1,"type":"cache_hit"},{"to_node":26,"event_type":"content_hop","from_node":22,"data_ID":1,"type":"content_hop"},{"node":26,"event_type":"request_complete","data_ID":1,"type":"request_complete"},{"timestamp":9.401776367523961,"event_type":"request","from_node":19,"data_ID":35,"type":"request"},{"to_node":3,"event_type":"request_hop","from_node":19,"data_ID":35,"type":"request_hop"},{"node":3,"event_type":"cache_lookup_failed","data_ID":35,"type":"cache_lookup_failed"},{"node":3,"event_type":"cache_lookup_failed","data_ID":35,"type":"cache_lookup_failed"},{"to_node":4,"event_type":"request_hop","from_node":3,"data_ID":35,"type":"request_hop"},{"node":4,"event_type":"cache_lookup_failed","data_ID":35,"type":"cache_lookup_failed"},{"node":4,"event_type":"cache_lookup_failed","data_ID":35,"type":"cache_lookup_failed"},{"to_node":16,"event_type":"request_hop","from_node":4,"data_ID":35,"type":"request_hop"},{"to_node":1016,"event_type":"request_hop","from_node":16,"data_ID":35,"type":"request_hop"},{"node":1016,"event_type":"server_hit","data_ID":35,"type":"server_hit"},{"to_node":16,"event_type":"content_hop","from_node":1016,"data_ID":35,"type":"content_hop"},{"to_node":4,"event_type":"content_hop","from_node":16,"data_ID":35,"type":"content_hop"},{"node":4,"event_type":"cache_content","data_ID":35,"type":"cache_content"},{"to_node":3,"event_type":"content_hop","from_node":4,"data_ID":35,"type":"content_hop"},{"node":3,"event_type":"cache_content","data_ID":35,"type":"cache_content"},{"to_node":19,"event_type":"content_hop","from_node":3,"data_ID":35,"type":"content_hop"},{"node":19,"event_type":"request_complete","data_ID":35,"type":"request_complete"}],"topology":{"nodes":[{"name":"0","type":"router"},{"name":"1","type":"router"},{"name":"2","type":"router"},{"name":"3","type":"router"},{"name":"4","type":"router"},{"name":"5","type":"router"},{"name":"6","type":"router"},{"name":"7","type":"router"},{"name":"8","type":"router"},{"name":"9","type":"router"},{"name":"10","type":"receiver"},{"name":"11","type":"receiver"},{"name":"12","type":"router"},{"name":"13","type":"router"},{"name":"14","type":"router"},{"name":"15","type":"router"},{"name":"16","type":"router"},{"name":"17","type":"router"},{"name":"18","type":"receiver"},{"name":"19","type":"receiver"},{"name":"20","type":"receiver"},{"name":"21","type":"receiver"},{"name":"22","type":"router"},{"name":"23","type":"router"},{"name":"24","type":"router"},{"name":"25","type":"router"},{"name":"26","type":"receiver"},{"name":"27","type":"router"},{"name":"28","type":"router"},{"name":"29","type":"router"},{"name":"30","type":"router"},{"name":"31","type":"router"},{"name":"32","type":"router"},{"name":"33","type":"router"},{"name":"34","type":"router"},{"name":"35","type":"router"},{"name":"36","type":"router"},{"name":"37","type":"receiver"},{"name":"38","type":"router"},{"name":"39","type":"router"},{"name":"1001","type":"source"},{"name":"1006","type":"source"},{"name":"1014","type":"source"},{"name":"1016","type":"source"},{"name":"1017","type":"source"},{"name":"1024","type":"source"},{"name":"1028","type":"source"},{"name":"1031","type":"source"},{"name":"1032","type":"source"},{"name":"1033","type":"source"},{"name":"1035","type":"source"},{"name":"1038","type":"source"},{"name":"1039","type":"source"}],"edges":[{"source":36,"target":2,"value":1},{"source":36,"target":37,"value":1},{"source":36,"target":35,"value":1},{"source":4,"target":17,"value":1},{"source":4,"target":16,"value":1},{"source":4,"target":31,"value":1},{"source":4,"target":29,"value":1},{"source":4,"target":0,"value":1},{"source":4,"target":3,"value":1},{"source":4,"target":2,"value":1},{"source":4,"target":5,"value":1},{"source":4,"target":6,"value":1},{"source":4,"target":8,"value":1},{"source":24,"target":45,"value":1000},{"source":24,"target":34,"value":1},{"source":24,"target":25,"value":1},{"source":25,"target":8,"value":1},{"source":25,"target":9,"value":1},{"source":25,"target":7,"value":1},{"source":26,"target":22,"value":1},{"source":27,"target":28,"value":1},{"source":27,"target":21,"value":1},{"source":27,"target":22,"value":1},{"source":20,"target":12,"value":1},{"source":22,"target":13,"value":1},{"source":22,"target":12,"value":1},{"source":22,"target":23,"value":1},{"source":23,"target":5,"value":1},{"source":23,"target":29,"value":1},{"source":28,"target":46,"value":1000},{"source":28,"target":29,"value":1},{"source":29,"target":9,"value":1},{"source":29,"target":15,"value":1},{"source":1,"target":33,"value":1},{"source":1,"target":0,"value":1},{"source":1,"target":40,"value":1000},{"source":0,"target":34,"value":1},{"source":0,"target":2,"value":1},{"source":0,"target":30,"value":1},{"source":51,"target":38,"value":1000},{"source":52,"target":39,"value":1000},{"source":5,"target":3,"value":1},{"source":44,"target":17,"value":1000},{"source":7,"target":6,"value":1},{"source":7,"target":8,"value":1},{"source":7,"target":34,"value":1},{"source":6,"target":41,"value":1000},{"source":42,"target":14,"value":1000},{"source":49,"target":33,"value":1000},{"source":43,"target":16,"value":1000},{"source":47,"target":31,"value":1000},{"source":50,"target":35,"value":1000},{"source":9,"target":18,"value":1},{"source":9,"target":8,"value":1},{"source":9,"target":15,"value":1},{"source":39,"target":38,"value":1},{"source":39,"target":30,"value":1},{"source":3,"target":19,"value":1},{"source":3,"target":10,"value":1},{"source":3,"target":30,"value":1},{"source":48,"target":32,"value":1000},{"source":38,"target":2,"value":1},{"source":2,"target":32,"value":1},{"source":2,"target":31,"value":1},{"source":2,"target":35,"value":1},{"source":11,"target":13,"value":1},{"source":13,"target":12,"value":1},{"source":13,"target":14,"value":1},{"source":12,"target":15,"value":1},{"source":12,"target":14,"value":1},{"source":17,"target":30,"value":1},{"source":16,"target":34,"value":1},{"source":34,"target":33,"value":1},{"source":34,"target":32,"value":1}]}}
 },{}],2:[function(require,module,exports){
-module.exports={
-  "edges": [
-    {
-      "source": 13, 
-      "target": 12, 
-      "value": 1
-    }, 
-    {
-      "source": 13, 
-      "target": 30, 
-      "value": 1
-    }, 
-    {
-      "source": 13, 
-      "target": 17, 
-      "value": 1
-    }, 
-    {
-      "source": 13, 
-      "target": 46, 
-      "value": 1
-    }, 
-    {
-      "source": 13, 
-      "target": 42, 
-      "value": 1
-    }, 
-    {
-      "source": 12, 
-      "target": 47, 
-      "value": 1
-    }, 
-    {
-      "source": 12, 
-      "target": 51, 
-      "value": 1
-    }, 
-    {
-      "source": 30, 
-      "target": 48, 
-      "value": 1
-    }, 
-    {
-      "source": 30, 
-      "target": 45, 
-      "value": 1
-    }, 
-    {
-      "source": 30, 
-      "target": 17, 
-      "value": 1
-    }, 
-    {
-      "source": 30, 
-      "target": 28, 
-      "value": 1
-    }, 
-    {
-      "source": 30, 
-      "target": 44, 
-      "value": 1
-    }, 
-    {
-      "source": 30, 
-      "target": 41, 
-      "value": 1
-    }, 
-    {
-      "source": 25, 
-      "target": 0, 
-      "value": 1
-    }, 
-    {
-      "source": 25, 
-      "target": 39, 
-      "value": 1
-    }, 
-    {
-      "source": 25, 
-      "target": 17, 
-      "value": 1
-    }, 
-    {
-      "source": 25, 
-      "target": 16, 
-      "value": 1
-    }, 
-    {
-      "source": 25, 
-      "target": 42, 
-      "value": 1
-    }, 
-    {
-      "source": 17, 
-      "target": 16, 
-      "value": 1
-    }, 
-    {
-      "source": 17, 
-      "target": 19, 
-      "value": 1
-    }, 
-    {
-      "source": 17, 
-      "target": 29, 
-      "value": 1
-    }, 
-    {
-      "source": 17, 
-      "target": 38, 
-      "value": 1
-    }, 
-    {
-      "source": 17, 
-      "target": 37, 
-      "value": 1
-    }, 
-    {
-      "source": 17, 
-      "target": 11, 
-      "value": 1
-    }, 
-    {
-      "source": 17, 
-      "target": 41, 
-      "value": 1
-    }, 
-    {
-      "source": 16, 
-      "target": 9, 
-      "value": 1
-    }, 
-    {
-      "source": 19, 
-      "target": 49, 
-      "value": 1
-    }, 
-    {
-      "source": 19, 
-      "target": 18, 
-      "value": 1
-    }, 
-    {
-      "source": 18, 
-      "target": 29, 
-      "value": 1
-    }, 
-    {
-      "source": 18, 
-      "target": 3, 
-      "value": 1
-    }, 
-    {
-      "source": 18, 
-      "target": 46, 
-      "value": 1
-    }, 
-    {
-      "source": 29, 
-      "target": 27, 
-      "value": 1
-    }, 
-    {
-      "source": 29, 
-      "target": 3, 
-      "value": 1
-    }, 
-    {
-      "source": 27, 
-      "target": 3, 
-      "value": 1
-    }, 
-    {
-      "source": 27, 
-      "target": 40, 
-      "value": 1
-    }, 
-    {
-      "source": 27, 
-      "target": 11, 
-      "value": 1
-    }, 
-    {
-      "source": 27, 
-      "target": 35, 
-      "value": 1
-    }, 
-    {
-      "source": 31, 
-      "target": 26, 
-      "value": 1
-    }, 
-    {
-      "source": 50, 
-      "target": 36, 
-      "value": 1
-    }, 
-    {
-      "source": 50, 
-      "target": 6, 
-      "value": 1
-    }, 
-    {
-      "source": 50, 
-      "target": 26, 
-      "value": 1
-    }, 
-    {
-      "source": 50, 
-      "target": 8, 
-      "value": 1
-    }, 
-    {
-      "source": 50, 
-      "target": 35, 
-      "value": 1
-    }, 
-    {
-      "source": 26, 
-      "target": 36, 
-      "value": 1
-    }, 
-    {
-      "source": 26, 
-      "target": 8, 
-      "value": 1
-    }, 
-    {
-      "source": 36, 
-      "target": 20, 
-      "value": 1
-    }, 
-    {
-      "source": 35, 
-      "target": 11, 
-      "value": 1
-    }, 
-    {
-      "source": 38, 
-      "target": 22, 
-      "value": 1
-    }, 
-    {
-      "source": 38, 
-      "target": 46, 
-      "value": 1
-    }, 
-    {
-      "source": 37, 
-      "target": 23, 
-      "value": 1
-    }, 
-    {
-      "source": 37, 
-      "target": 42, 
-      "value": 1
-    }, 
-    {
-      "source": 7, 
-      "target": 5, 
-      "value": 1
-    }, 
-    {
-      "source": 8, 
-      "target": 4, 
-      "value": 1
-    }, 
-    {
-      "source": 8, 
-      "target": 5, 
-      "value": 1
-    }, 
-    {
-      "source": 8, 
-      "target": 9, 
-      "value": 1
-    }, 
-    {
-      "source": 9, 
-      "target": 11, 
-      "value": 1
-    }, 
-    {
-      "source": 2, 
-      "target": 32, 
-      "value": 1
-    }, 
-    {
-      "source": 2, 
-      "target": 3, 
-      "value": 1
-    }, 
-    {
-      "source": 2, 
-      "target": 46, 
-      "value": 1
-    }, 
-    {
-      "source": 5, 
-      "target": 10, 
-      "value": 1
-    }, 
-    {
-      "source": 10, 
-      "target": 1, 
-      "value": 1
-    }, 
-    {
-      "source": 10, 
-      "target": 11, 
-      "value": 1
-    }, 
-    {
-      "source": 42, 
-      "target": 33, 
-      "value": 1
-    }, 
-    {
-      "source": 41, 
-      "target": 34, 
-      "value": 1
-    }, 
-    {
-      "source": 48, 
-      "target": 52, 
-      "value": 1
-    }, 
-    {
-      "source": 48, 
-      "target": 46, 
-      "value": 1
-    }, 
-    {
-      "source": 47, 
-      "target": 46, 
-      "value": 1
-    }, 
-    {
-      "source": 47, 
-      "target": 21, 
-      "value": 1
-    }, 
-    {
-      "source": 45, 
-      "target": 24, 
-      "value": 1
-    }, 
-    {
-      "source": 45, 
-      "target": 44, 
-      "value": 1
-    }, 
-    {
-      "source": 44, 
-      "target": 43, 
-      "value": 1
-    }, 
-    {
-      "source": 28, 
-      "target": 14, 
-      "value": 1
-    }, 
-    {
-      "source": 28, 
-      "target": 33, 
-      "value": 1
-    }, 
-    {
-      "source": 33, 
-      "target": 15, 
-      "value": 1
-    }
-  ], 
-  "nodes": [
-    {
-      "group": 0, 
-      "name": "10", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 1, 
-      "name": "1028", 
-      "type": "source"
-    }, 
-    {
-      "group": 2, 
-      "name": "24", 
-      "type": "router"
-    }, 
-    {
-      "group": 3, 
-      "name": "25", 
-      "type": "router"
-    }, 
-    {
-      "group": 4, 
-      "name": "26", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 5, 
-      "name": "27", 
-      "type": "router"
-    }, 
-    {
-      "group": 6, 
-      "name": "20", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 7, 
-      "name": "21", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 8, 
-      "name": "22", 
-      "type": "router"
-    }, 
-    {
-      "group": 9, 
-      "name": "23", 
-      "type": "router"
-    }, 
-    {
-      "group": 10, 
-      "name": "28", 
-      "type": "router"
-    }, 
-    {
-      "group": 11, 
-      "name": "29", 
-      "type": "router"
-    }, 
-    {
-      "group": 12, 
-      "name": "1", 
-      "type": "router"
-    }, 
-    {
-      "group": 13, 
-      "name": "0", 
-      "type": "router"
-    }, 
-    {
-      "group": 14, 
-      "name": "1038", 
-      "type": "source"
-    }, 
-    {
-      "group": 15, 
-      "name": "1039", 
-      "type": "source"
-    }, 
-    {
-      "group": 16, 
-      "name": "5", 
-      "type": "router"
-    }, 
-    {
-      "group": 17, 
-      "name": "4", 
-      "type": "router"
-    }, 
-    {
-      "group": 18, 
-      "name": "7", 
-      "type": "router"
-    }, 
-    {
-      "group": 19, 
-      "name": "6", 
-      "type": "router"
-    }, 
-    {
-      "group": 20, 
-      "name": "1014", 
-      "type": "source"
-    }, 
-    {
-      "group": 21, 
-      "name": "1033", 
-      "type": "source"
-    }, 
-    {
-      "group": 22, 
-      "name": "1016", 
-      "type": "source"
-    }, 
-    {
-      "group": 23, 
-      "name": "1017", 
-      "type": "source"
-    }, 
-    {
-      "group": 24, 
-      "name": "1035", 
-      "type": "source"
-    }, 
-    {
-      "group": 25, 
-      "name": "3", 
-      "type": "router"
-    }, 
-    {
-      "group": 26, 
-      "name": "13", 
-      "type": "router"
-    }, 
-    {
-      "group": 27, 
-      "name": "9", 
-      "type": "router"
-    }, 
-    {
-      "group": 28, 
-      "name": "38", 
-      "type": "router"
-    }, 
-    {
-      "group": 29, 
-      "name": "8", 
-      "type": "router"
-    }, 
-    {
-      "group": 30, 
-      "name": "2", 
-      "type": "router"
-    }, 
-    {
-      "group": 31, 
-      "name": "11", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 32, 
-      "name": "1024", 
-      "type": "source"
-    }, 
-    {
-      "group": 33, 
-      "name": "39", 
-      "type": "router"
-    }, 
-    {
-      "group": 34, 
-      "name": "1031", 
-      "type": "source"
-    }, 
-    {
-      "group": 35, 
-      "name": "15", 
-      "type": "router"
-    }, 
-    {
-      "group": 36, 
-      "name": "14", 
-      "type": "router"
-    }, 
-    {
-      "group": 37, 
-      "name": "17", 
-      "type": "router"
-    }, 
-    {
-      "group": 38, 
-      "name": "16", 
-      "type": "router"
-    }, 
-    {
-      "group": 39, 
-      "name": "19", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 40, 
-      "name": "18", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 41, 
-      "name": "31", 
-      "type": "router"
-    }, 
-    {
-      "group": 42, 
-      "name": "30", 
-      "type": "router"
-    }, 
-    {
-      "group": 43, 
-      "name": "37", 
-      "type": "receiver"
-    }, 
-    {
-      "group": 44, 
-      "name": "36", 
-      "type": "router"
-    }, 
-    {
-      "group": 45, 
-      "name": "35", 
-      "type": "router"
-    }, 
-    {
-      "group": 46, 
-      "name": "34", 
-      "type": "router"
-    }, 
-    {
-      "group": 47, 
-      "name": "33", 
-      "type": "router"
-    }, 
-    {
-      "group": 48, 
-      "name": "32", 
-      "type": "router"
-    }, 
-    {
-      "group": 49, 
-      "name": "1006", 
-      "type": "source"
-    }, 
-    {
-      "group": 50, 
-      "name": "12", 
-      "type": "router"
-    }, 
-    {
-      "group": 51, 
-      "name": "1001", 
-      "type": "source"
-    }, 
-    {
-      "group": 52, 
-      "name": "1032", 
-      "type": "source"
-    }
-  ]
-}
-},{}],3:[function(require,module,exports){
 module.exports={
   "topology": {
     "edges": [
+      {
+        "source": 0, 
+        "target": 1, 
+        "value": 1
+      }, 
       {
         "source": 1, 
         "target": 2, 
@@ -653,47 +16,37 @@ module.exports={
       }, 
       {
         "source": 2, 
-        "target": 0, 
+        "target": 3, 
         "value": 1
       }, 
       {
-        "source": 0, 
-        "target": 7, 
+        "source": 3, 
+        "target": 4, 
         "value": 1
       }, 
       {
-        "source": 7, 
+        "source": 4, 
+        "target": 5, 
+        "value": 1
+      }, 
+      {
+        "source": 5, 
         "target": 6, 
         "value": 1
       }, 
       {
         "source": 3, 
-        "target": 6, 
-        "value": 1
-      }, 
-      {
-        "source": 2, 
-        "target": 7, 
-        "value": 1
-      }, 
-      {
-        "source": 2, 
-        "target": 1, 
-        "value": 1
-      }, 
-      {
-        "source": 4, 
         "target": 7, 
         "value": 1
       },
       {
-        "source": 5, 
-        "target": 7, 
+        "source": 3, 
+        "target": 8, 
         "value": 1
       },
       {
-        "source": 5, 
-        "target": 4, 
+        "source": 8,
+        "target": 9, 
         "value": 1
       }
     ], 
@@ -732,10 +85,20 @@ module.exports={
         "group": 6, 
         "name": "6", 
         "type": "receiver"
-      }, 
+      },
       {
         "group": 7, 
         "name": "7", 
+        "type": "receiver"
+      },
+      {
+        "group": 8, 
+        "name": "8", 
+        "type": "receiver"
+      },
+      {
+        "group": 9, 
+        "name": "9", 
         "type": "receiver"
       }
     ]
@@ -743,27 +106,59 @@ module.exports={
   "events": [
     {
       "type": "request",
-      "from_node": "0"
+      "from_node": "0",
+      "data_ID": "abcdefg"
     },
     {
       "type": "request_hop",
       "to_node": "1",
-      "from_node": "0"
+      "from_node": "0",
+      "data_ID": "abcdefg"
     },
     {
       "type": "request_hop",
       "to_node": "2",
-      "from_node": "1"
+      "from_node": "1",
+      "data_ID": "abcdefg"
     },
     {
       "type": "request_hop",
       "to_node": "3",
-      "from_node": "2"
+      "from_node": "2",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "server_hit",
+      "node": "3",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "3",
+      "to_node": "2",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "2",
+      "to_node": "1",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "1",
+      "to_node": "0",
+      "data_ID": "abcdefg"
+    },
+    {
+      "type": "request_complete",
+      "node": "0",
+      "data_ID": "abcdefg"
     }
   ]
 }
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 'use strict'
 
 exports.toByteArray = toByteArray
@@ -874,7 +269,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var document = require('global/document')
 var hyperx = require('hyperx')
 
@@ -995,9 +390,9 @@ function belCreateElement (tag, props, children) {
 module.exports = hyperx(belCreateElement)
 module.exports.createElement = belCreateElement
 
-},{"global/document":12,"hyperx":14}],6:[function(require,module,exports){
+},{"global/document":11,"hyperx":13}],5:[function(require,module,exports){
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 (function (global){
 /*!
  * The buffer module from node.js, for the browser.
@@ -2457,14 +1852,14 @@ function blitBuffer (src, dst, offset, length) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"base64-js":4,"ieee754":15,"isarray":8}],8:[function(require,module,exports){
+},{"base64-js":3,"ieee754":14,"isarray":7}],7:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var url = require('url');
 
 module.exports = function (root, cb) {
@@ -2496,7 +1891,7 @@ module.exports = function (root, cb) {
     });
 };
 
-},{"url":24}],10:[function(require,module,exports){
+},{"url":23}],9:[function(require,module,exports){
 (function (Buffer){
 var clone = (function() {
 'use strict';
@@ -2660,7 +2055,7 @@ if (typeof module === 'object' && module.exports) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":7}],11:[function(require,module,exports){
+},{"buffer":6}],10:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.5.16"
@@ -12215,7 +11610,7 @@ if (typeof module === 'object' && module.exports) {
   });
   if (typeof define === "function" && define.amd) this.d3 = d3, define(d3); else if (typeof module === "object" && module.exports) module.exports = d3; else this.d3 = d3;
 }();
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function (global){
 var topLevel = typeof global !== 'undefined' ? global :
     typeof window !== 'undefined' ? window : {}
@@ -12234,7 +11629,7 @@ if (typeof document !== 'undefined') {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"min-document":6}],13:[function(require,module,exports){
+},{"min-document":5}],12:[function(require,module,exports){
 module.exports = attributeToProperty
 
 var transform = {
@@ -12255,7 +11650,7 @@ function attributeToProperty (h) {
   }
 }
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var attrToProp = require('hyperscript-attribute-to-property')
 
 var VAR = 0, TEXT = 1, OPEN = 2, CLOSE = 3, ATTR = 4
@@ -12520,7 +11915,7 @@ var closeRE = RegExp('^(' + [
 ].join('|') + ')(?:[\.#][a-zA-Z0-9\u007F-\uFFFF_:-]+)*$')
 function selfClosing (tag) { return closeRE.test(tag) }
 
-},{"hyperscript-attribute-to-property":13}],15:[function(require,module,exports){
+},{"hyperscript-attribute-to-property":12}],14:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -12606,7 +12001,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 var d3 = require('d3')
 var topology = require('./topology.js')
 
@@ -12722,7 +12117,7 @@ function draw (nodes, edges, opts) {
 
 draw.topology = topology
 
-},{"./topology.js":17,"d3":11}],17:[function(require,module,exports){
+},{"./topology.js":16,"d3":10}],16:[function(require,module,exports){
 module.exports = topology
 
 function topology (nodes, edges) {
@@ -12749,7 +12144,7 @@ function topology (nodes, edges) {
   return t
 }
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 // Create a range object for efficently rendering strings to elements.
 var range;
 
@@ -13235,7 +12630,7 @@ function morphdom(fromNode, toNode, options) {
 
 module.exports = morphdom;
 
-},{}],19:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -13772,7 +13167,7 @@ module.exports = morphdom;
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -13858,7 +13253,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],21:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -13945,13 +13340,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],22:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":20,"./encode":21}],23:[function(require,module,exports){
+},{"./decode":19,"./encode":20}],22:[function(require,module,exports){
 (function (global){
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.routes=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 
@@ -14138,7 +13533,7 @@ module.exports = Router
 (1)
 });
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],24:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -14872,7 +14267,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":25,"punycode":19,"querystring":22}],25:[function(require,module,exports){
+},{"./util":24,"punycode":18,"querystring":21}],24:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -14890,7 +14285,7 @@ module.exports = {
   }
 };
 
-},{}],26:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 var bel = require('bel') // turns template tag into DOM elements
 var morphdom = require('morphdom') // efficiently diffs + morphs two DOM elements
 var defaultEvents = require('./update-events.js') // default events to be copied when dom elements update
@@ -14921,7 +14316,7 @@ module.exports.update = function (fromNode, toNode, opts) {
   }
 }
 
-},{"./update-events.js":27,"bel":5,"morphdom":18}],27:[function(require,module,exports){
+},{"./update-events.js":26,"bel":4,"morphdom":17}],26:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -14958,7 +14353,7 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],28:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var h = require('yo-yo');
@@ -14992,7 +14387,7 @@ function render(state) {
   if (!m) return router.match('/error').fn(state);else return m.fn(state);
 }
 
-},{"./router.js":37,"./store.js":38,"catch-links":9,"yo-yo":26}],29:[function(require,module,exports){
+},{"./router.js":36,"./store.js":37,"catch-links":8,"yo-yo":25}],28:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <li class=\'solid\'>\n      <a href=', '>', '</a>\n      <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div>\n    </li>\n  '], ['\n    <li class=\'solid\'>\n      <a href=', '>', '</a>\n      <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div>\n    </li>\n  ']),
@@ -15017,8 +14412,47 @@ module.exports = function (h, store) {
   return h(_templateObject2, els);
 };
 
-},{"../route_config.js":36}],30:[function(require,module,exports){
+},{"../route_config.js":35}],29:[function(require,module,exports){
 'use strict';
+
+var get_random_component = function get_random_component(min, max) {
+  var letters = '0123456789abcdef'.split('');
+  letters = letters.slice(min, max);
+  var c = '';
+  for (var i = 0; i < 2; i++) {
+    c += letters[Math.floor(Math.random() * letters.length)];
+  }
+  return c;
+};
+
+var get_random_green = function get_random_green() {
+  var c = '#';
+  c += get_random_component(0, 5); //red
+  c += get_random_component(5, 16); //green
+  c += get_random_component(0, 5); //blue
+  return c;
+};
+
+var get_random_blue = function get_random_blue() {
+  var c = '#';
+  c += get_random_component(0, 5); //red
+  c += get_random_component(0, 5); //green
+  c += get_random_component(5, 16); //blue
+  return c;
+};
+
+var make_color_palette = function make_color_palette(color_fn) {
+  var cs = {};
+  return function color(id) {
+    if (cs[id]) return cs[id];else {
+      cs[id] = color_fn();
+      return cs[id];
+    }
+  };
+};
+
+var request_colors = make_color_palette(get_random_blue);
+var response_colors = make_color_palette(get_random_green);
 
 module.exports = {
   element: '#vis',
@@ -15030,14 +14464,20 @@ module.exports = {
     });
   },
   node_color: function node_color(node) {
-    return node.requests.length > 0 ? 'red' : 'blue';
+    if (node.requests.length > 0) {
+      return request_colors(node.requests[0]);
+    } else if (node.content.length > 0) {
+      return response_colors(node.content[0]);
+    } else {
+      return 'red';
+    }
   },
   node_size: function node_size(node) {
-    return node.requests.length > 0 ? '15' : '10';
+    return (node.cache.length * 5 + 10).toString();
   }
 };
 
-},{}],31:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -15055,7 +14495,7 @@ module.exports = function () {
   };
 };
 
-},{}],32:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -15084,8 +14524,9 @@ module.exports = {
     }
 
     src.requests = src.requests.filter(function (r) {
-      return r.id !== ev.data_ID;
+      return r.id.toString() !== ev.data_ID.toString();
     });
+
     dst.requests.push({
       id: ev.data_ID,
       loc: ev.to_node
@@ -15163,17 +14604,28 @@ module.exports = {
     }
 
     src.content = src.content.filter(function (n) {
-      return n.id !== ev.data_ID;
+      return n.id.toString() !== ev.data_ID.toString();
     });
 
     dst.content.push({
       id: ev.data_ID,
       loc: ev.to_node
     });
+  },
+  'request_complete': function request_complete(ev, nodes, edges) {
+
+    var node = nodes.filter(function (n) {
+      return n.name.toString() === ev.node.toString();
+    })[0];
+    if (!node) return;
+
+    node.content = node.content.filter(function (n) {
+      return n.id !== ev.data_ID;
+    });
   }
 };
 
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button id=\'start\' onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div>\n      <div class=\'vis-ctl\'>\n        <button id=\'start\' onclick=', '>Start</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
@@ -15201,8 +14653,10 @@ module.exports = function (h, events, nodes, edges) {
   };
 
   var update = function update() {
-    var ev = events.pop();
-    console.log('ev', ev);
+    var ev = event_queue.pop();
+    while (!handlers[ev.type] && event_queue.length > 0) {
+      ev = event_queue.pop();
+    }
     if (!ev) return;
     network.update(ev);
   };
@@ -15210,7 +14664,7 @@ module.exports = function (h, events, nodes, edges) {
   return h(_templateObject, start);
 };
 
-},{"../config.js":30,"../handlers.js":32,"clone":10,"js-network-vis":16}],34:[function(require,module,exports){
+},{"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],33:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'home\'>\n      <h1 onload=', ' id=\'title\'>Simulate</h1>\n      ', '\n      \n      <div class=\'overlay\'></div>\n      <div id=\'background\'></div>\n    </div>\n  '], ['\n    <div id=\'home\'>\n      <h1 onload=', ' id=\'title\'>Simulate</h1>\n      ', '\n      \n      <div class=\'overlay\'></div>\n      <div id=\'background\'></div>\n    </div>\n  ']);
@@ -15256,10 +14710,12 @@ module.exports = function (h, store) {
   return h(_templateObject, load, nav(h, store));
 };
 
-},{"../../data/tour.json":3,"../components/navigation.js":29,"../config.js":30,"clone":10,"js-network-vis":16}],35:[function(require,module,exports){
+},{"../../data/tour.json":2,"../components/navigation.js":28,"../config.js":29,"clone":9,"js-network-vis":15}],34:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
+var _templateObject = _taggedTemplateLiteral(['<div id=\'caption\'><p>', '</p></div>'], ['<div id=\'caption\'><p>', '</p></div>']),
+    _templateObject2 = _taggedTemplateLiteral(['<div></div>'], ['<div></div>']),
+    _templateObject3 = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n      ', '\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Update ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n      ', '\n    </div>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -15269,30 +14725,44 @@ var draw = require('js-network-vis');
 var config = require('../config.js');
 var handlers = require('../handlers.js');
 
+var stages = ["A request is generated!", "The request is passed on", "and again", "and again...", "Server has been reached! Here comes content...", "Back along the path it came", "Node by node...", "Until it's back where it started", "Where it is consumed!"];
+
 module.exports = function (h, events, nodes, edges) {
 
-  var event_queue, network;
+  var event_queue, network, msgs, el;
 
   var start = function start() {
     document.querySelector('#vis').innerHTML = '';
     event_queue = clone(events);
+    msgs = clone(stages).reverse();
     network = draw(clone(nodes), clone(edges), clone(config));
     Object.keys(handlers).forEach(function (h) {
       network.event(h, handlers[h]);
     });
     document.querySelector('#start').innerText = 'Restart';
+    el = draw_caption();
+    document.querySelector('#vis').appendChild(el);
   };
 
   var update = function update() {
     var ev = event_queue.pop();
+    var msg = msgs.pop();
     if (!ev) return;
     network.update(ev);
+    h.update(el, draw_caption(msg));
   };
 
-  return h(_templateObject, start, update, '>');
+  var draw_caption = function draw_caption(m) {
+    if (m) {
+      return h(_templateObject, m);
+    }
+    return h(_templateObject2);
+  };
+
+  return h(_templateObject3, start, update, '>', el);
 };
 
-},{"../config.js":30,"../handlers.js":32,"clone":10,"js-network-vis":16}],36:[function(require,module,exports){
+},{"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],35:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -15314,7 +14784,7 @@ module.exports = {
   }
 };
 
-},{}],37:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      ', '\n      ', ' \n    </div> \n  '], ['\n    <div>\n      ', '\n      ', ' \n    </div> \n  ']),
@@ -15328,12 +14798,13 @@ var _demo = require('./pages/demo.js');
 var home = require('./pages/home.js');
 var navigation = require('./components/navigation.js');
 
-var data_big = require('../data/topology.json');
-var events_big = require('../data/events_big.json')._results.__reduce__[1]['py/tuple'][0][0]['py/tuple'][1]['EVENT_TIMELINE']['TIMELINE'].map(function (e) {
-  e.type = e.event_type;return e;
-}).reverse();
-
+var demo_data = require('../data/demo.json');
 var tour_data = require('../data/tour.json');
+
+console.log(demo_data.events.filter(function (n) {
+  return n.type === 'cache_remove';
+}));
+
 var router = require('routes')();
 
 var layout = function layout(h, store, body) {
@@ -15346,7 +14817,7 @@ var route_table = function route_table(h, store) {
       return home(h, store);
     },
     '/demo': function demo(s) {
-      var el = _demo(h, events_big, data_big.nodes, data_big.edges);
+      var el = _demo(h, demo_data.events.reverse(), demo_data.topology.nodes, demo_data.topology.edges);
       return layout(h, store, el);
     },
     '/wow': function wow(s) {
@@ -15375,7 +14846,7 @@ var create_router = function create_router(h, store) {
 
 module.exports = create_router;
 
-},{"../data/events_big.json":1,"../data/topology.json":2,"../data/tour.json":3,"./components/navigation.js":29,"./pages/demo.js":33,"./pages/home.js":34,"./pages/tour.js":35,"routes":23}],38:[function(require,module,exports){
+},{"../data/demo.json":1,"../data/tour.json":2,"./components/navigation.js":28,"./pages/demo.js":32,"./pages/home.js":33,"./pages/tour.js":34,"routes":22}],37:[function(require,module,exports){
 'use strict';
 
 var hub = require('./events.js')();
@@ -15406,4 +14877,4 @@ module.exports = function (reducer) {
   };
 };
 
-},{"./events.js":31}]},{},[28]);
+},{"./events.js":30}]},{},[27]);
