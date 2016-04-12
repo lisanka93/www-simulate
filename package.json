@@ -10,7 +10,7 @@
     "dev": "npm run build:wb && npm run serve",
     "serve": "live-server .",
     "test": "tape test/*.test.js",
-    "cover": "istanbul cover tape test/*.test.js && istanbul check-coverage --functions 90 --branches 90 --statements 90 --lines 90"
+    "cover": "istanbul cover tape test/*.test.js && istanbul check-coverage"
   },
   "author": "",
   "license": "MIT",
