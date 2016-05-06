@@ -11,8 +11,8 @@ module.exports = {
     title: 'Demo'
   , description: 'View a simulation of the algorithm'
   }
-, '/wow': {
-    title: 'Wow'
+, '/about': {
+    title: 'About'
   , description: 'Wow, just wow!'
   }
 }

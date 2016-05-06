@@ -1,12 +1,11 @@
 const tour = require('./pages/tour.js')
 const demo = require('./pages/demo.js')
 const home = require('./pages/home.js')
+const about = require('./pages/about.js')
 const navigation = require('./components/navigation.js')
 
 const demo_data = require('../data/demo.json')
 const tour_data = require('../data/tour.json')
-
-console.log(demo_data.events.filter(n => n.type === 'cache_remove'))
 
 const router = require('routes')()
 
@@ -28,8 +27,11 @@ const route_table = (h, store) => {
       var el = demo(h, demo_data.events.reverse(), demo_data.topology.nodes, demo_data.topology.edges)
       return layout(h, store, el)
     }
-  , '/wow': s => {
-      return layout(h, store, h`<h2>Wow!</h2>`)
+    , '/about': s => {
+      
+      var el = about(h, store)
+        
+      return layout(h, store, el)
     }
   , '/tour': s => {
       var el = tour(h, tour_data.events.reverse(), tour_data.topology.nodes, tour_data.topology.edges)
