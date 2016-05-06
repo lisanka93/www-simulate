@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;  
-  font-family: Inconsolata, Consolas, monospace;
+  font-family: 'Roboto Mono', Inconsolata, Consolas, monospace;
 }
 
 body {
@@ -160,4 +160,19 @@ div#node_data li {
 .node {
   stroke-width: 6;
   stroke: black;
+}
+
+.compare {
+
+}
+
+.compare .panel {
+  width: 50%;
+  height: 100vh;
+  background-color: orange;
+float: left;
+}
+
+.compare .panel select {
+  margin-top: 2em;
 }

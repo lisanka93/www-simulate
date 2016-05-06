@@ -2,6 +2,8 @@ const tour = require('./pages/tour.js')
 const demo = require('./pages/demo.js')
 const home = require('./pages/home.js')
 const about = require('./pages/about.js')
+const compare = require('./pages/compare.js')
+
 const navigation = require('./components/navigation.js')
 
 const demo_data = require('../data/demo.json')
@@ -40,6 +42,10 @@ const route_table = (h, store) => {
   , '/error': s => {
       var el = h`<div class='error'>Error: not found</div>`
       return layout(h, store, el) 
+    }
+  , '/compare': s => {
+      var el = compare(h, store)
+      return layout(h, store, el)
     }
   }
 }

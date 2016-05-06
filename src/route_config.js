@@ -15,4 +15,8 @@ module.exports = {
     title: 'About'
   , description: 'Wow, just wow!'
   }
+, '/compare': {
+    title: 'Compare'
+  , description: 'Compare how different algorithms perform'
+  }
 }
