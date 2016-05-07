@@ -7,7 +7,6 @@ const compare = require('./pages/compare.js')
 const navigation = require('./components/navigation.js')
 
 const demo_data = require('../data/demo.json')
-const tour_data = require('../data/tour.json')
 
 const router = require('routes')()
 
@@ -36,7 +35,7 @@ const route_table = (h, store) => {
       return layout(h, store, el)
     }
   , '/tour': s => {
-      var el = tour(h, tour_data.events.reverse(), tour_data.topology.nodes, tour_data.topology.edges)
+      var el = tour(h)
       return layout(h, store, el)
     }
   , '/error': s => {

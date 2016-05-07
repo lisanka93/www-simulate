@@ -4,16 +4,28 @@ const draw = require('js-network-vis')
 const config = require('../config.js')
 const handlers = require('../handlers.js')
 
-module.exports = (h, events, nodes, edges) => {
+// TODO: add other algorithms
+const data = {
+  'one': require('../../data/tour.json')
+}
+
+module.exports = (h) => {
   
-  // TODO: select algorithm with drop down
   var event_queue, network, caption, node_data
-  
+
+  // return network and event data corresponding to selected algorithm 
+  var get_data = () => {
+    var sel = document.querySelector('#algo')
+    var algo = (sel || {value: 'one'}).value
+    return data[algo] || data['one']
+  }
+ 
   var start = () => {
+    var s_data = get_data()
     var container = document.querySelector('#vis')
     container.innerHTML = ''
-    event_queue = clone(events)
-    network = draw(clone(nodes), clone(edges), clone(config))
+    event_queue = clone(s_data.events).reverse()
+    network = draw(clone(s_data.topology.nodes), clone(s_data.topology.edges), clone(config))
     node_data = draw_node_data()
     network.nodes.on('mouseover', d => {
       h.update(node_data, draw_node_data(d))
@@ -86,13 +98,13 @@ module.exports = (h, events, nodes, edges) => {
   }
 
   var options = [
-    {value: 'hi', name: 'Hello'}
-  , {value: 'bye', name: 'Goodbye'}
+    {value: 'one', name: 'Hello'}
+  , {value: 'two', name: 'Goodbye'}
   ]
   
   var drop_down = (h) => {
     var hi = () => { console.log('selected') }
-    return h`<select onchange=${hi}>
+    return h`<select onchange=${hi} id='algo'>
       <option selected='true' disabled='disabled'>Choose algorithm</option>
       ${options.map(o => h`<option value=${o.value}>
         ${o.name}

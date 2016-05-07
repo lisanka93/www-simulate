@@ -21,7 +21,6 @@ exports.panes = {
   }
 }
 
-
 exports.render = section => {
   return (h, store) => {
 
