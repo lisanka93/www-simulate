@@ -170,3 +170,44 @@ div#node_data li {
 .compare .panel select {
   margin-top: 2em;
 }
+
+.about .menu {
+  float: left;
+}
+
+.about .menu ul {
+  padding: 0;
+}
+
+.about .menu li {
+  list-style: none;
+  margin-top: 3em;
+  margin-left: 2em;
+  height: 3em;
+  width: 10em;
+}
+
+.about .menu li button {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background-color: #e19a75;
+}
+
+.about .menu li button:hover {
+  background-color: #e17586;
+}
+
+.about .menu li button.active {
+  background-color: #75bce1;
+}
+
+.about .section {
+  padding-top: 2em;
+  width: 50%;
+  margin: auto;
+}
+
+.about .section .title {
+  text-align: center;
+}

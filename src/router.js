@@ -31,7 +31,7 @@ const route_table = (h, store) => {
     }
     , '/about': s => {
       
-      var el = about(h, store)
+      var el = about(h, store, s)
         
       return layout(h, store, el)
     }

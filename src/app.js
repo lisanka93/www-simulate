@@ -11,15 +11,10 @@ document.body.appendChild(app)
 
 function reducer (state, action) { 
   
-  if (!state) state = { path: '/', pane: 0 }
+  if (!state) state = { path: '/', pane: 'intro' }
   switch(action.type) {
-  case 'prev_pane':
-    if (state.pane > 0) state.pane -= 1
-    break
-  // NOTE: this checks we've not moved past last pane.
-  // it is inelegant and should not be hard coded 
-  case 'next_pane':
-    if (state.pane < 5) state.pane += 1
+  case 'change_pane':
+    state.pane = action.pane
     break
   case 'change_path':
     state.path = action.path

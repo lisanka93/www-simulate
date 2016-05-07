@@ -2,9 +2,10 @@ const routes = require('../route_config.js')
 
 var list_item = (h, path) => (r) => {
   if (r === path) return
+  var id = r.replace(/\//g, '')
   return h`
     <li class='solid'>
-      <a href=${r}>${routes[r].title}</a>
+      <a id=${id} href=${r}>${routes[r].title}</a>
       <div class='solid' id='description'>
         <h2>${routes[r].title}</h2>
         <p>${routes[r].description}</p> 
