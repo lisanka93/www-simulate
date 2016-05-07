@@ -162,15 +162,9 @@ div#node_data li {
   stroke: black;
 }
 
-.compare {
-
-}
-
 .compare .panel {
   width: 50%;
-  height: 100vh;
-  background-color: orange;
-float: left;
+  float: left;
 }
 
 .compare .panel select {

@@ -9,21 +9,21 @@ const algorithms = {
 , 'ho': require('../../data/tour.json')
 }
 
-
 module.exports = (h, store) => {
 
   // TODO: create a shared start button that 
   // triggers both at once
 
-  var networks = {}, containers = {}
+  var networks = {}, containers = {}, data = {}
 
   function create_network(id) {
     var container = document.querySelector('#' + id)
     container.innerHTML = ''
-    var d = clone(get_data('#' + id + '_algo'))
+    data[id] = clone(get_data('#' + id + '_algo'))
+    data[id].events.reverse()
     var c = clone(config)
     c.element = '#' + id
-    networks[id] = draw(d.topology.nodes, d.topology.edges, c)
+    networks[id] = draw(data[id].topology.nodes, data[id].topology.edges, c)
     Object.keys(handlers).forEach(h => {
       networks[id].event(h, handlers[h])
     })
@@ -31,7 +31,15 @@ module.exports = (h, store) => {
   }
 
   var start = () => {
-    // TODO: start animation
+    setInterval(update, 500) 
+  }
+
+  var update = () => {
+    var left_ev, right_ev;
+    if (data['left']) left_ev = data['left'].events.pop()
+    if (data['right']) right_ev = data['right'].events.pop()
+    if (left_ev) networks['left'].update(left_ev)
+    if (right_ev) networks['right'].update(right_ev)
   }
 
   var change_algo = (id) => {
@@ -54,19 +62,20 @@ module.exports = (h, store) => {
     </div>`
   }
 
-    
   return h`
     <div class='compare'>
-      <button onclick=${start}>start</button>
+      <div class='vis-ctl'>
+        <button onclick=${start}>Start</button>
+      </div>
       ${draw_panel(h, 'left')} 
       ${draw_panel(h, 'right')} 
     </div>
   `
 }
 
+// return data associated with selected algorithm
 function get_data(id) {
   var sel = document.querySelector(id)
   var algo = (sel || {value: undefined}).value
   return algorithms[algo || 'hi']
 }
-
