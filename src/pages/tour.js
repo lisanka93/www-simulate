@@ -5,7 +5,8 @@ const config = require('../config.js')
 const handlers = require('../handlers.js')
 
 module.exports = (h, events, nodes, edges) => {
-
+  
+  // TODO: select algorithm with drop down
   var event_queue, network, caption, node_data
   
   var start = () => {
@@ -48,7 +49,6 @@ module.exports = (h, events, nodes, edges) => {
     return h`<div></div>`
   }
   
-  
   var draw_section = (d, section) => {
     
     var title = ''
@@ -84,6 +84,21 @@ module.exports = (h, events, nodes, edges) => {
     }
     return h`<div></div>`
   }
+
+  var options = [
+    {value: 'hi', name: 'Hello'}
+  , {value: 'bye', name: 'Goodbye'}
+  ]
+  
+  var drop_down = (h) => {
+    var hi = () => { console.log('selected') }
+    return h`<select onchange=${hi}>
+      <option selected='true' disabled='disabled'>Choose algorithm</option>
+      ${options.map(o => h`<option value=${o.value}>
+        ${o.name}
+      </option>`)}
+    </select>`
+  }
   
   return h`
     <div id='tour'>
@@ -91,6 +106,7 @@ module.exports = (h, events, nodes, edges) => {
       <button id='start' onclick=${ start }>Start</button>
       <button onclick=${ update }>Next ${'>'}</button>
       </div>
+      ${drop_down(h)}
       <div id='vis'></div>
     </div>
   `

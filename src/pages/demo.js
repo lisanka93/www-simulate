@@ -65,7 +65,7 @@ module.exports = (h, events, nodes, edges) => {
 
   var update = () => {
     var ev = event_queue.pop()
-    while (!handlers[ev.type] && event_queue.length > 0) {
+    if (!handlers[ev.type] && event_queue.length > 0) {
       ev = event_queue.pop()
     }
     if (!ev) return
