@@ -4,6 +4,7 @@ const draw = require('js-network-vis')
 const config = require('../config.js')
 const handlers = require('../handlers.js')
 
+// TODO: use real algorithms and data
 const algorithms = {
   'hi': require('../../data/demo.json')
 , 'ho': require('../../data/tour.json')
@@ -11,16 +12,13 @@ const algorithms = {
 
 module.exports = (h, store) => {
 
-  // TODO: create a shared start button that 
-  // triggers both at once
-
-  var networks = {}, containers = {}, data = {}
+  var networks = {}, containers = {}, data = {}, started = false
 
   function create_network(id) {
     var container = document.querySelector('#' + id)
     container.innerHTML = ''
     data[id] = clone(get_data('#' + id + '_algo'))
-    data[id].events.reverse()
+    if (data[id]) data[id].events.reverse()
     var c = clone(config)
     c.element = '#' + id
     networks[id] = draw(data[id].topology.nodes, data[id].topology.edges, c)
@@ -31,7 +29,13 @@ module.exports = (h, store) => {
   }
 
   var start = () => {
-    setInterval(update, 500) 
+    if (!started) {
+      setInterval(update, 500) 
+      started = true
+    } else {
+      if (containers['left']) containers['left'] = create_network('left')
+      if (containers['right']) containers['right'] = create_network('right')
+    }
   }
 
   var update = () => {
@@ -47,7 +51,6 @@ module.exports = (h, store) => {
   }
 
   var drop_down = (h, id) => {
-      
     return h`<select onchange=${change_algo(id)} id=${id+'_algo'}>
       <option selected='true' disabled='disabled'>Choose algorithm</option>
       <option value='hi'>Hello</option>
