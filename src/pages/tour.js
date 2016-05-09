@@ -6,8 +6,9 @@ const handlers = require('../handlers.js')
 
 // TODO: add other algorithms
 const data = {
-  'one': require('../../data/tour.json'),
-  'simple': require('../../data/tour_simple.json')
+  'one': require('../../data/tour.json')
+, 'simple': require('../../data/tour_simple.json')
+, 'accept': require('../../data/tour_acceptance.json')
 }
 
 module.exports = (h) => {
@@ -114,6 +115,7 @@ module.exports = (h) => {
   var options = [
     {value: 'one', name: 'Hello'}
   , {value: 'simple', name: 'Simple'}
+  , {value: 'accept', name: 'Acceptance Threshold'}
   ]
   
   var drop_down = (h) => {
