@@ -42,7 +42,7 @@ var response_colors = make_color_palette(get_random_green)
 
 module.exports = { 
   element: '#vis'
-, charge: -900
+, charge: -300
 , friction: 100
 , linkDistance: 40
 , height: 700

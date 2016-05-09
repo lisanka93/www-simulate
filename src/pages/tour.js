@@ -6,7 +6,8 @@ const handlers = require('../handlers.js')
 
 // TODO: add other algorithms
 const data = {
-  'one': require('../../data/tour.json')
+  'one': require('../../data/tour.json'),
+  'simple': require('../../data/tour_simple.json')
 }
 
 module.exports = (h) => {
@@ -48,10 +49,22 @@ module.exports = (h) => {
   }
   
   var update = () => {
+    var interval, last_type
     var ev = event_queue.pop()
-    if (!ev) return
-    network.update(ev)
-    h.update(caption, draw_caption(ev.caption))
+
+    interval = setInterval(() => {
+      network.update(ev)
+      h.update(caption, draw_caption(ev.caption))
+      last_type = ev.type === 'request' ? 'request_hop' 
+            : ev.type === 'server_hit' ? 'content_hop'
+            : ev.type
+      ev = event_queue.pop() 
+      if (!ev || ev.type !== last_type) {
+        clearInterval(interval)
+        if (!ev) return
+        else event_queue.push(ev)
+      }
+    }, 500)
   }
  
   var draw_caption = m => {
@@ -87,6 +100,7 @@ module.exports = (h) => {
   var draw_node_data = d => {
     if (d && ['cache','requests','content'].some(s => d[s].length)) {
       return h`<div id='node_data'>
+        <h5>Node: ${d.ref}</h5>
         <ul>
           ${draw_section(d, 'cache')}  
           ${draw_section(d, 'requests')}  
@@ -99,7 +113,7 @@ module.exports = (h) => {
 
   var options = [
     {value: 'one', name: 'Hello'}
-  , {value: 'two', name: 'Goodbye'}
+  , {value: 'simple', name: 'Simple'}
   ]
   
   var drop_down = (h) => {
