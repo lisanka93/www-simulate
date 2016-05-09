@@ -349,7 +349,6 @@ test('event: content_hop', t => {
   var e = 'content_hop'
   var graph = create_graph(data, e)
  
- 
   var i = rand(0, graph.nodes.length)
   var id = 'abcdefg'
   graph.nodes[i].content.push({
@@ -372,6 +371,64 @@ test('event: content_hop', t => {
   matches = graph.nodes.filter(has('content'))
   t.equals(matches.length, 1, 'one node has content')
   t.equals(matches[0].name, graph.nodes[j].name, 'correct node')
+  
+  t.end()
+})
+
+test('event: request_complete', t => {
+
+  var e = 'request_complete'
+  var graph = create_graph(data, e)
+  
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg'
+  graph.nodes[i].content.push({
+    id: id
+  , loc: graph.nodes[i].name 
+  })
+  
+  var matches = graph.nodes.filter(has('content'))
+  t.equals(matches.length, 1, 'one node has content')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct node')
+  
+  graph.update({
+    type: e
+  , node: graph.nodes[i].name
+  , data_ID: id
+  })
+  
+  t.ok(graph.nodes.every(no('content')), 'no nodes have content')
+  t.end()
+})
+
+test('event: request_complete -> err', t => {
+
+  var e = 'request_complete'
+  var graph = create_graph(data, e)
+  
+  var i = rand(0, graph.nodes.length)
+  var id = 'abcdefg'
+  graph.nodes[i].content.push({
+    id: id
+  , loc: graph.nodes[i].name 
+  })
+  
+  var matches = graph.nodes.filter(has('content'))
+  t.equals(matches.length, 1, 'one node has content')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct node')
+
+  // use id for node and data for convenience
+  t.equals(graph.nodes.filter(has_id(id)).length, 0, 
+    'no nodes with id ' + id)
+  graph.update({
+    type: e
+  , node: id
+  , data_ID: id
+  })
+  
+  var matches = graph.nodes.filter(has('content'))
+  t.equals(matches.length, 1, 'one node has still content')
+  t.equals(matches[0].name, graph.nodes[i].name, 'correct node')
   
   t.end()
 })

@@ -11,8 +11,11 @@ document.body.appendChild(app)
 
 function reducer (state, action) { 
   
-  if (!state) state = { path: '/' }
+  if (!state) state = { path: '/', pane: 'intro' }
   switch(action.type) {
+  case 'change_pane':
+    state.pane = action.pane
+    break
   case 'change_path':
     state.path = action.path
     break

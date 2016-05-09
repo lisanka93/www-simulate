@@ -1,3 +1,5 @@
+// config passed to js-network-vis for configuring visualization details
+
 var get_random_component = function (min, max) {
   var letters = '0123456789abcdef'.split('')
   letters = letters.slice(min, max)
@@ -40,6 +42,11 @@ var response_colors = make_color_palette(get_random_green)
 
 module.exports = { 
   element: '#vis'
+, charge: -900
+, friction: 100
+, linkDistance: 40
+, height: 700
+, width: 1000
 , setup(nodes, edges) {
     nodes.forEach(n => {
       n.requests = []

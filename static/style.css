@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;  
-  font-family: Inconsolata, Consolas, monospace;
+  font-family: 'Roboto Mono', Inconsolata, Consolas, monospace;
 }
 
 body {
@@ -135,6 +135,23 @@ div#caption {
   max-width: 20em;
 }
 
+div#node_data {
+  float: left;
+  margin: 0 auto;
+  display: inline-block; 
+  margin-left: 2em;
+}
+div#node_data h4 {
+  text-align: center; 
+}
+div#node_data ul {
+  padding: 0;
+  display: inline-block;
+}
+div#node_data li {
+  list-style: none;
+}
+
 .edge {
   stroke: black;
   stroke-width: 10;
@@ -143,4 +160,54 @@ div#caption {
 .node {
   stroke-width: 6;
   stroke: black;
+}
+
+.compare .panel {
+  width: 50%;
+  float: left;
+}
+
+.compare .panel select {
+  margin-top: 2em;
+}
+
+.about .menu {
+  float: left;
+}
+
+.about .menu ul {
+  padding: 0;
+}
+
+.about .menu li {
+  list-style: none;
+  margin-top: 3em;
+  margin-left: 2em;
+  height: 3em;
+  width: 10em;
+}
+
+.about .menu li button {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background-color: #e19a75;
+}
+
+.about .menu li button:hover {
+  background-color: #e17586;
+}
+
+.about .menu li button.active {
+  background-color: #75bce1;
+}
+
+.about .section {
+  padding-top: 2em;
+  width: 50%;
+  margin: auto;
+}
+
+.about .section .title {
+  text-align: center;
 }
