@@ -14378,8 +14378,11 @@ document.body.appendChild(app);
 
 function reducer(state, action) {
 
-  if (!state) state = { path: '/' };
+  if (!state) state = { path: '/', pane: 'intro' };
   switch (action.type) {
+    case 'change_pane':
+      state.pane = action.pane;
+      break;
     case 'change_path':
       state.path = action.path;
       break;
@@ -14396,10 +14399,10 @@ function render(state) {
   if (!m) return router.match('/error').fn(state);else return m.fn(state);
 }
 
-},{"./router.js":36,"./store.js":37,"catch-links":8,"yo-yo":25}],28:[function(require,module,exports){
+},{"./router.js":39,"./store.js":40,"catch-links":8,"yo-yo":25}],28:[function(require,module,exports){
 'use strict';
 
-var _templateObject = _taggedTemplateLiteral(['\n    <li class=\'solid\'>\n      <a href=', '>', '</a>\n      <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div>\n    </li>\n  '], ['\n    <li class=\'solid\'>\n      <a href=', '>', '</a>\n      <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div>\n    </li>\n  ']),
+var _templateObject = _taggedTemplateLiteral(['\n    <li class=\'solid\'>\n      <a id=', ' href=', '>', '</a>\n      <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div>\n    </li>\n  '], ['\n    <li class=\'solid\'>\n      <a id=', ' href=', '>', '</a>\n      <div class=\'solid\' id=\'description\'>\n        <h2>', '</h2>\n        <p>', '</p> \n      </div>\n    </li>\n  ']),
     _templateObject2 = _taggedTemplateLiteral(['\n    <ul id=\'navigation\'>\n      ', '\n    </ul>\n  '], ['\n    <ul id=\'navigation\'>\n      ', '\n    </ul>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -14409,7 +14412,8 @@ var routes = require('../route_config.js');
 var list_item = function list_item(h, path) {
   return function (r) {
     if (r === path) return;
-    return h(_templateObject, r, routes[r].title, routes[r].title, routes[r].description);
+    var id = r.replace(/\//g, '');
+    return h(_templateObject, id, r, routes[r].title, routes[r].title, routes[r].description);
   };
 };
 
@@ -14421,7 +14425,7 @@ module.exports = function (h, store) {
   return h(_templateObject2, els);
 };
 
-},{"../route_config.js":35}],29:[function(require,module,exports){
+},{"../route_config.js":38}],29:[function(require,module,exports){
 'use strict';
 
 // config passed to js-network-vis for configuring visualization details
@@ -14467,6 +14471,11 @@ var response_colors = make_color_palette(get_random_green);
 
 module.exports = {
   element: '#vis',
+  charge: -900,
+  friction: 100,
+  linkDistance: 40,
+  height: 700,
+  width: 1000,
   setup: function setup(nodes, edges) {
     nodes.forEach(function (n) {
       n.requests = [];
@@ -14642,6 +14651,170 @@ module.exports = {
 },{}],32:[function(require,module,exports){
 'use strict';
 
+var _templateObject = _taggedTemplateLiteral(['\n    <div class=\'about\'>\n      <div class=\'menu\'>\n        <ul>\n        ', '\n        </ul>\n      </div>\n      ', '\n    </div>\n    '], ['\n    <div class=\'about\'>\n      <div class=\'menu\'>\n        <ul>\n        ', '\n        </ul>\n      </div>\n      ', '\n    </div>\n    ']),
+    _templateObject2 = _taggedTemplateLiteral(['<li><button class=', ' onclick=', '>\n            ', '\n          </button></li>'], ['<li><button class=', ' onclick=', '>\n            ', '\n          </button></li>']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var panes = require('./about_config.js').panes;
+var section = require('./about_config.js').render;
+
+module.exports = function (h, store, state) {
+
+  var change_pane = function change_pane(pane) {
+    return function () {
+      store.dispatch({
+        type: 'change_pane',
+        pane: pane
+      });
+    };
+  };
+
+  var activity = function activity(pane) {
+    return pane === state.pane ? 'active' : 'inactive';
+  };
+
+  var pane = function pane(num) {
+
+    return h(_templateObject, Object.keys(panes).map(function (p) {
+      return h(_templateObject2, activity(p), change_pane(p), panes[p].title);
+    }), section(panes[state.pane || 'intro'])(h, store));
+  };
+
+  return pane(store.get_state().pane);
+};
+
+function get_pane(num) {
+  if (panes[num]) return panes[num];else return panes[0];
+}
+
+},{"./about_config.js":33}],33:[function(require,module,exports){
+'use strict';
+
+var _templateObject = _taggedTemplateLiteral(['<div class=\'section\'>\n      <h2 class=\'title\'>', '</h2>\n      <p class=\'description\'>', '</p>\n    </div>'], ['<div class=\'section\'>\n      <h2 class=\'title\'>', '</h2>\n      <p class=\'description\'>', '</p>\n    </div>']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+exports.panes = {
+  'intro': {
+    title: 'Introduction',
+    description: 'Hello@'
+  },
+  'motive': {
+    title: 'Motivation',
+    description: 'Motivational speech'
+  },
+  'content': {
+    title: 'Content-Addressing',
+    description: 'dear content'
+  },
+  'cache': {
+    title: 'Caching',
+    description: 'Caught youg'
+  },
+  'algo': {
+    title: 'Algorithm',
+    description: 'Bob dole'
+  },
+  'who': {
+    title: 'Who is behind it?',
+    description: 'Kin Leung'
+  }
+};
+
+exports.render = function (section) {
+  return function (h, store) {
+    return h(_templateObject, section.title, section.description);
+  };
+};
+
+},{}],34:[function(require,module,exports){
+'use strict';
+
+var _templateObject = _taggedTemplateLiteral(['<select onchange=', ' id=', '>\n      <option selected=\'true\' disabled=\'disabled\'>Choose algorithm</option>\n      <option value=\'hi\'>Hello</option>\n      <option value=\'ho\'>Bye</option>\n    </select>'], ['<select onchange=', ' id=', '>\n      <option selected=\'true\' disabled=\'disabled\'>Choose algorithm</option>\n      <option value=\'hi\'>Hello</option>\n      <option value=\'ho\'>Bye</option>\n    </select>']),
+    _templateObject2 = _taggedTemplateLiteral(['<div class=\'panel\'>\n      ', '\n      <div id=', '></div>\n    </div>'], ['<div class=\'panel\'>\n      ', '\n      <div id=', '></div>\n    </div>']),
+    _templateObject3 = _taggedTemplateLiteral(['\n    <div class=\'compare\'>\n      <div class=\'vis-ctl\'>\n        <button onclick=', '>Start</button>\n      </div>\n      ', ' \n      ', ' \n    </div>\n  '], ['\n    <div class=\'compare\'>\n      <div class=\'vis-ctl\'>\n        <button onclick=', '>Start</button>\n      </div>\n      ', ' \n      ', ' \n    </div>\n  ']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var clone = require('clone');
+var draw = require('js-network-vis');
+
+var config = require('../config.js');
+var handlers = require('../handlers.js');
+
+// TODO: use real algorithms and data
+var algorithms = {
+  'hi': require('../../data/demo.json'),
+  'ho': require('../../data/tour.json')
+};
+
+module.exports = function (h, store) {
+
+  var networks = {},
+      containers = {},
+      data = {},
+      started = false;
+
+  function create_network(id) {
+    var container = document.querySelector('#' + id);
+    container.innerHTML = '';
+    data[id] = clone(get_data('#' + id + '_algo'));
+    if (data[id]) data[id].events.reverse();
+    var c = clone(config);
+    c.element = '#' + id;
+    networks[id] = draw(data[id].topology.nodes, data[id].topology.edges, c);
+    Object.keys(handlers).forEach(function (h) {
+      networks[id].event(h, handlers[h]);
+    });
+    return container;
+  }
+
+  var start = function start() {
+    if (!started) {
+      setInterval(update, 500);
+      started = true;
+    } else {
+      if (containers['left']) containers['left'] = create_network('left');
+      if (containers['right']) containers['right'] = create_network('right');
+    }
+  };
+
+  var update = function update() {
+    var left_ev, right_ev;
+    if (data['left']) left_ev = data['left'].events.pop();
+    if (data['right']) right_ev = data['right'].events.pop();
+    if (left_ev) networks['left'].update(left_ev);
+    if (right_ev) networks['right'].update(right_ev);
+  };
+
+  var change_algo = function change_algo(id) {
+    return function () {
+      containers[id] = create_network(id);
+    };
+  };
+
+  var drop_down = function drop_down(h, id) {
+    return h(_templateObject, change_algo(id), id + '_algo');
+  };
+
+  var draw_panel = function draw_panel(h, id) {
+    return h(_templateObject2, drop_down(h, id), id);
+  };
+
+  return h(_templateObject3, start, draw_panel(h, 'left'), draw_panel(h, 'right'));
+};
+
+// return data associated with selected algorithm
+function get_data(id) {
+  var sel = document.querySelector(id);
+  var algo = (sel || { value: undefined }).value;
+  return algorithms[algo || 'hi'];
+}
+
+},{"../../data/demo.json":1,"../../data/tour.json":2,"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],35:[function(require,module,exports){
+'use strict';
+
 var _templateObject = _taggedTemplateLiteral(['<li>\n        <h4>', '</h4>\n        <ul id=', '>\n       \n          ', '\n        \n        </ul>\n      </li>'], ['<li>\n        <h4>', '</h4>\n        <ul id=', '>\n       \n          ', '\n        \n        </ul>\n      </li>']),
     _templateObject2 = _taggedTemplateLiteral(['<li>', '. ID: ', '</li>'], ['<li>', '. ID: ', '</li>']),
     _templateObject3 = _taggedTemplateLiteral([''], ['']),
@@ -14707,7 +14880,7 @@ module.exports = function (h, events, nodes, edges) {
 
   var update = function update() {
     var ev = event_queue.pop();
-    while (!handlers[ev.type] && event_queue.length > 0) {
+    if (!handlers[ev.type] && event_queue.length > 0) {
       ev = event_queue.pop();
     }
     if (!ev) return;
@@ -14717,7 +14890,7 @@ module.exports = function (h, events, nodes, edges) {
   return h(_templateObject6, start);
 };
 
-},{"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],33:[function(require,module,exports){
+},{"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],36:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <div id=\'home\'>\n      <h1 onload=', ' id=\'title\'>Simulate</h1>\n      ', '\n      \n      <div class=\'overlay\'></div>\n      <div id=\'background\'></div>\n    </div>\n  '], ['\n    <div id=\'home\'>\n      <h1 onload=', ' id=\'title\'>Simulate</h1>\n      ', '\n      \n      <div class=\'overlay\'></div>\n      <div id=\'background\'></div>\n    </div>\n  ']);
@@ -14763,7 +14936,7 @@ module.exports = function (h, store) {
   return h(_templateObject, load, nav(h, store));
 };
 
-},{"../../data/tour.json":2,"../components/navigation.js":28,"../config.js":29,"clone":9,"js-network-vis":15}],34:[function(require,module,exports){
+},{"../../data/tour.json":2,"../components/navigation.js":28,"../config.js":29,"clone":9,"js-network-vis":15}],37:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['<div id=\'caption\'><p>', '</p></div>'], ['<div id=\'caption\'><p>', '</p></div>']),
@@ -14772,7 +14945,9 @@ var _templateObject = _taggedTemplateLiteral(['<div id=\'caption\'><p>', '</p></
     _templateObject4 = _taggedTemplateLiteral(['<li>', '. ID: ', '</li>'], ['<li>', '. ID: ', '</li>']),
     _templateObject5 = _taggedTemplateLiteral([''], ['']),
     _templateObject6 = _taggedTemplateLiteral(['<div id=\'node_data\'>\n        <ul>\n          ', '  \n          ', '  \n          ', '  \n        </ul>\n      </div>'], ['<div id=\'node_data\'>\n        <ul>\n          ', '  \n          ', '  \n          ', '  \n        </ul>\n      </div>']),
-    _templateObject7 = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Next ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Next ', '</button>\n      </div>\n      <div id=\'vis\'></div>\n    </div>\n  ']);
+    _templateObject7 = _taggedTemplateLiteral(['<select onchange=', ' id=\'algo\'>\n      <option selected=\'true\' disabled=\'disabled\'>Choose algorithm</option>\n      ', '\n    </select>'], ['<select onchange=', ' id=\'algo\'>\n      <option selected=\'true\' disabled=\'disabled\'>Choose algorithm</option>\n      ', '\n    </select>']),
+    _templateObject8 = _taggedTemplateLiteral(['<option value=', '>\n        ', '\n      </option>'], ['<option value=', '>\n        ', '\n      </option>']),
+    _templateObject9 = _taggedTemplateLiteral(['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Next ', '</button>\n      </div>\n      ', '\n      <div id=\'vis\'></div>\n    </div>\n  '], ['\n    <div id=\'tour\'>\n      <div class=\'vis-ctl\'>\n      <button id=\'start\' onclick=', '>Start</button>\n      <button onclick=', '>Next ', '</button>\n      </div>\n      ', '\n      <div id=\'vis\'></div>\n    </div>\n  ']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -14782,15 +14957,28 @@ var draw = require('js-network-vis');
 var config = require('../config.js');
 var handlers = require('../handlers.js');
 
-module.exports = function (h, events, nodes, edges) {
+// TODO: add other algorithms
+var data = {
+  'one': require('../../data/tour.json')
+};
+
+module.exports = function (h) {
 
   var event_queue, network, caption, node_data;
 
+  // return network and event data corresponding to selected algorithm
+  var get_data = function get_data() {
+    var sel = document.querySelector('#algo');
+    var algo = (sel || { value: 'one' }).value;
+    return data[algo] || data['one'];
+  };
+
   var start = function start() {
+    var s_data = get_data();
     var container = document.querySelector('#vis');
     container.innerHTML = '';
-    event_queue = clone(events);
-    network = draw(clone(nodes), clone(edges), clone(config));
+    event_queue = clone(s_data.events).reverse();
+    network = draw(clone(s_data.topology.nodes), clone(s_data.topology.edges), clone(config));
     node_data = draw_node_data();
     network.nodes.on('mouseover', function (d) {
       h.update(node_data, draw_node_data(d));
@@ -14851,10 +15039,21 @@ module.exports = function (h, events, nodes, edges) {
     return h(_templateObject2);
   };
 
-  return h(_templateObject7, start, update, '>');
+  var options = [{ value: 'one', name: 'Hello' }, { value: 'two', name: 'Goodbye' }];
+
+  var drop_down = function drop_down(h) {
+    var hi = function hi() {
+      console.log('selected');
+    };
+    return h(_templateObject7, hi, options.map(function (o) {
+      return h(_templateObject8, o.value, o.name);
+    }));
+  };
+
+  return h(_templateObject9, start, update, '>', drop_down(h));
 };
 
-},{"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],35:[function(require,module,exports){
+},{"../../data/tour.json":2,"../config.js":29,"../handlers.js":31,"clone":9,"js-network-vis":15}],38:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -14870,32 +15069,33 @@ module.exports = {
     title: 'Demo',
     description: 'View a simulation of the algorithm'
   },
-  '/wow': {
-    title: 'Wow',
+  '/about': {
+    title: 'About',
     description: 'Wow, just wow!'
+  },
+  '/compare': {
+    title: 'Compare',
+    description: 'Compare how different algorithms perform'
   }
 };
 
-},{}],36:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      ', '\n      ', ' \n    </div> \n  '], ['\n    <div>\n      ', '\n      ', ' \n    </div> \n  ']),
-    _templateObject2 = _taggedTemplateLiteral(['<h2>Wow!</h2>'], ['<h2>Wow!</h2>']),
-    _templateObject3 = _taggedTemplateLiteral(['<div class=\'error\'>Error: not found</div>'], ['<div class=\'error\'>Error: not found</div>']);
+    _templateObject2 = _taggedTemplateLiteral(['<div class=\'error\'>Error: not found</div>'], ['<div class=\'error\'>Error: not found</div>']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var _tour = require('./pages/tour.js');
 var _demo = require('./pages/demo.js');
 var home = require('./pages/home.js');
+var _about = require('./pages/about.js');
+var _compare = require('./pages/compare.js');
+
 var navigation = require('./components/navigation.js');
 
 var demo_data = require('../data/demo.json');
-var tour_data = require('../data/tour.json');
-
-console.log(demo_data.events.filter(function (n) {
-  return n.type === 'cache_remove';
-}));
 
 var router = require('routes')();
 
@@ -14912,15 +15112,22 @@ var route_table = function route_table(h, store) {
       var el = _demo(h, demo_data.events.reverse(), demo_data.topology.nodes, demo_data.topology.edges);
       return layout(h, store, el);
     },
-    '/wow': function wow(s) {
-      return layout(h, store, h(_templateObject2));
+    '/about': function about(s) {
+
+      var el = _about(h, store, s);
+
+      return layout(h, store, el);
     },
     '/tour': function tour(s) {
-      var el = _tour(h, tour_data.events.reverse(), tour_data.topology.nodes, tour_data.topology.edges);
+      var el = _tour(h);
       return layout(h, store, el);
     },
     '/error': function error(s) {
-      var el = h(_templateObject3);
+      var el = h(_templateObject2);
+      return layout(h, store, el);
+    },
+    '/compare': function compare(s) {
+      var el = _compare(h, store);
       return layout(h, store, el);
     }
   };
@@ -14938,7 +15145,7 @@ var create_router = function create_router(h, store) {
 
 module.exports = create_router;
 
-},{"../data/demo.json":1,"../data/tour.json":2,"./components/navigation.js":28,"./pages/demo.js":32,"./pages/home.js":33,"./pages/tour.js":34,"routes":22}],37:[function(require,module,exports){
+},{"../data/demo.json":1,"./components/navigation.js":28,"./pages/about.js":32,"./pages/compare.js":34,"./pages/demo.js":35,"./pages/home.js":36,"./pages/tour.js":37,"routes":22}],40:[function(require,module,exports){
 'use strict';
 
 var hub = require('./events.js')();
