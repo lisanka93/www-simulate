@@ -1,5 +1,5 @@
 const nav = require('../components/navigation.js')
-const data = require('../../data/tour.json').topology
+const data = require('../../data/tour_simple.json').topology
 const draw = require('js-network-vis')
 const clone = require('clone')
 const config = require('../config.js')
@@ -15,11 +15,11 @@ module.exports = (h, store) => {
       setTimeout(load, 200)
     } else {
       conf.element = '#background'
-      conf.linkDistance = '300'
+      conf.linkDistance = '150'
       conf.height = '500'
       conf.width = '1000'
       conf.charge = '-300'
-      conf.node_size = '30'
+      conf.node_size = '25'
       network = draw(clone(data.nodes), clone(data.edges), conf)
       network.event('add', (ev, nodes, edges) => {
         ev.nodes.forEach(node => {
