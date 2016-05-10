@@ -1,6 +1,16 @@
 // event handlers
 // handlers to describe network updates for different event types
 
+function find_node (name, canvas) {
+  return canvas.selectAll('circle.node')
+  .filter(function(d) {
+    return d && d.name && d.name === name  
+  })
+  .data(network.graph.nodes, function (d) {
+    return d.name
+  })
+}
+
 module.exports = {
   'request': (ev, nodes, edges) => {
     var node = nodes.filter(n => n.name.toString() === ev.from_node.toString())[0]
