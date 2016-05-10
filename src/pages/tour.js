@@ -9,6 +9,7 @@ const data = {
   'one': require('../../data/tour.json')
 , 'simple': require('../../data/tour_simple.json')
 , 'accept': require('../../data/tour_acceptance.json')
+, 'nosuggest': require('../../data/tour_no_suggestion.json')
 }
 
 module.exports = (h) => {
@@ -116,6 +117,7 @@ module.exports = (h) => {
     {value: 'one', name: 'Hello'}
   , {value: 'simple', name: 'Simple'}
   , {value: 'accept', name: 'Acceptance Threshold'}
+  , {value: 'nosuggest', name: 'No Suggestion'}
   ]
   
   var drop_down = (h) => {

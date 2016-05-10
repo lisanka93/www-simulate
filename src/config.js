@@ -45,7 +45,7 @@ module.exports = {
 , charge: -300
 , friction: 100
 , linkDistance: 40
-, height: 700
+, height: 500
 , width: 1000
 , setup(nodes, edges) {
     nodes.forEach(n => {
