@@ -211,3 +211,29 @@ div#node_data li {
 .about .section .title {
   text-align: center;
 }
+
+.stats_panel {
+  clear: both;
+}
+
+.stats_panel .single_stats_panel {
+  width: 45%;
+  display: inline-block;
+  overflow-y: scroll;
+  max-height: 10em;
+  margin-top: 9px;
+  margin-bottom: 9px;
+  text-align: center;
+}
+
+.stats_panel .single_stats_panel p {
+  margin: 0;
+}
+
+.stats_panel .single_stats_panel#left_stats {
+  float: left;
+}
+
+.stats_panel .single_stats_panel#right_stats {
+  float: right;
+}
