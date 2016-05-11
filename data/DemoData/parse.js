@@ -1,9 +1,12 @@
 var data = require('./POP_NEIGHBOUR_DYN_clean_events.json')
 
 var obj = {}
-obj.events = data['EVENTS']
+obj.events = data['EVENTS'].map(function (e) {
+
+    e.type = e.event_type
+    return e
+})
 obj.topology = {}
-obj.topology['edges'] = data['TOPOLOGY']['EDGES']
 
 //console.log(data['TOPOLOGY']['NODES'])
 
