@@ -3,66 +3,66 @@
     "edges": [
       {
         "source": 0, 
-        "target": 7, 
+        "target": 4, 
         "value": 1
       }, 
       {
         "source": 1, 
-        "target": 7, 
+        "target": 4, 
         "value": 1
       }, 
       {
         "source": 2, 
-        "target": 7, 
+        "target": 4, 
         "value": 1
       }, 
       {
         "source": 3, 
-        "target": 7, 
+        "target": 4, 
         "value": 1
       }, 
       {
         "source": 4, 
-        "target": 7, 
+        "target": 5, 
+        "value": 1
+      }, 
+      {
+        "source": 5, 
+        "target": 6, 
         "value": 1
       }, 
       {
         "source": 5, 
         "target": 7, 
         "value": 1
-      }, 
-      {
-        "source": 6, 
-        "target": 7, 
-        "value": 1
       },
       {
-        "source": 7, 
+        "source": 5, 
         "target": 8, 
         "value": 1
       },
       {
-        "source": 8,
+        "source": 5,
         "target": 9, 
         "value": 1
       },
       {
-        "source": 8,
+        "source": 9,
         "target": 10, 
         "value": 1
       },
       {
-        "source": 8,
+        "source": 10,
         "target": 11, 
         "value": 1
       },
       {
-        "source": 8,
+        "source": 10,
         "target": 12, 
         "value": 1
       },
       {
-        "source": 12,
+        "source": 10,
         "target": 13, 
         "value": 1
       },
@@ -71,6 +71,7 @@
         "target": 14, 
         "value": 1
       }
+      
     ], 
     "nodes": [
       {
@@ -82,79 +83,79 @@
       {
         "group": 1, 
         "name": "1", 
-        "type": "source",
+        "type": "receiver",
         "ref": "B"
       }, 
       {
         "group": 2, 
         "name": "2", 
-        "type": "source",
+        "type": "receiver",
         "ref": "C"
       }, 
       {
         "group": 3, 
         "name": "3", 
-        "type": "source",
+        "type": "receiver",
         "ref": "D"
       }, 
       {
         "group": 4, 
         "name": "4", 
-        "type": "source",
+        "type": "router",
         "ref": "E"
       }, 
       {
         "group": 5, 
         "name": "5", 
-        "type": "source",
+        "type": "router",
         "ref": "F"
       }, 
       {
         "group": 6, 
         "name": "6", 
-        "type": "source",
+        "type": "receiver",
         "ref": "G"
       },
       {
         "group": 7, 
         "name": "7", 
-        "type": "source",
+        "type": "receiver",
         "ref": "H"
       },
       {
         "group": 8, 
         "name": "8", 
-        "type": "source",
+        "type": "receiver",
         "ref": "I"
       },
       {
         "group": 9, 
         "name": "9", 
-        "type": "source",
+        "type": "router",
         "ref": "J"
       },
       {
         "group": 10, 
         "name": "10", 
-        "type": "source",
+        "type": "router",
         "ref": "K"
       },
       {
         "group": 11, 
         "name": "11", 
-        "type": "source",
+        "type": "receiver",
         "ref": "L"
       },
       {
         "group": 12, 
         "name": "12", 
-        "type": "source",
+        "type": "receiver",
         "ref": "M"
       },
       {
         "group": 13, 
         "name": "13", 
-        "type": "source",
+        "type": "router",
         "ref": "N"
       },
       {
@@ -167,60 +168,133 @@
     ]
   },
   "events": [
+    //Request 1
     {
       "type": "request",
       "from_node": "0",
       "data_ID": "abcdefg",
-      "caption": "A creates request content (stored at M)"
+      "caption": "Node 0 generates request for content (stored at Node 14)"
     },
     {
       "type": "request_hop",
       "from_node": "0",
-      "to_node": "7",
+      "to_node": "4",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "4",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },    
+    {
+      "type": "request_hop",
+      "from_node": "4",
+      "to_node": "5",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "5",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },        
+    {
+      "type": "request_hop",
+      "from_node": "5",
+      "to_node": "9",
       "data_ID": "abcdefg",
       "caption": "A creates request content (stored at M)"
     },
     {
+      "type": "cache_lookup_failed",
+      "node": "9",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },          
+    {
       "type": "request_hop",
-      "from_node": "7",
-      "to_node": "8",
+      "from_node": "9",
+      "to_node": "10",
       "data_ID": "abcdefg",
       "caption": "A creates request content (stored at M)"
     },
     {
+      "type": "cache_lookup_failed",
+      "node": "10",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },      
+    {
       "type": "request_hop",
-      "from_node": "8",
-      "to_node": "12",
+      "from_node": "10",
+      "to_node": "13",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "13",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    }, 
+    {
+      "type": "request_hop",
+      "from_node": "13",
+      "to_node": "14",
       "data_ID": "abcdefg",
       "caption": "A creates request content (stored at M)"
     },
     {
       "type": "server_hit",
-      "node": "12",
+      "node": "14",
       "data_ID": "abcdefg",
       "caption": "M serves the content back to A!"
     },
     {
       "type": "content_hop",
-      "from_node": "12",
-      "to_node": "8",
+      "from_node": "14",
+      "to_node": "13",
       "data_ID": "abcdefg",
       "caption": "M serves the content back to A!"
     },
     {
       "type": "content_hop",
-      "from_node": "8",
-      "to_node": "7",
+      "from_node": "13",
+      "to_node": "10",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    },        
+    {
+      "type": "content_hop",
+      "from_node": "10",
+      "to_node": "9",
       "data_ID": "abcdefg",
       "caption": "M serves the content back to A!"
     },
     {
       "type": "content_hop",
-      "from_node": "7",
+      "from_node": "9",
+      "to_node": "5",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "5",
+      "to_node": "4",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "4",
       "to_node": "0",
       "data_ID": "abcdefg",
       "caption": "M serves the content back to A!"
-    },
+    },    
     {
       "type": "request_complete",
       "node": "0",
@@ -228,119 +302,239 @@
       "caption": "And A consumes it" 
     },
 
+    // Request 2
     {
       "type": "request",
       "from_node": "1",
       "data_ID": "abcdefg",
-      "caption": "B creates request content (stored at M)"
+      "caption": "Node 0 generates request for content (stored at Node 14)"
     },
     {
       "type": "request_hop",
       "from_node": "1",
-      "to_node": "7",
+      "to_node": "4",
       "data_ID": "abcdefg",
-      "caption": "B creates request content (stored at M)"
+      "caption": "Node 0 generates request for content (stored at Node 14)"
     },
     {
-      "type": "request_hop",
-      "from_node": "7",
-      "to_node": "8",
+      "type": "cache_lookup_failed",
+      "node": "4",
       "data_ID": "abcdefg",
-      "caption": "B creates request content (stored at M)"
-    },
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },    
     {
       "type": "request_hop",
-      "from_node": "8",
-      "to_node": "12",
+      "from_node": "4",
+      "to_node": "5",
       "data_ID": "abcdefg",
-      "caption": "B creates request content (stored at M)"
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "5",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },        
+    {
+      "type": "request_hop",
+      "from_node": "5",
+      "to_node": "9",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "9",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },          
+    {
+      "type": "request_hop",
+      "from_node": "9",
+      "to_node": "10",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "10",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },      
+    {
+      "type": "request_hop",
+      "from_node": "10",
+      "to_node": "13",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "13",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    }, 
+    {
+      "type": "request_hop",
+      "from_node": "13",
+      "to_node": "14",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
     },
     {
       "type": "server_hit",
-      "node": "12",
+      "node": "14",
       "data_ID": "abcdefg",
-      "caption": "M serves the content back to B!"
+      "caption": "M serves the content back to A!"
     },
     {
       "type": "content_hop",
-      "from_node": "12",
-      "to_node": "8",
+      "from_node": "14",
+      "to_node": "13",
       "data_ID": "abcdefg",
-      "caption": "M serves the content back to B!"
+      "caption": "M serves the content back to A!"
     },
     {
       "type": "content_hop",
-      "from_node": "8",
-      "to_node": "7",
+      "from_node": "13",
+      "to_node": "10",
       "data_ID": "abcdefg",
-      "caption": "M serves the content back to B!"
+      "caption": "M serves the content back to A!"
+    },        
+    {
+      "type": "content_hop",
+      "from_node": "10",
+      "to_node": "9",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
     },
     {
       "type": "content_hop",
-      "from_node": "7",
+      "from_node": "9",
+      "to_node": "5",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "5",
+      "to_node": "4",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    },
+    {
+      "type": "content_hop",
+      "from_node": "4",
       "to_node": "1",
       "data_ID": "abcdefg",
-      "caption": "M serves the content back to B!"
-    },
+      "caption": "M serves the content back to A!"
+    },    
     {
       "type": "request_complete",
       "node": "1",
       "data_ID": "abcdefg",
-      "caption": "And B consumes it" 
-    },
-
+      "caption": "And A consumes it" 
+    },    
+ 
+    // Request 3
     {
       "type": "request",
-      "from_node": "7",
+      "from_node": "2",
       "data_ID": "abcdefg",
-      "caption": "H request content (stored at M)"
+      "caption": "Node 0 generates request for content (stored at Node 14)"
     },
     {
       "type": "request_hop",
-      "from_node": "7",
-      "to_node": "8",
+      "from_node": "2",
+      "to_node": "4",
       "data_ID": "abcdefg",
-      "caption": "H request content (stored at M)"
+      "caption": "Node 0 generates request for content (stored at Node 14)"
     },
     {
-      "type": "request_hop",
-      "from_node": "8",
-      "to_node": "12",
+      "type": "cache_lookup_failed",
+      "node": "4",
       "data_ID": "abcdefg",
-      "caption": "H request content (stored at M)"
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },    
+    {
+      "type": "request_hop",
+      "from_node": "4",
+      "to_node": "5",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "5",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },        
+    {
+      "type": "request_hop",
+      "from_node": "5",
+      "to_node": "9",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "9",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },          
+    {
+      "type": "request_hop",
+      "from_node": "9",
+      "to_node": "10",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "10",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },      
+    {
+      "type": "request_hop",
+      "from_node": "10",
+      "to_node": "13",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
+    },
+    {
+      "type": "cache_lookup_failed",
+      "node": "13",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    }, 
+    {
+      "type": "request_hop",
+      "from_node": "13",
+      "to_node": "14",
+      "data_ID": "abcdefg",
+      "caption": "A creates request content (stored at M)"
     },
     {
       "type": "server_hit",
-      "node": "12",
+      "node": "14",
       "data_ID": "abcdefg",
-      "caption": "M serves the content!"
-    },
-    {
-      "type": "content_hop",
-      "from_node": "12",
-      "to_node": "8",
-      "data_ID": "abcdefg",
-      "caption": "M serves the content back to H"
-    },
-    {
-      "type": "content_hop",
-      "from_node": "8",
-      "to_node": "7",
-      "data_ID": "abcdefg",
-      "caption": "M serves the content back to H"
-    },
-    {
-      "type": "request_complete",
-      "node": "7",
-      "data_ID": "abcdefg",
-      "caption": "And H consumes it" 
+      "caption": "M serves the content back to A!"
     },
 
     {
       "type": "suggest",
-      "node": "12",
+      "node": "14",
       "data_ID": "abcdefg",
-      "caption": "M suggests to neighbours to cache content" 
+      "caption": "Node 14 suggests to neighbours to cache content" 
+    },
+
+    {
+      "type": "content_hop",
+      "from_node": "14",
+      "to_node": "13",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
     },
     {
       "type": "cache_content",
@@ -349,90 +543,138 @@
       "caption": "N and I cache content" 
     },
     {
+      "type": "content_hop",
+      "from_node": "13",
+      "to_node": "10",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    }, 
+    {
       "type": "cache_content",
-      "node": "8",
+      "node": "10",
       "data_ID": "abcdefg",
       "caption": "N and I cache content" 
     },
-
-
-    {
-      "type": "request",
-      "from_node": "6",
-      "data_ID": "abcdefg",
-      "caption": "G requests same content from M"
-    },
-    {
-      "type": "request_hop",
-      "from_node": "6",
-      "to_node": "7",
-      "data_ID": "abcdefg",
-      "caption": "G requests same content from M"
-    },
-    {
-      "type": "request_hop",
-      "from_node": "7",
-      "to_node": "8",
-      "data_ID": "abcdefg",
-      "caption": "G requests same content from M"
-    },
-    {
-      "type": "cache_hit",
-      "node": "8",
-      "data_ID": "abcdefg",
-      "caption": "I serves the content to G from cache!"
-    },
     {
       "type": "content_hop",
-      "from_node": "8",
-      "to_node": "7",
+      "from_node": "10",
+      "to_node": "9",
       "data_ID": "abcdefg",
-      "caption": "I serves the content to G from cache!"
-    },
-    {
-      "type": "content_hop",
-      "from_node": "7",
-      "to_node": "6",
-      "data_ID": "abcdefg",
-      "caption": "I serves the content to G from cache!"
-    },
-    {
-      "type": "request_complete",
-      "node": "6",
-      "data_ID": "abcdefg",
-      "caption": "And G consumes it" 
-    },
-    
-    {
-      "type": "suggest",
-      "from_node": "8",
-      "data_ID": "abcdefg",
-      "caption": "I suggests to neighbours to cache"
-    },
-    {
-      "type": "cache_content",
-      "node": "7",
-      "data_ID": "abcdefg",
-      "caption": "H, J, K, and L cache content" 
+      "caption": "M serves the content back to A!"
     },
     {
       "type": "cache_content",
       "node": "9",
       "data_ID": "abcdefg",
-      "caption": "H, J, K, and L cache content" 
+      "caption": "N and I cache content" 
+    },    
+    {
+      "type": "content_hop",
+      "from_node": "9",
+      "to_node": "5",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
     },
     {
       "type": "cache_content",
-      "node": "10",
+      "node": "5",
       "data_ID": "abcdefg",
-      "caption": "H, J, K, and L cache content" 
+      "caption": "N and I cache content" 
+    },        
+    {
+      "type": "content_hop",
+      "from_node": "5",
+      "to_node": "4",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
     },
     {
       "type": "cache_content",
-      "node": "11",
+      "node": "4",
       "data_ID": "abcdefg",
-      "caption": "H, J, K, and L cache content" 
+      "caption": "N and I cache content" 
+    },       
+    {
+      "type": "content_hop",
+      "from_node": "4",
+      "to_node": "2",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    },    
+    {
+      "type": "request_complete",
+      "node": "2",
+      "data_ID": "abcdefg",
+      "caption": "And A consumes it" 
     },
+
+    // Request 5
+    {
+      "type": "request",
+      "from_node": "3",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },
+    {
+      "type": "request_hop",
+      "from_node": "3",
+      "to_node": "4",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },
+    {
+      "type": "cache_hit",
+      "node": "4",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },  
+    {
+      "type": "content_hop",
+      "from_node": "4",
+      "to_node": "3",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    },    
+    {
+      "type": "request_complete",
+      "node": "3",
+      "data_ID": "abcdefg",
+      "caption": "And A consumes it" 
+    },      
+
+    // Request 6
+    {
+      "type": "request",
+      "from_node": "6",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },
+    {
+      "type": "request_hop",
+      "from_node": "6",
+      "to_node": "5",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },
+    {
+      "type": "cache_hit",
+      "node": "5",
+      "data_ID": "abcdefg",
+      "caption": "Node 0 generates request for content (stored at Node 14)"
+    },  
+    {
+      "type": "content_hop",
+      "from_node": "5",
+      "to_node": "6",
+      "data_ID": "abcdefg",
+      "caption": "M serves the content back to A!"
+    },    
+    {
+      "type": "request_complete",
+      "node": "6",
+      "data_ID": "abcdefg",
+      "caption": "And A consumes it" 
+    },     
 
   ]
 }
