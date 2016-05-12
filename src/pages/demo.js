@@ -24,7 +24,7 @@ module.exports = (h, events, nodes, edges) => {
     })
     document.querySelector('#start').innerText = 'Restart'
     document.querySelector('#demo').insertBefore(node_data, container)
-    setInterval(update, 500)
+    setInterval(update, 150)
   }
   
   var draw_section = (d, section) => {
@@ -65,6 +65,7 @@ module.exports = (h, events, nodes, edges) => {
 
   var update = () => {
     var ev = event_queue.pop()
+    console.log(ev)
     if (!handlers[ev.type] && event_queue.length > 0) {
       ev = event_queue.pop()
     }
