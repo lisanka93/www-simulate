@@ -6,8 +6,12 @@ const handlers = require('../handlers.js')
 
 // TODO: use real algorithms and data
 const algorithms = {
-  'hi': require('../../data/demo.json')
-, 'ho': require('../../data/tour.json')
+  'pop_neighbour_dyn': require('../../data/demos/formatted_POP_NEIGHBOUR_DYN_clean_events.json')
+, 'pop_neighbour_stat': require('../../data/demos/formatted_POP_NEIGHBOUR_STAT_clean_events.json')
+, 'pop_neighbour_t_dyn': require('../../data/demos/formatted_POP_NEIGHBOUR_T_DYN_clean_events.json')
+, 'pop_neighbour_t_stat': require('../../data/demos/formatted_POP_NEIGHBOUR_T_STAT_clean_events.json')
+, 'pop_self_dyn': require('../../data/demos/formatted_POP_SELF_DYN_clean_events.json')
+, 'pop_self_stat': require('../../data/demos/formatted_POP_SELF_STAT_clean_events.json')
 }
 
 module.exports = (h, store) => {
@@ -38,7 +42,7 @@ module.exports = (h, store) => {
     var cache_hit_ratio = s['cache_hit']/s['server_hit']
     return h`<div class='single_stats_panel' id=${panel + '_stats'}>
       ${single_stat('Hops', s['request_hop'])}
-      ${single_stat('Requests', s['requests'])}
+      ${single_stat('Requests', s['request'])}
       ${single_stat('Avg hops/request', avg_hops_per_request)}
       ${single_stat('Cache hits', s['cache_hit'])}
       ${single_stat('Server hits', s['server_hit'])}
@@ -71,7 +75,7 @@ module.exports = (h, store) => {
     stats = { 'left': {}, 'right': {} }
     h.update(stats_panel, draw_stats())
     if (!started) {
-      setInterval(update, 500) 
+      setInterval(update, 150) 
       started = true
     } else {
       if (containers['left']) containers['left'] = create_network('left')
@@ -100,8 +104,12 @@ module.exports = (h, store) => {
   var drop_down = (h, id) => {
     return h`<select onchange=${change_algo(id)} id=${id+'_algo'}>
       <option selected='true' disabled='disabled'>Choose algorithm</option>
-      <option value='hi'>Hello</option>
-      <option value='ho'>Bye</option>
+      <option value='pop_neighbour_dyn'>PopNeighDyn</option>
+      <option value='pop_neighbour_stat'>PopNeighStat</option>
+      <option value='pop_neighbour_t_dyn'>PopNeighTDyn</option>
+      <option value='pop_neighbour_t_stat'>PopNeighTStat</option>
+      <option value='pop_self_dyn'>PopSelfDyn</option>
+      <option value='pop_self_stat'>PopSelfStat</option>
     </select>`
   }
 

@@ -6,7 +6,7 @@ const compare = require('./pages/compare.js')
 
 const navigation = require('./components/navigation.js')
 
-const demo_data = require('../data/demo.json')
+const demo_data = require('../data/demos/formatted_POP_NEIGHBOUR_STAT_clean_events.json')
 
 const router = require('routes')()
 
