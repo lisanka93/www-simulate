@@ -7,6 +7,41 @@ module.exports = (h, events, nodes, edges) => {
 
   var network, event_queue, node_data
 
+  var stats = { }
+  var stats_panel = draw_stats()
+
+  function draw_stats() {
+
+    var avg_hops_per_request = stats['request_hop']/stats['request']
+    var cache_hit = stats['cache_hit']/stats['server_hit']
+
+    return h`
+      <div id='stats'>
+        ${draw_single_stat('Hops',stats['request_hop'])}
+        ${draw_single_stat('Requests',stats['request'])}
+        ${draw_single_stat('Avg hops/request', avg_hops_per_request)}
+        ${draw_single_stat('Cache hits',stats['cache_hit'])}
+        ${draw_single_stat('Server hits',stats['server_hit'])}
+        ${draw_single_stat('Cache hits/Server hits', cache_hit)}
+      </div>
+    `
+  }
+
+  function draw_single_stat(name, val) {
+    if (val) {
+      return h`
+        <p><strong>${name}: </strong>${val} </p>
+      `
+    } else {
+      return h``
+    }
+  }
+
+  function update_stats(ev) {
+    stats[ev.type] = !stats[ev.type] ? 1 : stats[ev.type] + 1
+    h.update(stats_panel, draw_stats())
+  }
+    
   var start = () => {
     var container = document.querySelector('#vis')
     container.innerHTML = ''
@@ -24,7 +59,7 @@ module.exports = (h, events, nodes, edges) => {
     })
     document.querySelector('#start').innerText = 'Restart'
     document.querySelector('#demo').insertBefore(node_data, container)
-    setInterval(update, 500)
+    setInterval(update, 150)
   }
   
   var draw_section = (d, section) => {
@@ -65,6 +100,7 @@ module.exports = (h, events, nodes, edges) => {
 
   var update = () => {
     var ev = event_queue.pop()
+    update_stats(ev)
     if (!handlers[ev.type] && event_queue.length > 0) {
       ev = event_queue.pop()
     }
@@ -78,6 +114,7 @@ module.exports = (h, events, nodes, edges) => {
         <button id='start' onclick=${ start }>Start</button>
       </div>
       <div id='vis'></div>
+      ${stats_panel}
     </div>
   `
 }
