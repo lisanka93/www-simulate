@@ -111,10 +111,9 @@ module.exports = {
       return n.name.toString() === ev.node.toString()
     })[0]
     if (!node) return
-    
+    if (node.cache[0] && node.cache[0].id == ev.data_ID){console.log("Hello"); return;}
     node.cache.push({
-      id: ev.data_ID
-    , loc: ev.node  
+      id: ev.data_ID 
     })
     find_node(node.name, network.canvas)
     .transition()
