@@ -1,7 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 
-fs.readdirSync('./data/DemoData')
+fs.readdirSync('../data/DemoData')
 
 .filter(function (f) {return f.indexOf('json') >= 0})
 
@@ -54,4 +54,3 @@ fs.readdirSync('./data/DemoData')
    //     console.log(Object.keys(d))
    // })
 })
-

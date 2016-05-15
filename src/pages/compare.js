@@ -28,6 +28,9 @@ module.exports = (h, store) => {
 
   function single_stat(name, val) {
     if (val) {
+	if(val%1 != 0){
+	    val = val.toFixed(3);
+	}
       return h`
         <p><strong>${name}: </strong>${val} </p>
       `
