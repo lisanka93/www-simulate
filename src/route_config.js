@@ -13,10 +13,10 @@ module.exports = {
   }
 , '/about': {
     title: 'About'
-  , description: 'Wow, just wow!'
+  , description: 'About this project'
   }
 , '/compare': {
     title: 'Compare'
-  , description: 'Compare how different algorithms perform'
+  , description: 'Compare how different algorithms perform side by side'
   }
 }

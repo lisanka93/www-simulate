@@ -3,7 +3,16 @@ const clone = require('clone')
 const config = require('../config.js')
 const handlers = require('../handlers.js')
 
-module.exports = (h, events, nodes, edges) => {
+const data = {
+  'pop_neighbour_dyn': require('../../data/demos/formatted_POP_NEIGHBOUR_DYN_clean_events.json')
+, 'pop_neighbour_stat': require('../../data/demos/formatted_POP_NEIGHBOUR_STAT_clean_events.json')
+, 'pop_neighbour_t_dyn': require('../../data/demos/formatted_POP_NEIGHBOUR_T_DYN_clean_events.json')
+, 'pop_neighbour_t_stat': require('../../data/demos/formatted_POP_NEIGHBOUR_T_STAT_clean_events.json')
+, 'pop_self_dyn': require('../../data/demos/formatted_POP_SELF_DYN_clean_events.json')
+, 'pop_self_stat': require('../../data/demos/formatted_POP_SELF_STAT_clean_events.json')
+}
+
+module.exports = (h) => {
 
   var network, event_queue, node_data
 
@@ -34,7 +43,8 @@ module.exports = (h, events, nodes, edges) => {
 	}
       return h`
         <p><strong>${name}: </strong>${val} </p>
-      `    } else {
+      `
+    } else {
       return h``
     }
   }
@@ -43,12 +53,21 @@ module.exports = (h, events, nodes, edges) => {
     stats[ev.type] = !stats[ev.type] ? 1 : stats[ev.type] + 1
     h.update(stats_panel, draw_stats())
   }
+
+ var get_data = () => {
+    var sel = document.querySelector('#algo')
+    var algo = (sel || {value: undefined}).value
+    return data[algo] || 'hi'
+  }
+ 
     
   var start = () => {
+    stats = {}
+    var data = get_data()
     var container = document.querySelector('#vis')
     container.innerHTML = ''
-    event_queue = clone(events)
-    network = draw(clone(nodes), clone(edges), clone(config))
+    event_queue = clone(data.events).reverse()
+    network = draw(clone(data.topology.nodes), clone(data.topology.edges), clone(config))
     node_data = draw_node_data()
     network.nodes.on('mouseover', d => {
       h.update(node_data, draw_node_data(d))
@@ -61,7 +80,7 @@ module.exports = (h, events, nodes, edges) => {
     })
     document.querySelector('#start').innerText = 'Restart'
     document.querySelector('#demo').insertBefore(node_data, container)
-    setInterval(update, 150)
+    setInterval(update, 300)
   }
   
   var draw_section = (d, section) => {
@@ -87,6 +106,13 @@ module.exports = (h, events, nodes, edges) => {
     return h``
   } 
 
+  var options = [
+    {value: 'pop_neighbour_dyn', name: 'Hello'}
+  , {value: 'pop_neighbour_stat', name: 'Simple'}
+  , {value: 'pop_neighbour_t_dyn', name: 'Acceptance Threshold'}
+  , {value: 'pop_neighbour_t_stat', name: 'No Suggestion'}
+  ]
+
   var draw_node_data = d => {
     if (d && ['cache','requests','content'].some(s => d[s].length)) {
       return h`<div id='node_data'>
@@ -94,10 +120,20 @@ module.exports = (h, events, nodes, edges) => {
           ${draw_section(d, 'cache')}  
           ${draw_section(d, 'requests')}  
           ${draw_section(d, 'content')}  
-        </ul>
+        </ul> 
       </div>` 
     }
     return h`<div></div>`
+  }
+
+  var drop_down = (h) => {
+    var hi = () => { console.log('selected') }
+    return h`<select onchange=${hi} id='algo'>
+      <option selected='true' disabled='disabled'>Choose algorithm</option>
+      ${options.map(o => h`<option value=${o.value}>
+        ${o.name}
+      </option>`)}
+    </select>`
   }
 
   var update = () => {
@@ -115,6 +151,7 @@ module.exports = (h, events, nodes, edges) => {
       <div class='vis-ctl'>
         <button id='start' onclick=${ start }>Start</button>
       </div>
+      ${drop_down(h)}
       <div id='vis'></div>
       ${stats_panel}
     </div>

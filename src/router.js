@@ -25,7 +25,7 @@ const route_table = (h, store) => {
       return home(h, store)
     }
   , '/demo': s => {
-      var el = demo(h, demo_data.events.reverse(), demo_data.topology.nodes, demo_data.topology.edges)
+      var el = demo(h, demo_data.events, demo_data.topology.nodes, demo_data.topology.edges)
       return layout(h, store, el)
     }
     , '/about': s => {
